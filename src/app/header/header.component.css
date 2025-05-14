@@ -1,5 +1,5 @@
 .header {
-  height: 160px; /* Adjust as needed */
+  height: 160px; 
   background-color: #1776dcc2;
   display: flex;
   justify-content: center;    /* Center all content horizontally */
@@ -10,24 +10,83 @@
 
 .pikka-div {
   position: absolute;
-  left: 100px; /* Or 0, depending on spacing preference */
+  left: 120px; 
   bottom: -40px;
   transition: bottom 0.3s ease;
 }
 
 .pikka-div:hover {
   position: absolute;
-  left: 100px; /* Or 0, depending on spacing preference */
+  left: 120px; 
   bottom: -10px;
   transition: bottom 0.3s ease;
-}
-
-.logo-wrapper {
-  text-align: center;
+  cursor: pointer;
 }
 
 .pikka-pic {
   height: 130px;
+}
+
+.logo-div {
+  text-align: center;
+  position: sticky;
+}
+
+.dragon-div {
+  position: absolute;
+  left: 5px; 
+  bottom: -60px;
+  transition: bottom 0.3s ease;
+}
+
+.dragon-div:hover {
+  position: absolute;
+  left: 5px; 
+  bottom: -30px;
+  transition: bottom 0.3s ease;
+  cursor: pointer;
+}
+
+.dragon-pic {
+  height: 170px;
+}
+
+.turtle-div {
+  position: absolute;
+  left: 240px; 
+  bottom: -60px;
+  transition: bottom 0.3s ease;
+}
+
+.turtle-div:hover {
+  position: absolute;
+  left: 240px; 
+  bottom: -30px;
+  transition: bottom 0.3s ease;
+  cursor: pointer;
+}
+
+.turtle-pic {
+  height: 140px;
+}
+
+.fox-div {
+  position: absolute;
+  left: 330px; 
+  bottom: -40px;
+  transition: bottom 0.3s ease;
+}
+
+.fox-div:hover {
+  position: absolute;
+  left: 330px; 
+  bottom: -20px;
+  transition: bottom 0.3s ease;
+  cursor: pointer;
+}
+
+.fox-pic {
+  height: 140px;
 }
 
 .logo {
