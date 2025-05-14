@@ -7,17 +7,6 @@
   background-position: center;
 }
 
-.logo-wrapper {
-  text-align: center;
-  background-color: #ffffffc7;
-}
-
-.logo {
-  height: 150px;
-  display: inline-block;
-
-}
-
 .container {
   display: flex;
   justify-content: center;
