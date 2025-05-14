@@ -1,22 +1,24 @@
 
-*{
-outline: 2px solid red;
+.background{
+  background-color: #374151bc;
+  background-image: url("https://wallpapercave.com/wp/wp8155258.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .logo-wrapper {
   text-align: center;
-  background-color: #374151bc;
+  background-color: #ffffffc7;
 }
 
 .logo {
   height: 150px;
   display: inline-block;
-  margin-top: 2rem;
 
 }
 
 .container {
-    background-color:rgba(0, 255, 255, 0.423);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,21 +26,30 @@ outline: 2px solid red;
 }
 
 .card {
-  background-color: #00ff08b6;
+  position: relative;
+  background-color: #465ca5b9;
   padding: 4rem;
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   text-align: center;
   max-width: 400px;
   height: 500px;
-  margin-top: -20rem;
+  margin-top: -24rem;
+}
+
+.pokedex {
+  width: 350px;
+  animation: bounce 2s infinite;
+  z-index: 1;
 }
 
 .pikachu {
-  width: 230px;
+  width: 80px;
+  position: absolute; 
+  top:151px;           
+  left: 135px;         
   animation: bounce 2s infinite;
 }
-
 
 @keyframes bounce {
   0%, 100% {
@@ -52,15 +63,16 @@ outline: 2px solid red;
 
 .title {
   font-size: 2rem;
-  color: #ef4444;
+  color: #ff0000;
   margin-top: 1rem;      
-  font-family: 'Pokemon solid', sans-serif;
+font-family: 'Pokemon Solid', sans-serif;
 
 }
 
 .subtitle {
-  color: #374151;
+  color: #ffffff;
   margin-bottom: 1.5rem;
+;
 }
 
 
@@ -110,5 +122,5 @@ outline: 2px solid red;
 }
 
 .pokeball-button:hover {
-  transform: scale(1.05);
+  transform: scale(1);
 }
