@@ -1,0 +1,35 @@
+.header {
+  height: 160px; /* Adjust as needed */
+  background-color: #1776dcc2;
+  display: flex;
+  justify-content: center;    /* Center all content horizontally */
+  align-items: center;        /* Vertically align */
+  position: relative;
+  overflow: hidden;
+}
+
+.pikka-div {
+  position: absolute;
+  left: 100px; /* Or 0, depending on spacing preference */
+  bottom: -40px;
+  transition: bottom 0.3s ease;
+}
+
+.pikka-div:hover {
+  position: absolute;
+  left: 100px; /* Or 0, depending on spacing preference */
+  bottom: -10px;
+  transition: bottom 0.3s ease;
+}
+
+.logo-wrapper {
+  text-align: center;
+}
+
+.pikka-pic {
+  height: 130px;
+}
+
+.logo {
+  height: 150px;
+}
