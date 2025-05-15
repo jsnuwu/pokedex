@@ -1,17 +1,27 @@
+<div class="battle-overlay" *ngIf="showBattleAnimation"></div>
 
 <div class="background">
+  <app-header></app-header>
 
-<app-header></app-header>
+  <div class="container">
+    <div class="card">
+      <img
+        src="/assets/images/pokedex/pokedex-png.png"
+        alt="Pokedex"
+        class="pokedex"
+      />
+      <img
+        src="/assets/images/pixelArt/pixel-pickachu.png"
+        alt="Pikachu"
+        class="pikachu"
+      />
 
-<div class="container">
-  <div class="card">
-<img src="/assets/images/pokedex/pokedex-png.png" alt="Pokedex" class="pokedex"/>   
-  <img src="/assets/images/pixelArt/pixel-pickachu.png" alt="Pikachu" class="pikachu"/>
+      <h1 class="title">Willkommen im Pokédex!</h1>
 
-<h1 class="title">Willkommen im Pokédex!</h1>
-
-<p class="subtitle">Entdecke alle Pokémon vom Bisasam bis Mewtu!</p>
-<button class="pokeball-button" [routerLink]="['/pokedex']">Pokédex öffnen</button>
+      <p class="subtitle">Entdecke alle Pokémon vom Bisasam bis Mewtu!</p>
+      <button class="pokeball-button" [routerLink]="['/pokedex']">
+        Pokédex öffnen
+      </button>
+    </div>
   </div>
-</div> 
-</div> 
+</div>
