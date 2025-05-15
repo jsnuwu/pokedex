@@ -1,0 +1,20 @@
+<app-header></app-header>
+
+<div class="pokedex">
+  <h2 class="title">Mein Pokédex</h2>
+
+  <div class="pokemon-grid">
+    <div class="pokemon-card" *ngFor="let i of placeholderPokemon">
+      <img
+        class="sprite"
+        [src]="'https://via.placeholder.com/80?text=' + i"
+        [alt]="'Platzhalter ' + i"
+      />
+      <div class="name">???</div>
+    </div>
+  </div>
+</div>
+
+<div class="back-button">
+  <app-back-button></app-back-button>
+</div>
