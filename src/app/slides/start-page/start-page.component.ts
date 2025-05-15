@@ -1,11 +1,21 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../header/header.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-start-page',
-  imports: [HeaderComponent,RouterModule],
+    standalone: true,
+  imports: [HeaderComponent,RouterModule,CommonModule],
   templateUrl: './start-page.component.html',
-  styleUrls: ['./start-page.component.css']
+  styleUrls: ['./start-page.component.css'],
 })
-export class StartPageComponent {}
+export class StartPageComponent {
+    showBattleAnimation = true;
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.showBattleAnimation = false;
+    }, 1800); 
+  }
+}

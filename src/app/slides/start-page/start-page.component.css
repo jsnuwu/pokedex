@@ -113,3 +113,31 @@ font-family: 'Pokemon Solid', sans-serif;
 .pokeball-button:hover {
   transform: scale(1);
 }
+
+
+.battle-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, black 0%, black 50%, transparent 70%);
+  animation: battleIn 1.8s ease-in-out forwards;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+@keyframes battleIn {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(30);
+    opacity: 0;
+  }
+}

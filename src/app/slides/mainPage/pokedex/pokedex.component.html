@@ -4,14 +4,22 @@
   <h2 class="title">Mein Pokédex</h2>
 
   <div class="pokemon-grid">
-    <div class="pokemon-card" *ngFor="let i of placeholderPokemon">
-      <img
-        class="sprite"
-        [src]="'https://via.placeholder.com/80?text=' + i"
-        [alt]="'Platzhalter ' + i"
-      />
-      <div class="name">???</div>
-    </div>
+<div
+  class="pokemon-card-wrapper"
+  *ngFor="let i of placeholderPokemon; let index = index"
+  [ngClass]="getAnimationClass(index)"
+  [style.--delay]="(index * 100) + 'ms'"
+>
+  <div class="pokemon-card">
+    <img
+      class="sprite"
+      [src]="'https://via.placeholder.com/80?text=' + i"
+      [alt]="'Platzhalter ' + i"
+    />
+    <div class="name">???</div>
+  </div>
+</div>
+
   </div>
 </div>
 

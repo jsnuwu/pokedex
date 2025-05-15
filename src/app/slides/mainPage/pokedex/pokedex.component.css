@@ -17,7 +17,15 @@ grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
 }
 
+.pokemon-card-wrapper {
+  animation-delay: var(--delay);
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
 .pokemon-card {
+  animation-delay: var(--delay);
+  animation-fill-mode: forwards;
   background-color: white;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -25,6 +33,7 @@ grid-template-columns: repeat(4, 1fr);
   text-align: center;
   transition: transform 0.2s ease;
 }
+
 
 .pokemon-card:hover {
   transform: scale(1.05);
@@ -49,4 +58,65 @@ grid-template-columns: repeat(4, 1fr);
   left: 0;
   padding: 10px;
   transform: scale(0.8);
+}
+
+.slide-in-left {
+  animation: slideIn-left 1s ease forwards;
+}
+
+.slide-in-right {
+  animation: slideIn-right 1s ease forwards;
+}
+
+.slide-in-top {
+  animation: slideIn-top 1s ease forwards;
+}
+
+.slide-in-bottom {
+  animation: slideIn-bottom 1s ease forwards;
+}
+
+
+@keyframes slideIn-left {
+  from {
+    transform: translateX(-100%) scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn-right {
+  from {
+    transform: translateX(100%) scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn-top {
+  from {
+    transform: translateY(-100%) scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn-bottom {
+  from {
+    transform: translateY(100%) scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
