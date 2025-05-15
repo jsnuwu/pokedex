@@ -11,11 +11,5 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./start-page.component.css'],
 })
 export class StartPageComponent {
-    showBattleAnimation = true;
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.showBattleAnimation = false;
-    }, 1800); 
-  }
 }
