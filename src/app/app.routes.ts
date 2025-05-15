@@ -5,4 +5,5 @@ import { PokedexComponent } from './slides/mainPage/pokedex/pokedex.component';
 export const routes: Routes = [
   { path: '', component: StartPageComponent },
   { path: 'pokedex', component: PokedexComponent }
+  
 ];
