@@ -6,7 +6,7 @@
   align-items: center;        /* Vertically align */
   position: relative;
   overflow: hidden;
-}
+} 
 
 .pikka-div {
   position: absolute;
