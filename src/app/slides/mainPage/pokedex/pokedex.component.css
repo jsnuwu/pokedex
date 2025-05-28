@@ -73,13 +73,13 @@
 }
 
 .slide-in-bottom {
-  animation: slideIn-bottom 1s ease forwards;
+  animation: slideIn-bottom 0.5s ease forwards;
 }
 
 
 @keyframes slideIn-left {
   from {
-    transform: translateX(-100%) scale(0.8);
+    transform: translateY(-10%) scale(0.95);
     opacity: 0;
   }
   to {
@@ -90,7 +90,7 @@
 
 @keyframes slideIn-right {
   from {
-    transform: translateX(100%) scale(0.8);
+    transform: translateY(10%) scale(0.95);
     opacity: 0;
   }
   to {
@@ -101,7 +101,7 @@
 
 @keyframes slideIn-top {
   from {
-    transform: translateY(-100%) scale(0.8);
+    transform: translateY(-10%) scale(0.95);
     opacity: 0;
   }
   to {
@@ -112,7 +112,7 @@
 
 @keyframes slideIn-bottom {
   from {
-    transform: translateY(100%) scale(0.8);
+    transform: translateY(10%) scale(0.95);
     opacity: 0;
   }
   to {
