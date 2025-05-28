@@ -1,29 +1,26 @@
 .header {
-  height: 160px; /* Adjust as needed */
+  height: 160px; 
   background-color: #1776dcc2;
   display: flex;
   justify-content: center;    /* Center all content horizontally */
   align-items: center;        /* Vertically align */
   position: relative;
   overflow: hidden;
-}
+} 
 
 .pikka-div {
   position: absolute;
-  left: 100px; /* Or 0, depending on spacing preference */
+  left: 115px; 
   bottom: -40px;
   transition: bottom 0.3s ease;
 }
 
 .pikka-div:hover {
   position: absolute;
-  left: 100px; /* Or 0, depending on spacing preference */
+  left: 115px; 
   bottom: -10px;
   transition: bottom 0.3s ease;
-}
-
-.logo-wrapper {
-  text-align: center;
+  cursor: pointer;
 }
 
 .pikka-pic {
@@ -31,6 +28,154 @@
   opacity: 0.9;
 }
 
+.logo-div {
+  text-align: center;
+  position: sticky;
+}
+
+.dragon-div {
+  position: absolute;
+  left: 350px; 
+  bottom: -70px;
+  transition: bottom 0.3s ease;
+}
+
+.dragon-div:hover {
+  position: absolute;
+  left: 350px; 
+  bottom: -40px;
+  transition: bottom 0.3s ease;
+  cursor: pointer;
+}
+
+.dragon-pic {
+  height: 190px;
+}
+
+.turtle-div {
+  position: absolute;
+  left: 240px; 
+  bottom: -60px;
+  transition: bottom 0.3s ease;
+}
+
+.turtle-div:hover {
+  position: absolute;
+  left: 240px; 
+  bottom: -30px;
+  transition: bottom 0.3s ease;
+  cursor: pointer;
+}
+
+.turtle-pic {
+  height: 140px;
+}
+
+.fox-div {
+  position: absolute;
+  left: 5px; 
+  bottom: -40px;
+  transition: bottom 0.3s ease;
+}
+
+.fox-div:hover {
+  position: absolute;
+  left: 5px; 
+  bottom: -20px;
+  transition: bottom 0.3s ease;
+  cursor: pointer;
+}
+
+.fox-pic {
+  height: 140px;
+}
+
 .logo {
+  height: 150px;
+}
+
+.leon-pic {
+  height: 140px;
+}
+
+.leon-div {
+  position: absolute;
+  right: 5px; 
+  bottom: -60px;
+  transition: bottom 0.3s ease;
+}
+
+.leon-div:hover {
+  position: absolute;
+  right: 5px; 
+  bottom: -40px;
+  transition: bottom 0.3s ease;
+  cursor: pointer;
+  + .leon-name-tag {
+  position: absolute;
+  top: 0px;
+  right: 80px; 
+  }
+}
+
+.leon-name-tag {
+  position: fixed;
+  right: -100px; 
+}
+
+.kangoroo-div {
+  position: absolute;
+  right: 180px; 
+  bottom: -50px;
+  transition: bottom 0.3s ease;
+}
+
+.kangoroo-div:hover {
+  position: absolute;
+  right: 180px; 
+  bottom: -30px;
+  transition: bottom 0.3s ease;
+  cursor: pointer;
+}
+
+.kangoroo-pic {
+  height: 140px;
+}
+
+.meowth-div {
+  position: absolute;
+  right: 280px; 
+  bottom: -40px;
+  transition: bottom 0.3s ease;
+}
+
+.meowth-div:hover {
+  position: absolute;
+  right: 280px; 
+  bottom: -20px;
+  transition: bottom 0.3s ease;
+  cursor: pointer;
+}
+
+.meowth-pic {
+  height: 140px;
+}
+
+.dugtrio-div {
+  position: absolute;
+  right: 395px; 
+  bottom: -50px;
+  transition: bottom 0.3s ease;
+}
+
+.dugtrio-div:hover {
+  position: absolute;
+  right: 395px; 
+  bottom: -30px;
+  transition: bottom 0.3s ease;
+  cursor: pointer;
+}
+
+.dugtrio-pic {
   height: 150px;
 }
