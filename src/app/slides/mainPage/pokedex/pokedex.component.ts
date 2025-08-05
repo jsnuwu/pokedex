@@ -11,7 +11,7 @@ import { BackButtonComponent } from "../back-button/back-button.component";
   styleUrls: ['./pokedex.component.css']
 })
 export class PokedexComponent {
-  placeholderPokemon = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ,12];
+  placeholderPokemon = Array.from({ length: 151 }, (_, i) => i + 1);
     animationClasses: string[] = [];
 
   private directions = ['slide-in-left', 'slide-in-right', 'slide-in-top', 'slide-in-bottom'];
