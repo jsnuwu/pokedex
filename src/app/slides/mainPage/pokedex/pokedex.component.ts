@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../../header/header.component';
 import { BackButtonComponent } from "../back-button/back-button.component";
 import {HttpClient} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 
 interface Pokemon {
   id: number;
@@ -15,7 +16,7 @@ interface Pokemon {
 @Component({
   selector: 'app-pokedex',
    standalone: true,
-  imports: [CommonModule, HeaderComponent, BackButtonComponent],
+  imports: [CommonModule, FormsModule, HeaderComponent, BackButtonComponent],
   templateUrl: './pokedex.component.html',
   styleUrls: ['./pokedex.component.css']
 })
@@ -23,6 +24,7 @@ export class PokedexComponent implements OnInit {
   fullDex: { id: number; name: string; spriteUrl: string | null }[] = [];
   pokedex: { [id: number]: Pokemon } = {};
   backendUrl: string = 'http://localhost:5258';
+  searchTerm: string = '';
 
   constructor(private http: HttpClient) { }
 
@@ -52,6 +54,11 @@ export class PokedexComponent implements OnInit {
         console.error("Fehler beim Abrufen der Pokémon:", error);
       }
     });
+  }
+
+  filteredDex(): { id: number; name: string; spriteUrl: string | null }[] {
+    const term = this.searchTerm.toLowerCase().trim();
+    return this.fullDex.filter(p => p.name.toLowerCase().includes(term));
   }
 
   getAnimationClass(index: number): string {

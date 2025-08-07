@@ -34,7 +34,6 @@
   transition: transform 0.2s ease;
 }
 
-
 .pokemon-card:hover {
   transform: scale(1.05);
 }
@@ -58,6 +57,22 @@
   left: 0;
   padding: 10px;
   transform: scale(0.8);
+}
+
+.search-bar {
+  position: absolute;
+  top: 13rem;
+  right: 2.5rem;
+  z-index: 1000;
+}
+
+.search-bar input {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 220px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .slide-in-left {
