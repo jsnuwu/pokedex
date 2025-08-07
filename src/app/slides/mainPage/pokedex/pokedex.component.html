@@ -2,10 +2,17 @@
 
 <div class="pokedex">
   <h2 class="title">Mein Pokédex</h2>
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Pokémon suchen..."
+    />
+  </div>
   <div class="pokemon-grid">
     <div
       class="pokemon-card-wrapper"
-      *ngFor="let entry of fullDex; let index = index"
+      *ngFor="let entry of filteredDex(); let index = index"
       [ngClass]="getAnimationClass(index)"
       [style.--delay]="(index * 100) + 'ms'"
     >
