@@ -1,6 +1,41 @@
 <app-header></app-header>
 
-<div  class="ap-page">
+<div class="api-page">
+  <h2 class="page-title">Pokédex API-Steuerung</h2>
+
+  <div class="row">
+    <div class="section">
+      <h3>Pokémon speichern</h3>
+      <input [(ngModel)]="pokemonToAdd" />
+      <button (click)="addPokemonByName()">Hinzufügen</button>
+    </div>
+
+    <div class="section">
+      <h3>Pokémon löschen</h3>
+      <input [(ngModel)]="pokemonToDelete" />
+      <button (click)="deletePokemonByName()">Löschen</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="section">
+      <h3>Generation speichern</h3>
+      <input type="number" [(ngModel)]="generationToAdd" min="1" max="9" />
+      <button (click)="addGeneration()">Generation hinzufügen</button>
+    </div>
+
+    <div class="section">
+      <h3>Generation löschen</h3>
+      <input type="number" [(ngModel)]="generationToDelete" min="1" max="9" />
+      <button (click)="deleteGeneration()">Generation löschen</button>
+    </div>
+  </div>
+
+  <div class="centered-section">
+    <h3>Alle Pokémon löschen</h3>
+    <button class="danger" (click)="deleteAll()">Alles löschen!</button>
+  </div>
+
   <div class="back-button">
     <app-back-button></app-back-button>
   </div>
