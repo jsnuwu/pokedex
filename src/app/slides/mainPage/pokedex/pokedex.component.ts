@@ -2,31 +2,39 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../../header/header.component';
 import { BackButtonComponent } from "../back-button/back-button.component";
-import {HttpClient} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
-
-interface Pokemon {
-  id: number;
-  name: string;
-  height: number;
-  weight: number;
-  spriteUrl: string;
-}
+import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-pokedex',
-   standalone: true,
+  standalone: true,
   imports: [CommonModule, FormsModule, HeaderComponent, BackButtonComponent],
   templateUrl: './pokedex.component.html',
   styleUrls: ['./pokedex.component.css']
 })
 export class PokedexComponent implements OnInit {
-  fullDex: { id: number; name: string; spriteUrl: string | null }[] = [];
-  pokedex: { [id: number]: Pokemon } = {};
   backendUrl: string = 'http://localhost:5258';
   searchTerm: string = '';
 
-  constructor(private http: HttpClient) { }
+  fullDex: {
+    id: number;
+    name: string;
+    spriteUrl: string | null;
+    height?: number;
+    weight?: number;
+    types: string[];
+  }[] = [];
+
+  selectedPokemon: {
+    id: number;
+    name: string;
+    spriteUrl: string | null;
+    height?: number;
+    weight?: number;
+    types: string[];
+  } | null = null;
+
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.fetchPokemon();
@@ -36,29 +44,46 @@ export class PokedexComponent implements OnInit {
     this.fullDex = Array.from({ length: 151 }, (_, index) => ({
       id: index + 1,
       name: '???',
-      spriteUrl: null
+      spriteUrl: null,
+      types: []
     }));
 
-    this.http.get<Pokemon[]>(`${this.backendUrl}/Pokemon`).subscribe({
+    this.http.get<any>(`${this.backendUrl}/Pokemon`).subscribe({
       next: (data) => {
-        const list = (data as any).$values ?? data;
+        const list: any[] = Array.isArray(data) ? data : (data?.$values ?? []);
 
-        list.forEach((p: Pokemon) => {
-          const index = p.id - 1;
-          if (index >= 0 && index < this.fullDex.length) {
-            this.fullDex[index] = p;
+        const normalizeTypes = (t: any): string[] => {
+          if (!t) return [];
+          if (Array.isArray(t)) return t;
+          const arr = t.$values ?? [];
+          return arr.map((x: any) => x.typeName ?? x);
+        };
+
+        list.forEach((p: any) => {
+          const idx = p.id - 1;
+          if (idx >= 0 && idx < this.fullDex.length) {
+            this.fullDex[idx] = {
+              id: p.id,
+              name: p.name,
+              spriteUrl: p.spriteUrl,
+              height: p.height,
+              weight: p.weight,
+              types: normalizeTypes(p.types)
+            };
           }
         });
+
       },
       error: (error) => {
-        console.error("Fehler beim Abrufen der Pokémon:", error);
+        console.error('Fehler beim Abrufen der Pokémon:', error);
       }
     });
   }
 
-  filteredDex(): { id: number; name: string; spriteUrl: string | null }[] {
+
+  filteredDex() {
     const term = this.searchTerm.toLowerCase().trim();
-    return this.fullDex.filter(p => p.name.toLowerCase().includes(term));
+    return this.fullDex.filter(p => (p.name || '').toLowerCase().includes(term));
   }
 
   getAnimationClass(index: number): string {
@@ -66,7 +91,10 @@ export class PokedexComponent implements OnInit {
     return directions[index % directions.length];
   }
 
-  get pokedexList(): Pokemon[] {
-    return Object.values(this.pokedex);
+  openDetails(pokemon: any) {
+    this.selectedPokemon = pokemon;
+  }
+  closeDetails() {
+    this.selectedPokemon = null;
   }
 }
