@@ -2,6 +2,7 @@
 
 <div class="pokedex">
   <h2 class="title">Mein Pokédex</h2>
+
   <div class="search-bar">
     <input
       type="text"
@@ -9,12 +10,14 @@
       placeholder="Pokémon suchen..."
     />
   </div>
+
   <div class="pokemon-grid">
     <div
       class="pokemon-card-wrapper"
       *ngFor="let entry of filteredDex(); let index = index"
       [ngClass]="getAnimationClass(index)"
       [style.--delay]="(index * 100) + 'ms'"
+      (click)="openDetails(entry)"
     >
       <div class="pokemon-card">
         <img
@@ -26,6 +29,24 @@
         <div class="id">#{{ entry.id }}</div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Detail-Modal -->
+<div class="pokemon-detail-overlay" *ngIf="selectedPokemon" (click)="closeDetails()">
+  <div class="detail-card slide-in" (click)="$event.stopPropagation()">
+    <img
+      class="detail-sprite"
+      [src]="selectedPokemon.spriteUrl || ('https://via.placeholder.com/200?text=' + selectedPokemon.id)"
+      [alt]="selectedPokemon.name"
+    />
+    <h3 class="detail-title">{{ selectedPokemon.name | titlecase }} <span class="detail-id">#{{ selectedPokemon.id }}</span></h3>
+    <div class="detail-stats">
+      <div><strong>Größe:</strong> {{ selectedPokemon.height ?? '—' }}</div>
+      <div><strong>Gewicht:</strong> {{ selectedPokemon.weight ?? '—' }}</div>
+      <div><strong>Typen:</strong> {{ (selectedPokemon.types?.length ? selectedPokemon.types.join(', ') : '—') }}</div>
+    </div>
+    <button class="detail-close" (click)="closeDetails()">Schließen</button>
   </div>
 </div>
 
