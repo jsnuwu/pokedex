@@ -1,0 +1,8 @@
+<app-header></app-header>
+
+<div class="radio-player">
+  <select [(ngModel)]="selectedTrack">
+    <option *ngFor="let track of tracks" [value]="track.url">{{ track.name }}</option>
+  </select>
+  <audio controls [src]="selectedTrack" autoplay loop></audio>
+</div>
