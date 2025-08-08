@@ -1,8 +1,21 @@
-<app-header></app-header>
-
 <div class="radio-player">
-  <select [(ngModel)]="selectedTrack">
-    <option *ngFor="let track of tracks" [value]="track.url">{{ track.name }}</option>
+  <button type="button" (click)="prev()" title="Zurück">⏮️</button>
+
+  <select [ngModel]="selectedTrack" (ngModelChange)="onSelect($event)">
+    <option *ngFor="let track of tracks" [value]="track.url">
+      {{ track.name }}
+    </option>
   </select>
-  <audio controls [src]="selectedTrack" autoplay loop></audio>
+
+  <button type="button" (click)="next()" title="Weiter">⏭️</button>
+
+  <audio
+    #player
+    controls
+    [src]="selectedTrack"
+    (play)="onPlay()"
+    (ended)="onEnded()"
+  >
+    Dein Browser unterstützt kein Audio.
+  </audio>
 </div>
