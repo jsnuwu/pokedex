@@ -35,9 +35,9 @@ input {
   width: 180px;
 }
 
+/* Standard Button-Styles */
 button {
   padding: 0.5rem 1rem;
-  background-color: #e63946;
   color: white;
   border: none;
   border-radius: 8px;
@@ -45,14 +45,26 @@ button {
   font-weight: bold;
 }
 
-button:hover {
-  background-color: #d62828;
+/* Blau: Hinzufügen */
+.btn-add {
+  background-color: #2563eb; /* Blue 600 */
+}
+.btn-add:hover {
+  background-color: #1e40af; /* Blue 800 */
 }
 
+/* Rot: Löschen */
+.btn-delete {
+  background-color: #e63946; /* Red 600 */
+}
+.btn-delete:hover {
+  background-color: #d62828; /* Red 800 */
+}
+
+/* Dunkelrot: Alles löschen */
 .danger {
   background-color: #8b0000;
 }
-
 .danger:hover {
   background-color: #6b0000;
 }
