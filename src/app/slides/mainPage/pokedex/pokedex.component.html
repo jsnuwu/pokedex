@@ -17,14 +17,13 @@
       *ngFor="let entry of filteredDex(); let index = index"
       [ngClass]="getAnimationClass(index)"
       [style.--delay]="(index * 100) + 'ms'"
-      (click)="openDetails(entry)"
     >
-      <div class="pokemon-card">
-        <img
-          class="sprite"
-          [src]="entry.spriteUrl || 'https://via.placeholder.com/80?text=' + entry.id"
-          [alt]="entry.name"
-        />
+      <div class="pokemon-card"
+           [ngStyle]="getCardBackground(entry.types)"
+           (click)="openDetails(entry)">
+        <img class="sprite"
+             [src]="entry.spriteUrl || 'https://via.placeholder.com/80?text=' + entry.id"
+             [alt]="entry.name" />
         <div class="name">{{ entry.name || '???' | titlecase }}</div>
         <div class="id">#{{ entry.id }}</div>
       </div>

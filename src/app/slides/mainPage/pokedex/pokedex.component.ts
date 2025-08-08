@@ -16,6 +16,27 @@ export class PokedexComponent implements OnInit {
   backendUrl: string = 'http://localhost:5258';
   searchTerm: string = '';
 
+  typeColors: { [key: string]: string } = {
+    normal: '#bbbbaa',
+    fire: '#f44d2a',
+    water: '#4a99e2',
+    electric: '#f9dd1d',
+    grass: '#6bbb5a',
+    flying: '#9fc9fe',
+    bug: '#94c12e',
+    poison: '#9453cc',
+    rock: '#b8ab68',
+    ground: '#a1763c',
+    fighting: '#b45947',
+    ice: '#80cebf',
+    psychic: '#f56982',
+    ghost: '#6c4470',
+    dragon: '#5d6fbd',
+    steel: '#abaabb',
+    dark: '#4d4545',
+    fairy: '#e791e6'
+  };
+
   fullDex: {
     id: number;
     name: string;
@@ -72,14 +93,12 @@ export class PokedexComponent implements OnInit {
             };
           }
         });
-
       },
       error: (error) => {
         console.error('Fehler beim Abrufen der Pokémon:', error);
       }
     });
   }
-
 
   filteredDex() {
     const term = this.searchTerm.toLowerCase().trim();
@@ -89,6 +108,19 @@ export class PokedexComponent implements OnInit {
   getAnimationClass(index: number): string {
     const directions = ['slide-in-left', 'slide-in-right', 'slide-in-top', 'slide-in-bottom'];
     return directions[index % directions.length];
+  }
+
+  getCardBackground(types: string[]) {
+    if (!types || types.length === 0) {
+      return { 'background': '#ffffff' };
+    }
+    if (types.length === 1) {
+      const c1 = this.typeColors[types[0].toLowerCase()] || '#ffffff';
+      return { 'background': c1 };
+    }
+    const c1 = this.typeColors[types[0].toLowerCase()] || '#ffffff';
+    const c2 = this.typeColors[types[1].toLowerCase()] || '#ffffff';
+    return { 'background': `linear-gradient(135deg, ${c1}, ${c2})` };
   }
 
   openDetails(pokemon: any) {
