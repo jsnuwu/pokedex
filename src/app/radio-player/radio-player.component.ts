@@ -29,24 +29,22 @@ export class RadioPlayerComponent implements AfterViewInit {
   currentTrackIndex = 0;
 
   isPlaying = false;
-  volume = 0.1;                // 10% default
-  hasUserInteracted = false;   // becomes true on first user play
+  volume = 0.1;
+  hasUserInteracted = false;
 
   ngAfterViewInit() {
     if (this.player?.nativeElement) {
       this.player.nativeElement.volume = this.volume;
-      // optional: helps some browsers to keep state
       this.player.nativeElement.autoplay = false;
     }
   }
 
-  // ---------- UI actions ----------
   togglePlay() {
     const el = this.player?.nativeElement;
     if (!el) return;
 
     if (el.paused) {
-      this.hasUserInteracted = true; // <- key for autoplay later
+      this.hasUserInteracted = true;
       el.play().then(() => this.isPlaying = true).catch(() => {});
     } else {
       el.pause();
@@ -74,7 +72,6 @@ export class RadioPlayerComponent implements AfterViewInit {
   }
 
   onEnded() {
-    // loop + autoplay next
     this.next();
   }
 
@@ -84,21 +81,17 @@ export class RadioPlayerComponent implements AfterViewInit {
     if (el) el.volume = v;
   }
 
-  // reflect native events into UI
   onPlay()     { this.hasUserInteracted = true; this.isPlaying = true; }
   onPlaying()  { this.isPlaying = true; }
   onPause()    { this.isPlaying = false; }
 
-  // ---------- core autoplay helper ----------
   private playCurrent() {
     const el = this.player?.nativeElement;
     if (!el) return;
 
-    // reload the new source and start playback when ready
     el.src = this.selectedTrack;
     el.load();
 
-    // only auto-play after first interaction (browser policy)
     if (!this.hasUserInteracted) return;
 
     const tryPlay = () => el.play().then(() => this.isPlaying = true).catch(() => {});

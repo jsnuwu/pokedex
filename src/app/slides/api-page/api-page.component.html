@@ -7,13 +7,13 @@
     <div class="section">
       <h3>Pokémon speichern</h3>
       <input [(ngModel)]="pokemonToAdd" />
-      <button (click)="addPokemonByName()">Hinzufügen</button>
+      <button class="btn-add" (click)="addPokemonByName()">Hinzufügen</button>
     </div>
 
     <div class="section">
       <h3>Pokémon löschen</h3>
       <input [(ngModel)]="pokemonToDelete" />
-      <button (click)="deletePokemonByName()">Löschen</button>
+      <button class="btn-delete" (click)="deletePokemonByName()">Löschen</button>
     </div>
   </div>
 
@@ -21,13 +21,13 @@
     <div class="section">
       <h3>Generation speichern</h3>
       <input type="number" [(ngModel)]="generationToAdd" min="1" max="9" />
-      <button (click)="addGeneration()">Generation hinzufügen</button>
+      <button class="btn-add" (click)="addGeneration()">Generation hinzufügen</button>
     </div>
 
     <div class="section">
       <h3>Generation löschen</h3>
       <input type="number" [(ngModel)]="generationToDelete" min="1" max="9" />
-      <button (click)="deleteGeneration()">Generation löschen</button>
+      <button class="btn-delete" (click)="deleteGeneration()">Generation löschen</button>
     </div>
   </div>
 
