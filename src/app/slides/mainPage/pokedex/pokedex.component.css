@@ -91,7 +91,6 @@
   animation: slideIn-bottom 1s ease forwards;
 }
 
-/* Modal Overlay */
 .pokemon-detail-overlay {
   position: fixed;
   inset: 0;
@@ -102,7 +101,6 @@
   animation: fadeIn .2s ease-out;
 }
 
-/* Die Detailkarte (nicht Fullscreen), “slidet” rein */
 .detail-card {
   width: 340px;
   max-width: calc(100vw - 40px);
@@ -125,7 +123,7 @@
 .detail-sprite {
   width: 200px; height: 200px;
   display: block; margin: 0 auto 8px;
-  image-rendering: pixelated; /* Retro-Look */
+  image-rendering: high-quality;
 }
 
 .detail-title {

@@ -41,6 +41,7 @@ export class PokedexComponent implements OnInit {
     id: number;
     name: string;
     spriteUrl: string | null;
+    showdownSpriteUrl?: string | null;
     height?: number;
     weight?: number;
     types: string[];
@@ -50,6 +51,7 @@ export class PokedexComponent implements OnInit {
     id: number;
     name: string;
     spriteUrl: string | null;
+    showdownSpriteUrl?: string | null;
     height?: number;
     weight?: number;
     types: string[];
@@ -87,6 +89,7 @@ export class PokedexComponent implements OnInit {
               id: p.id,
               name: p.name,
               spriteUrl: p.spriteUrl,
+              showdownSpriteUrl: p.showdownSpriteUrl,
               height: p.height,
               weight: p.weight,
               types: normalizeTypes(p.types)
