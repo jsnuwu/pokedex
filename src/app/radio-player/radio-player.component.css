@@ -1,13 +1,69 @@
 .radio-player {
   position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  z-index: 9999;
-  background-color: white;
-  padding: 0.75rem;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  bottom: 20px;
+  right: 20px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  transition: width .25s ease, box-shadow .25s ease, border-radius .25s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,.12);
+  z-index: 9999;
 }
+
+.radio-player:hover {
+  width: 520px;
+  border-radius: 16px;
+}
+
+.radio-icon {
+  font-size: 22px;
+  width: 60px; height: 60px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.player-controls {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px 0 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.radio-player:hover .player-controls {
+  display: flex;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  line-height: 1;
+  transition: background .15s ease, transform .05s ease;
+}
+.btn:hover { background: #f3f4f6; }
+.btn:active { transform: translateY(1px); }
+
+.track-select {
+  flex: 1;
+  min-width: 120px;
+  max-width: 260px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 6px 8px;
+  background: #fff;
+}
+
+.vol {
+  width: 100px;
+}
+
+audio { display: none; }

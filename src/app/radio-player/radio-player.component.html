@@ -1,21 +1,28 @@
 <div class="radio-player">
-  <button type="button" (click)="prev()" title="Zurück">⏮️</button>
+  <div class="radio-icon" aria-hidden="true">🎵</div>
 
-  <select [ngModel]="selectedTrack" (ngModelChange)="onSelect($event)">
-    <option *ngFor="let track of tracks" [value]="track.url">
-      {{ track.name }}
-    </option>
-  </select>
+  <div class="player-controls" role="group" aria-label="Radio player controls">
+    <button class="btn" (click)="prev()" title="Zurück">⏮</button>
 
-  <button type="button" (click)="next()" title="Weiter">⏭️</button>
+    <select class="track-select" [ngModel]="selectedTrack" (ngModelChange)="onSelect($event)">
+      <option *ngFor="let track of tracks" [value]="track.url">{{ track.name }}</option>
+    </select>
 
-  <audio
-    #player
-    controls
-    [src]="selectedTrack"
-    (play)="onPlay()"
-    (ended)="onEnded()"
-  >
-    Dein Browser unterstützt kein Audio.
+    <button class="btn" (click)="next()" title="Weiter">⏭</button>
+
+    <button class="btn play" (click)="togglePlay()" [attr.aria-pressed]="isPlaying" title="Play/Pause">
+      {{ isPlaying ? '⏸' : '▶️' }}
+    </button>
+
+    <input class="vol" type="range" min="0" max="1" step="0.01"
+           [ngModel]="volume" (ngModelChange)="setVolume($event)" title="Lautstärke" />
+  </div>
+
+  <audio #player
+         [src]="selectedTrack"
+         (play)="onPlay()"
+         (playing)="onPlaying()"
+         (pause)="onPause()"
+         (ended)="onEnded()">
   </audio>
 </div>
