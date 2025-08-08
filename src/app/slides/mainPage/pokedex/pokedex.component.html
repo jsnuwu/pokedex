@@ -36,7 +36,7 @@
   <div class="detail-card slide-in" (click)="$event.stopPropagation()">
     <img
       class="detail-sprite"
-      [src]="selectedPokemon.spriteUrl || ('https://via.placeholder.com/200?text=' + selectedPokemon.id)"
+      [src]="selectedPokemon.showdownSpriteUrl || selectedPokemon.spriteUrl || ('https://via.placeholder.com/200?text=' + selectedPokemon.id)"
       [alt]="selectedPokemon.name"
     />
     <h3 class="detail-title">{{ selectedPokemon.name | titlecase }} <span class="detail-id">#{{ selectedPokemon.id }}</span></h3>
