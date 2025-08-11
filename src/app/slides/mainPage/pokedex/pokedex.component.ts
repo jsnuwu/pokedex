@@ -17,6 +17,8 @@ export class PokedexComponent implements OnInit {
   searchTerm: string = '';
   selectedType: string = '';
   isShiny: boolean = false;
+  editingNickname: boolean = false;
+  nicknameInput: string = '';
 
   typeColors: { [key: string]: string } = {
     normal: '#bbbbaa',
@@ -48,6 +50,7 @@ export class PokedexComponent implements OnInit {
     height?: number;
     weight?: number;
     types: string[];
+    nickname?: string | null;
   }[] = [];
 
   selectedPokemon: {
@@ -59,6 +62,7 @@ export class PokedexComponent implements OnInit {
     height?: number;
     weight?: number;
     types: string[];
+    nickname?: string | null;
   } | null = null;
 
   constructor(private http: HttpClient) {}
@@ -109,7 +113,8 @@ export class PokedexComponent implements OnInit {
               shinySpriteUrl: p.shinySpriteUrl,
               height: p.height,
               weight: p.weight,
-              types: normalizeTypes(p.types)
+              types: normalizeTypes(p.types),
+              nickname: p.nickname ?? null
             };
           }
         });
@@ -160,6 +165,8 @@ export class PokedexComponent implements OnInit {
   openDetails(pokemon: any) {
     this.selectedPokemon = pokemon;
     this.isShiny = false;
+    this.editingNickname = false;
+    this.nicknameInput = pokemon.nickname || '';
 
     if (pokemon.name !== '???' && pokemon.spriteUrl !== null) {
       const cryPath = `assets/audio/cries/cries_pokemon_legacy_${pokemon.id}.ogg`;
@@ -197,5 +204,26 @@ export class PokedexComponent implements OnInit {
     if (i === -1) return;
     const prev = (i - 1 + this.fullDex.length) % this.fullDex.length;
     this.openDetails(this.fullDex[prev]);
+  }
+
+  saveNickname() {
+    if (!this.selectedPokemon) return;
+    const id = this.selectedPokemon.id;
+
+    this.http.put<{ id: number; nickname: string | null }>(
+      `${this.backendUrl}/Pokemon/${id}/nickname`,
+      { nickname: this.nicknameInput || null }
+    ).subscribe({
+      next: (res) => {
+        if (this.selectedPokemon) {
+          this.selectedPokemon.nickname = res.nickname;
+        }
+        const idx = this.fullDex.findIndex(p => p.id === id);
+        if (idx >= 0) this.fullDex[idx].nickname = res.nickname;
+
+        this.editingNickname = false;
+      },
+      error: err => console.error('Nickname speichern fehlgeschlagen:', err)
+    });
   }
 }

@@ -68,6 +68,31 @@
       {{ selectedPokemon.name | titlecase }}
       <span class="detail-id">#{{ selectedPokemon.id }}</span>
     </h3>
+
+    <div class="nickname-row" *ngIf="selectedPokemon">
+      <ng-container *ngIf="!editingNickname; else editNick">
+        <div class="nickname-view">
+          <span class="nickname-label">Spitzname:</span>
+          <span class="nickname-value">{{ selectedPokemon.nickname || '—' }}</span>
+          <button class="nickname-btn" (click)="$event.stopPropagation(); editingNickname = true; nicknameInput = selectedPokemon.nickname || ''">
+            {{ selectedPokemon.nickname ? 'Ändern' : 'Hinzufügen' }}
+          </button>
+          <button class="nickname-btn danger"
+                  *ngIf="selectedPokemon.nickname"
+                  (click)="$event.stopPropagation(); nicknameInput=''; saveNickname()">
+            Entfernen
+          </button>
+        </div>
+      </ng-container>
+
+      <ng-template #editNick>
+        <div class="nickname-edit">
+          <input class="nickname-input" [(ngModel)]="nicknameInput" placeholder="Spitzname eingeben" />
+          <button class="nickname-btn primary" (click)="$event.stopPropagation(); saveNickname()">Speichern</button>
+          <button class="nickname-btn" (click)="$event.stopPropagation(); editingNickname = false">Abbrechen</button>
+        </div>
+      </ng-template>
+    </div>
     <div class="detail-stats">
       <div><strong>Größe:</strong> {{ selectedPokemon.height }} m</div>
       <div><strong>Gewicht:</strong> {{ selectedPokemon.weight }} kg</div>

@@ -178,6 +178,24 @@ select.filter-control {
   padding: 16px 18px 18px;
 }
 
+.nickname-row { margin: 6px 0 12px; }
+.nickname-view, .nickname-edit {
+  display: flex; gap: 8px; align-items: center; justify-content: center;
+  flex-wrap: wrap;
+}
+.nickname-label { color: #6b7280; font-weight: 600; }
+.nickname-value { min-width: 40px; }
+.nickname-input {
+  padding: 6px 10px; border: 1px solid #ccc; border-radius: 8px; min-width: 180px;
+}
+.nickname-btn {
+  padding: 6px 10px; border: 1px solid #ddd; border-radius: 8px;
+  background: #fff; cursor: pointer;
+}
+.nickname-btn:hover { background: #f9fafb; }
+.nickname-btn.primary { border-color: #4a99e2; color: #1f6fcf; }
+.nickname-btn.danger  { border-color: #e85b5b; color: #c63c3c; }
+
 .slide-in { animation: slideUp .22s ease-out; }
 
 @keyframes fadeIn {
