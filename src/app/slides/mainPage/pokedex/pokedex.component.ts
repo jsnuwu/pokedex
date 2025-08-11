@@ -156,4 +156,25 @@ export class PokedexComponent implements OnInit {
   closeDetails() {
     this.selectedPokemon = null;
   }
+
+  private getSelectedIndex(): number {
+    if (!this.selectedPokemon) return -1;
+    return this.fullDex.findIndex(p => p.id === this.selectedPokemon!.id);
+  }
+
+  nextPokemon(evt?: MouseEvent) {
+    evt?.stopPropagation();
+    const i = this.getSelectedIndex();
+    if (i === -1) return;
+    const next = (i + 1) % this.fullDex.length;
+    this.openDetails(this.fullDex[next]);
+  }
+
+  prevPokemon(evt?: MouseEvent) {
+    evt?.stopPropagation();
+    const i = this.getSelectedIndex();
+    if (i === -1) return;
+    const prev = (i - 1 + this.fullDex.length) % this.fullDex.length;
+    this.openDetails(this.fullDex[prev]);
+  }
 }

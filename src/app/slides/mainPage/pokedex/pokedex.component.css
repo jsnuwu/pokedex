@@ -102,6 +102,32 @@ select.filter-control {
   background-size: 1rem;
 }
 
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 42px;
+  text-align: center;
+  transition: transform .08s ease, background .15s ease;
+  user-select: none;
+}
+
+.nav-arrow:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.06);
+}
+
+.nav-left  { left: 10px; }
+.nav-right { right: 10px; }
+
 .slide-in-left {
   animation: slideIn-left 1s ease forwards;
 }
