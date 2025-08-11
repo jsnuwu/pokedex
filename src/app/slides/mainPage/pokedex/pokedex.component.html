@@ -52,9 +52,18 @@
 
     <img
       class="detail-sprite"
-      [src]="selectedPokemon.showdownSpriteUrl || selectedPokemon.spriteUrl || ('https://via.placeholder.com/200?text=' + selectedPokemon.id)"
-      [alt]="selectedPokemon.name"
+      [src]="isShiny
+          ? (selectedPokemon?.shinySpriteUrl || selectedPokemon?.spriteUrl)
+          : (selectedPokemon?.showdownSpriteUrl || selectedPokemon?.spriteUrl)"
+      [alt]="selectedPokemon?.name"
     />
+
+    <div style="text-align: center; margin-bottom: 12px;">
+      <button
+        (click)="toggleShiny()" [class.active]="isShiny" class="shiny-button">
+        Shiny
+      </button>
+    </div>
     <h3 class="detail-title">
       {{ selectedPokemon.name | titlecase }}
       <span class="detail-id">#{{ selectedPokemon.id }}</span>
