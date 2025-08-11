@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 export class PokedexComponent implements OnInit {
   backendUrl: string = 'http://localhost:5258';
   searchTerm: string = '';
+  selectedType: string = '';
 
   typeColors: { [key: string]: string } = {
     normal: '#bbbbaa',
@@ -103,9 +104,23 @@ export class PokedexComponent implements OnInit {
     });
   }
 
+  getAllTypes(): string[] {
+    const allTypes = new Set<string>();
+    this.fullDex.forEach(p => {
+      p.types.forEach(t => allTypes.add(t));
+    });
+    return Array.from(allTypes).sort();
+  }
+
   filteredDex() {
     const term = this.searchTerm.toLowerCase().trim();
-    return this.fullDex.filter(p => (p.name || '').toLowerCase().includes(term));
+    return this.fullDex.filter(p => {
+      const nameMatches = (p.name || '').toLowerCase().includes(term);
+      const typeMatches = this.selectedType
+        ? p.types.map(t => t.toLowerCase()).includes(this.selectedType.toLowerCase())
+        : true;
+      return nameMatches && typeMatches;
+    });
   }
 
   getAnimationClass(index: number): string {

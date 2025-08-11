@@ -3,12 +3,20 @@
 <div class="pokedex">
   <h2 class="title">Mein Pokédex</h2>
 
-  <div class="search-bar">
+  <div class="filters">
     <input
+      class="filter-control"
       type="text"
       [(ngModel)]="searchTerm"
       placeholder="Pokémon suchen..."
     />
+
+    <select class="filter-control" [(ngModel)]="selectedType">
+      <option value="">Alle Typen</option>
+      <option *ngFor="let type of getAllTypes()" [value]="type">
+        {{ type | titlecase }}
+      </option>
+    </select>
   </div>
 
   <div class="pokemon-grid">
@@ -31,7 +39,6 @@
   </div>
 </div>
 
-<!-- Detail-Modal -->
 <div class="pokemon-detail-overlay" *ngIf="selectedPokemon" (click)="closeDetails()">
   <div class="detail-card slide-in" (click)="$event.stopPropagation()">
     <img

@@ -59,20 +59,47 @@
   transform: scale(0.8);
 }
 
-.search-bar {
+.filters {
   position: absolute;
-  top: 13rem;
+  top: 11.5rem;
   right: 2.5rem;
   z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
 }
 
-.search-bar input {
+.filter-control {
+  width: 220px;
   padding: 0.5rem 1rem;
   font-size: 1rem;
   border-radius: 8px;
   border: 1px solid #ccc;
-  width: 220px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.15);
+  outline: none;
+}
+
+.filter-control:focus {
+  border-color: #4a99e2;
+  box-shadow: 0 0 0 3px rgba(74,153,226,.2);
+}
+
+.filter-control[type="text"] { }
+
+select.filter-control {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 2rem;
+
+  background-image: url("data:image/svg+xml;utf8,\
+  <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>\
+    <path d='M7 10l5 5 5-5' stroke='%23555' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/>\
+  </svg>");
+  background-repeat: no-repeat;
+  background-position: right .6rem center;
+  background-size: 1rem;
 }
 
 .slide-in-left {
