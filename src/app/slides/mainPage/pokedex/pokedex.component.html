@@ -60,8 +60,8 @@
       <span class="detail-id">#{{ selectedPokemon.id }}</span>
     </h3>
     <div class="detail-stats">
-      <div><strong>Größe:</strong> {{ selectedPokemon.height ?? '—' }}</div>
-      <div><strong>Gewicht:</strong> {{ selectedPokemon.weight ?? '—' }}</div>
+      <div><strong>Größe:</strong> {{ selectedPokemon.height }} m</div>
+      <div><strong>Gewicht:</strong> {{ selectedPokemon.weight }} kg</div>
       <div><strong>Typen:</strong> {{ (selectedPokemon.types?.length ? selectedPokemon.types.join(', ') : '—') }}</div>
     </div>
     <button class="detail-close" (click)="closeDetails()">Schließen</button>
