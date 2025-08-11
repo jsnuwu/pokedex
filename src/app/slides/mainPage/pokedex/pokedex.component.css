@@ -46,6 +46,21 @@
   border-radius: 8px;
 }
 
+.shiny-button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #eee;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.shiny-button.active {
+  background: gold;
+  border-color: goldenrod;
+  font-weight: bold;
+}
+
 .name {
   font-weight: bold;
   color: #666;

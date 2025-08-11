@@ -16,6 +16,7 @@ export class PokedexComponent implements OnInit {
   backendUrl: string = 'http://localhost:5258';
   searchTerm: string = '';
   selectedType: string = '';
+  isShiny: boolean = false;
 
   typeColors: { [key: string]: string } = {
     normal: '#bbbbaa',
@@ -43,6 +44,7 @@ export class PokedexComponent implements OnInit {
     name: string;
     spriteUrl: string | null;
     showdownSpriteUrl?: string | null;
+    shinySpriteUrl?: string | null;
     height?: number;
     weight?: number;
     types: string[];
@@ -53,6 +55,7 @@ export class PokedexComponent implements OnInit {
     name: string;
     spriteUrl: string | null;
     showdownSpriteUrl?: string | null;
+    shinySpriteUrl?: string | null;
     height?: number;
     weight?: number;
     types: string[];
@@ -103,6 +106,7 @@ export class PokedexComponent implements OnInit {
               name: p.name,
               spriteUrl: p.spriteUrl,
               showdownSpriteUrl: p.showdownSpriteUrl,
+              shinySpriteUrl: p.shinySpriteUrl,
               height: p.height,
               weight: p.weight,
               types: normalizeTypes(p.types)
@@ -155,6 +159,7 @@ export class PokedexComponent implements OnInit {
 
   openDetails(pokemon: any) {
     this.selectedPokemon = pokemon;
+    this.isShiny = false;
 
     if (pokemon.name !== '???' && pokemon.spriteUrl !== null) {
       const cryPath = `assets/audio/cries/cries_pokemon_legacy_${pokemon.id}.ogg`;
@@ -163,6 +168,10 @@ export class PokedexComponent implements OnInit {
         console.warn(`Konnte Schrei für #${pokemon.id} nicht abspielen:`, err);
       });
     }
+  }
+
+  toggleShiny(){
+    this.isShiny = !this.isShiny;
   }
 
   closeDetails() {
