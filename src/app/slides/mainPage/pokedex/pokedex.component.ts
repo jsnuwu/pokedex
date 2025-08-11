@@ -62,7 +62,19 @@ export class PokedexComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchPokemon();
+
+    window.addEventListener('keydown', this.onKeyDown);
   }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('keydown', this.onKeyDown);
+  }
+
+  onKeyDown = (e: KeyboardEvent) => {
+    if (!this.selectedPokemon) return;
+    if (e.key === 'ArrowRight') this.nextPokemon();
+    if (e.key === 'ArrowLeft') this.prevPokemon();
+  };
 
   fetchPokemon(): void {
     this.fullDex = Array.from({ length: 151 }, (_, index) => ({
@@ -155,5 +167,26 @@ export class PokedexComponent implements OnInit {
 
   closeDetails() {
     this.selectedPokemon = null;
+  }
+
+  private getSelectedIndex(): number {
+    if (!this.selectedPokemon) return -1;
+    return this.fullDex.findIndex(p => p.id === this.selectedPokemon!.id);
+  }
+
+  nextPokemon(evt?: MouseEvent) {
+    evt?.stopPropagation();
+    const i = this.getSelectedIndex();
+    if (i === -1) return;
+    const next = (i + 1) % this.fullDex.length;
+    this.openDetails(this.fullDex[next]);
+  }
+
+  prevPokemon(evt?: MouseEvent) {
+    evt?.stopPropagation();
+    const i = this.getSelectedIndex();
+    if (i === -1) return;
+    const prev = (i - 1 + this.fullDex.length) % this.fullDex.length;
+    this.openDetails(this.fullDex[prev]);
   }
 }
