@@ -128,7 +128,16 @@ export class PokedexComponent implements OnInit {
 
   openDetails(pokemon: any) {
     this.selectedPokemon = pokemon;
+
+    if (pokemon.name !== '???' && pokemon.spriteUrl !== null) {
+      const cryPath = `assets/audio/cries/cries_pokemon_legacy_${pokemon.id}.ogg`;
+      const audio = new Audio(cryPath);
+      audio.play().catch(err => {
+        console.warn(`Konnte Schrei für #${pokemon.id} nicht abspielen:`, err);
+      });
+    }
   }
+
   closeDetails() {
     this.selectedPokemon = null;
   }
