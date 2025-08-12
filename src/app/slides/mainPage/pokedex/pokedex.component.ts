@@ -171,6 +171,7 @@ export class PokedexComponent implements OnInit {
     if (pokemon.name !== '???' && pokemon.spriteUrl !== null) {
       const cryPath = `assets/audio/cries/cries_pokemon_legacy_${pokemon.id}.ogg`;
       const audio = new Audio(cryPath);
+      audio.volume = 0.1;
       audio.play().catch(err => {
         console.warn(`Konnte Schrei für #${pokemon.id} nicht abspielen:`, err);
       });
