@@ -77,10 +77,10 @@ audio { display: none; }
   justify-content: center;
   z-index: 10000;
   pointer-events: none; 
-  opacity: 0.8;
+  opacity: 0.2;
 }
 
 .driftveil-overlay img {
-  max-width: 80%;
-  max-height: 80%;
+  width: 180%;
+  height: 100%;
 }
