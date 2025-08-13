@@ -4,6 +4,7 @@ import { HeaderComponent } from '../../../header/header.component';
 import { BackButtonComponent } from '../back-button/back-button.component';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pokedex',
@@ -70,13 +71,14 @@ export class PokedexComponent implements OnInit {
 
   hoveredBg: string = '';
 
-
-onHeaderPokemonClick(pokemonName: string) {
-  const found = this.filteredDex().find(p => p.name.toLowerCase() === pokemonName.toLowerCase());
-  if (found) {
-    this.openDetails(found);
+  onHeaderPokemonClick(pokemonName: string) {
+    const found = this.filteredDex().find(
+      (p) => p.name.toLowerCase() === pokemonName.toLowerCase()
+    );
+    if (found) {
+      this.openDetails(found);
+    }
   }
-}
 
   onCardHover(types: string[]) {
     const bg = this.getCardBackground(types).background;

@@ -4,7 +4,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   selector: 'app-header',
   imports: [],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
 })
 export class HeaderComponent {
   @Output() pokemonClicked = new EventEmitter<string>();
@@ -13,4 +13,3 @@ export class HeaderComponent {
     this.pokemonClicked.emit(name);
   }
 }
-
