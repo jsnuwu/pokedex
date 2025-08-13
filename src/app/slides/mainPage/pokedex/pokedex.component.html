@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div class="pokedex">
+<div class="pokedex" [ngStyle]="{'background': hoveredBg}">
   <h2 class="title">My Pokédex</h2>
 
   <div class="filters">
@@ -9,6 +9,7 @@
       type="text"
       [(ngModel)]="searchTerm"
       placeholder="Search Pokémon..."
+      
     />
 
     <select class="filter-control" [(ngModel)]="selectedType">
@@ -25,6 +26,8 @@
       *ngFor="let entry of filteredDex(); let index = index"
       [ngClass]="getAnimationClass(index)"
       [style.--delay]="(index * 100) + 'ms'"
+      (mouseenter)="onCardHover(entry.types)"
+      (mouseleave)="onCardLeave()"
     >
       <div class="pokemon-card"
            [ngStyle]="getCardBackground(entry.types)"
