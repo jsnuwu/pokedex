@@ -96,7 +96,7 @@ export class PokedexComponent implements OnInit {
 
   private hexOrRgbToRgba(c: string, alpha: number): string {
     if (c.startsWith('rgba'))
-      return c.replace(/rgba\(([^)]+),\s*[\d.]+\)/, `rgba($1, ${alpha})`);
+      return c.replace(/rgba\(([^)]+),\s*[\d.]+\)/, `rgba($1, ${alpha})`); //natürlich komplett selbst gemacht LG JASONASDON AODNAajfiasfniansf
     if (c.startsWith('rgb'))
       return c.replace('rgb', 'rgba').replace(')', `, ${alpha})`);
     if (c.startsWith('#')) {
