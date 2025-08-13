@@ -71,7 +71,9 @@ export class PokedexComponent implements OnInit {
   hoveredBg: string = '';
 
   onCardHover(types: string[]) {
-    const bg = this.getCardBackground(types).background;
+  const bg = this.getCardBackground(types).background;
+  this.hoveredBg = bg; 
+  document.documentElement.style.setProperty('--bg-color', this.hoveredBg);    
     this.hoveredBg = this.addOpacity(bg, 0.3);
   }
 
@@ -91,7 +93,8 @@ export class PokedexComponent implements OnInit {
   }
 
   onCardLeave() {
-    this.hoveredBg = '';
+  this.hoveredBg = '#f2f2f2';
+  document.documentElement.style.setProperty('--bg-color', this.hoveredBg);
   }
 
   ngOnInit(): void {

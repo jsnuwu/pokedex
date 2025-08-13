@@ -1,6 +1,7 @@
 .pokedex {
   padding: 2rem;
   font-family: sans-serif;
+  background: white;
   transition: background 1s ease-in-out;
   min-height: 80vh;
 }
