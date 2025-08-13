@@ -70,6 +70,14 @@ export class PokedexComponent implements OnInit {
 
   hoveredBg: string = '';
 
+
+onHeaderPokemonClick(pokemonName: string) {
+  const found = this.filteredDex().find(p => p.name.toLowerCase() === pokemonName.toLowerCase());
+  if (found) {
+    this.openDetails(found);
+  }
+}
+
   onCardHover(types: string[]) {
     const bg = this.getCardBackground(types).background;
     this.hoveredBg = bg;

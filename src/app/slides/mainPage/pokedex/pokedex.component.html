@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header (pokemonClicked)="onHeaderPokemonClick($event)"></app-header>
 
 <div class="pokedex" [ngStyle]="{ background: hoveredBg || '#f2f2f2' }">
   <h2 class="title">My Pokédex</h2>
