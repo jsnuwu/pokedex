@@ -33,7 +33,6 @@ export class RadioPlayerComponent implements AfterViewInit {
   hasUserInteracted = false;
 
   showDriftveilGif = false;
-  private driftveilTimeout?: any;
 
   ngAfterViewInit() {
     if (this.player?.nativeElement) {
@@ -52,12 +51,14 @@ export class RadioPlayerComponent implements AfterViewInit {
     } else {
       el.pause();
       this.isPlaying = false;
+      this.showDriftveilGif = false;
     }
   }
 
   next() {
     this.currentTrackIndex = (this.currentTrackIndex + 1) % this.tracks.length;
     this.selectedTrack = this.tracks[this.currentTrackIndex].url;
+    this.updateGifVisibility();
     if (this.hasUserInteracted) this.playCurrent();
   }
 
@@ -65,16 +66,35 @@ export class RadioPlayerComponent implements AfterViewInit {
     this.currentTrackIndex =
       (this.currentTrackIndex - 1 + this.tracks.length) % this.tracks.length;
     this.selectedTrack = this.tracks[this.currentTrackIndex].url;
+    this.updateGifVisibility();
     if (this.hasUserInteracted) this.playCurrent();
   }
 
   onSelect(trackUrl: string) {
     this.currentTrackIndex = this.tracks.findIndex(t => t.url === trackUrl);
     this.selectedTrack = trackUrl;
+    this.updateGifVisibility();
     if (this.hasUserInteracted) this.playCurrent();
   }
 
+  onPlay() {
+    this.hasUserInteracted = true;
+    this.isPlaying = true;
+    this.updateGifVisibility();
+  }
+
+  onPlaying() {
+    this.isPlaying = true;
+    this.updateGifVisibility();
+  }
+
+  onPause() {
+    this.isPlaying = false;
+    this.showDriftveilGif = false;
+  }
+
   onEnded() {
+    this.showDriftveilGif = false;
     this.next();
   }
 
@@ -82,29 +102,6 @@ export class RadioPlayerComponent implements AfterViewInit {
     this.volume = v;
     const el = this.player?.nativeElement;
     if (el) el.volume = v;
-  }
-
-  onPlay() {
-    this.hasUserInteracted = true;
-    this.isPlaying = true;
-
-    const currentTrackName = this.tracks[this.currentTrackIndex].name;
-
-    if (currentTrackName === 'Driftveil City') {
-      this.showDriftveilGif = true;
-      clearTimeout(this.driftveilTimeout);
-      this.driftveilTimeout = setTimeout(() => {
-        this.showDriftveilGif = false;
-      }, 10000); 
-    }
-  }
-
-  onPlaying() {
-    this.isPlaying = true;
-  }
-
-  onPause() {
-    this.isPlaying = false;
   }
 
   private playCurrent() {
@@ -123,5 +120,9 @@ export class RadioPlayerComponent implements AfterViewInit {
       const onCanPlay = () => { el.removeEventListener('canplay', onCanPlay); tryPlay(); };
       el.addEventListener('canplay', onCanPlay);
     }
+  }
+
+  private updateGifVisibility() {
+    this.showDriftveilGif = this.tracks[this.currentTrackIndex].name === 'Driftveil City' && this.isPlaying;
   }
 }
