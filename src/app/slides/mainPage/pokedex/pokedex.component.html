@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div class="pokedex" [ngStyle]="{'background': hoveredBg || '#f2f2f2'}">
+<div class="pokedex" [ngStyle]="{ background: hoveredBg || '#f2f2f2' }">
   <h2 class="title">My Pokédex</h2>
 
   <div class="filters">
@@ -9,7 +9,6 @@
       type="text"
       [(ngModel)]="searchTerm"
       placeholder="Search Pokémon..."
-      
     />
 
     <select class="filter-control" [(ngModel)]="selectedType">
@@ -25,45 +24,71 @@
       class="pokemon-card-wrapper"
       *ngFor="let entry of filteredDex(); let index = index"
       [ngClass]="getAnimationClass(index)"
-      [style.--delay]="(index * 100) + 'ms'"
+      [style.--delay]="index * 100 + 'ms'"
       (mouseenter)="onCardHover(entry.types)"
       (mouseleave)="onCardLeave()"
     >
-      <div class="pokemon-card"
-           [ngStyle]="getCardBackground(entry.types)"
-           (click)="openDetails(entry)">
-        <img class="sprite"
-             [src]="entry.spriteUrl || 'https://via.placeholder.com/80?text=' + entry.id"
-             [alt]="entry.name" />
-        <div class="name">{{ entry.name || '???' | titlecase }}</div>
+      <div
+        class="pokemon-card"
+        [ngStyle]="getCardBackground(entry.types)"
+        (click)="openDetails(entry)"
+      >
+        <img
+          class="sprite"
+          [src]="
+            entry.spriteUrl || 'https://via.placeholder.com/80?text=' + entry.id
+          "
+          [alt]="entry.name"
+        />
+        <div class="name">{{ entry.name || "???" | titlecase }}</div>
         <div class="id">#{{ entry.id }}</div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="pokemon-detail-overlay" *ngIf="selectedPokemon" (click)="closeDetails()">
-  <div class="detail-card slide-in" [ngStyle]="getCardBackground(selectedPokemon.types)" (click)="$event.stopPropagation()">
-
-    <button class="nav-arrow nav-left" (click)="prevPokemon($event)" aria-label="Vorheriges Pokémon">
+<div
+  class="pokemon-detail-overlay"
+  *ngIf="selectedPokemon"
+  (click)="closeDetails()"
+>
+  <div
+    class="detail-card slide-in"
+    [ngStyle]="getCardBackground(selectedPokemon.types)"
+    (click)="$event.stopPropagation()"
+  >
+    <button
+      class="nav-arrow nav-left"
+      (click)="prevPokemon($event)"
+      aria-label="Vorheriges Pokémon"
+    >
       &#10094;
     </button>
 
-    <button class="nav-arrow nav-right" (click)="nextPokemon($event)" aria-label="Nächstes Pokémon">
+    <button
+      class="nav-arrow nav-right"
+      (click)="nextPokemon($event)"
+      aria-label="Nächstes Pokémon"
+    >
       &#10095;
     </button>
 
     <img
       class="detail-sprite"
-      [src]="isShiny
-          ? (selectedPokemon?.shinySpriteUrl || selectedPokemon?.spriteUrl)
-          : (selectedPokemon?.showdownSpriteUrl || selectedPokemon?.spriteUrl)"
+      [src]="
+        isShiny
+          ? selectedPokemon?.shinySpriteUrl || selectedPokemon?.spriteUrl
+          : selectedPokemon?.showdownSpriteUrl || selectedPokemon?.spriteUrl
+      "
       [alt]="selectedPokemon?.name"
     />
 
-    <div style="text-align: center; margin-bottom: 12px;">
+    <div style="text-align: center; margin-bottom: 12px">
       <button
-        (click)="toggleShiny()" [class.active]="isShiny" class="shiny-button">
+        (click)="toggleShiny()"
+        [class.active]="isShiny"
+        class="shiny-button"
+      >
         Shiny
       </button>
     </div>
@@ -76,13 +101,26 @@
       <ng-container *ngIf="!editingNickname; else editNick">
         <div class="nickname-view">
           <span class="nickname-label">Spitzname:</span>
-          <span class="nickname-value">{{ selectedPokemon.nickname || '—' }}</span>
-          <button class="nickname-btn" (click)="$event.stopPropagation(); editingNickname = true; nicknameInput = selectedPokemon.nickname || ''">
-            {{ selectedPokemon.nickname ? 'Ändern' : 'Hinzufügen' }}
+          <span class="nickname-value">{{
+            selectedPokemon.nickname || "—"
+          }}</span>
+          <button
+            class="nickname-btn"
+            (click)="
+              $event.stopPropagation();
+              editingNickname = true;
+              nicknameInput = selectedPokemon.nickname || ''
+            "
+          >
+            {{ selectedPokemon.nickname ? "Ändern" : "Hinzufügen" }}
           </button>
-          <button class="nickname-btn danger"
-                  *ngIf="selectedPokemon.nickname"
-                  (click)="$event.stopPropagation(); nicknameInput=''; saveNickname()">
+          <button
+            class="nickname-btn danger"
+            *ngIf="selectedPokemon.nickname"
+            (click)="
+              $event.stopPropagation(); nicknameInput = ''; saveNickname()
+            "
+          >
             Entfernen
           </button>
         </div>
@@ -90,16 +128,35 @@
 
       <ng-template #editNick>
         <div class="nickname-edit">
-          <input class="nickname-input" [(ngModel)]="nicknameInput" placeholder="Spitzname eingeben" />
-          <button class="nickname-btn primary" (click)="$event.stopPropagation(); saveNickname()">Speichern</button>
-          <button class="nickname-btn" (click)="$event.stopPropagation(); editingNickname = false">Abbrechen</button>
+          <input
+            class="nickname-input"
+            [(ngModel)]="nicknameInput"
+            placeholder="Spitzname eingeben"
+          />
+          <button
+            class="nickname-btn primary"
+            (click)="$event.stopPropagation(); saveNickname()"
+          >
+            Speichern
+          </button>
+          <button
+            class="nickname-btn"
+            (click)="$event.stopPropagation(); editingNickname = false"
+          >
+            Abbrechen
+          </button>
         </div>
       </ng-template>
     </div>
     <div class="detail-stats">
       <div><strong>Größe:</strong> {{ selectedPokemon.height }} m</div>
       <div><strong>Gewicht:</strong> {{ selectedPokemon.weight }} kg</div>
-      <div><strong>Typen:</strong> {{ (selectedPokemon.types?.length ? selectedPokemon.types.join(', ') : '—') }}</div>
+      <div>
+        <strong>Typen:</strong>
+        {{
+          selectedPokemon.types?.length ? selectedPokemon.types.join(", ") : "—"
+        }}
+      </div>
     </div>
     <button class="detail-close" (click)="closeDetails()">Schließen</button>
   </div>

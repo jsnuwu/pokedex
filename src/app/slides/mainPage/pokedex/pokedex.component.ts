@@ -71,30 +71,51 @@ export class PokedexComponent implements OnInit {
   hoveredBg: string = '';
 
   onCardHover(types: string[]) {
-  const bg = this.getCardBackground(types).background;
-  this.hoveredBg = bg; 
-  document.documentElement.style.setProperty('--bg-color', this.hoveredBg);    
+    const bg = this.getCardBackground(types).background;
+    this.hoveredBg = bg;
+    document.documentElement.style.setProperty('--bg-color', this.hoveredBg);
     this.hoveredBg = this.addOpacity(bg, 0.3);
   }
 
   private addOpacity(color: string, alpha: number): string {
-    if (color.startsWith('rgba')) return color;
-    if (color.startsWith('rgb'))
-      return color.replace('rgb', 'rgba').replace(')', `, ${alpha})`);
-    if (color.startsWith('#')) {
-      const c = color.replace('#', '');
-      const bigint = parseInt(c, 16);
+    if (color.startsWith('linear-gradient')) {
+      const gradientMatch = color.match(
+        /linear-gradient\(([^,]+),\s*([^)]+)\)/
+      );
+      if (gradientMatch) {
+        const [, c1, c2] = gradientMatch;
+        return `linear-gradient(${this.hexOrRgbToRgba(
+          c1.trim(),
+          alpha
+        )}, ${this.hexOrRgbToRgba(c2.trim(), alpha)})`;
+      }
+      return color;
+    }
+    return this.hexOrRgbToRgba(color, alpha);
+  }
+
+  private hexOrRgbToRgba(c: string, alpha: number): string {
+    if (c.startsWith('rgba'))
+      return c.replace(/rgba\(([^)]+),\s*[\d.]+\)/, `rgba($1, ${alpha})`);
+    if (c.startsWith('rgb'))
+      return c.replace('rgb', 'rgba').replace(')', `, ${alpha})`);
+    if (c.startsWith('#')) {
+      const hex = c.replace('#', '');
+      const bigint = parseInt(hex, 16);
       const r = (bigint >> 16) & 255;
       const g = (bigint >> 8) & 255;
       const b = bigint & 255;
       return `rgba(${r},${g},${b},${alpha})`;
     }
-    return color;
+    return c;
   }
 
   onCardLeave() {
-  this.hoveredBg = '#f2f2f2';
-  document.documentElement.style.setProperty('--bg-color', this.hoveredBg);
+    if (this.hoveredBg.startsWith('linear-gradient')) {
+      this.hoveredBg = this.addOpacity(this.hoveredBg, 0);
+    } else {
+      this.hoveredBg = '#f2f2f2';
+    }
   }
 
   ngOnInit(): void {
