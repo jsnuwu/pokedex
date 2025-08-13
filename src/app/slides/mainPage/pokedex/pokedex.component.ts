@@ -64,6 +64,7 @@ export class PokedexComponent implements OnInit {
     types: string[];
     nickname?: string | null;
   } | null = null;
+entry: any;
 
   constructor(private http: HttpClient) {}
 

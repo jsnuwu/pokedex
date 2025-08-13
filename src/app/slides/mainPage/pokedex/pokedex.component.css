@@ -7,14 +7,19 @@
 
 .title {
   text-align: center;
-  font-size: 2rem;
-  margin-bottom: 2rem;
+  font-size: 5rem;
+  color: #f93535;
+  text-shadow: rgba(0, 0, 0, 0.90) 5px 5px 5px;
+  font-family: 'Pokemon Solid', sans-serif;
+  letter-spacing: 8px;
+  margin-top: -5rem;
 }
 
 .pokemon-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
+  margin-top: -4rem;
 }
 
 .pokemon-card-wrapper {
@@ -48,16 +53,49 @@
 
 .shiny-button {
   padding: 8px 12px;
-  border-radius: 8px;
-  background: #eee;
-  border: 1px solid #ccc;
+  border-radius: 10px;
   cursor: pointer;
   margin-bottom: 10px;
+  border: unset;
+  color: #212121;
+  z-index: 1;
+  background: #ffffff;
+  position: relative;
+  transition: all 250ms;
+  overflow: hidden;
+  font-weight: bold;
+  margin-top: 4px;
+  margin-bottom: -4px;
+
+}
+
+.shiny-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: inherit;
+  scale: 0;
+  z-index: -1;
+  background: gold;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.shiny-button:hover::before {
+  scale: 2;
+}
+
+.shiny-button:hover {
+  color: #212121;
+  scale: 1.1;
+  font-weight: bold;
 }
 
 .shiny-button.active {
+  scale: 1;
   background: gold;
-  border-color: goldenrod;
   font-weight: bold;
 }
 
@@ -93,6 +131,7 @@
   background: #fff;
   box-shadow: 0 2px 6px rgba(0,0,0,.15);
   outline: none;
+  margin: 1rem auto;
 }
 
 .filter-control:focus {
@@ -107,11 +146,7 @@ select.filter-control {
   -webkit-appearance: none;
   -moz-appearance: none;
   padding-right: 2rem;
-
-  background-image: url("data:image/svg+xml;utf8,\
-  <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>\
-    <path d='M7 10l5 5 5-5' stroke='%23555' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/>\
-  </svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5' stroke='%23555' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
   background-repeat: no-repeat;
   background-position: right .6rem center;
   background-size: 1rem;
@@ -172,7 +207,6 @@ select.filter-control {
 .detail-card {
   width: 340px;
   max-width: calc(100vw - 40px);
-  background: #fff;
   border-radius: 14px;
   box-shadow: 0 18px 40px rgba(0,0,0,.25);
   padding: 16px 18px 18px;
@@ -183,7 +217,7 @@ select.filter-control {
   display: flex; gap: 8px; align-items: center; justify-content: center;
   flex-wrap: wrap;
 }
-.nickname-label { color: #6b7280; font-weight: 600; }
+.nickname-label { color: #000000; font-weight: 600; font-style: italic;}
 .nickname-value { min-width: 40px; }
 .nickname-input {
   padding: 6px 10px; border: 1px solid #ccc; border-radius: 8px; min-width: 180px;
@@ -192,9 +226,24 @@ select.filter-control {
   padding: 6px 10px; border: 1px solid #ddd; border-radius: 8px;
   background: #fff; cursor: pointer;
 }
-.nickname-btn:hover { background: #f9fafb; }
+
+.nickname-btn:hover {
+  background-color: #ffffff;
+  box-shadow: 0 0 20px #6fc5ff50;
+  transform: scale(1.08);
+}
+
+.nickname-btn:active {
+  transition: all 0.25s;
+  -webkit-transition: all 0.25s;
+  box-shadow: none;
+  transform: scale(0.98);
+}
+
 .nickname-btn.primary { border-color: #4a99e2; color: #1f6fcf; }
 .nickname-btn.danger  { border-color: #e85b5b; color: #c63c3c; }
+
+
 
 .slide-in { animation: slideUp .22s ease-out; }
 
@@ -216,7 +265,7 @@ select.filter-control {
   text-align: center;
   margin: 0 0 8px; font-size: 1.25rem;
 }
-.detail-id { color: #6b7280; font-weight: 500; }
+.detail-id { color: #000000; font-weight: 500; font-style: italic; font-weight: bold;}
 
 .detail-stats {
   display: grid; gap: 6px; margin-bottom: 12px;
@@ -227,10 +276,43 @@ select.filter-control {
   padding: 10px 12px;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
-  background: #fff;
+  background: #f2f2f2;
   cursor: pointer;
+  outline: none;
+  transition: all 0.3s;
 }
+.detail-close:hover {
+  box-shadow:
+    inset 0px -6px 18px -6px rgba(3, 15, 20, 0.4),
+    inset 0px 6px 18px -6px rgba(3, 15, 20, 0.4),
+    inset 12px 0px 12px -6px rgba(3, 15, 20, 0),
+    inset -12px 0px 12px -6px rgba(3, 15, 20, 0),
+    -1px -1px 6px 0px rgba(54, 69, 75, 0.4);
+}
+
+.detail-close:active {
+  box-shadow:
+    inset 0px -12px 12px -6px rgba(3, 15, 20, 1),
+    inset 0px 12px 12px -6px rgba(3, 15, 20, 1),
+    inset 12px 0px 12px -6px rgba(3, 15, 20, 1),
+    inset -12px 0px 12px -6px rgba(3, 15, 20, 1),
+    -1px -1px 6px 0px rgba(54, 69, 75, 1);
+}
+
+.detail-close:hover .text {
+  transform: scale(0.9);
+}
+
+.detail-close:active .text {
+  transform: scale(0.8);
+}
+
+
 .detail-close:hover { background: #f9fafb; }
+
+
+
+
 
 
 @keyframes slideIn-left {

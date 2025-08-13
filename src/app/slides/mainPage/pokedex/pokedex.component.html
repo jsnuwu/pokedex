@@ -1,18 +1,18 @@
 <app-header></app-header>
 
 <div class="pokedex">
-  <h2 class="title">Mein Pokédex</h2>
+  <h2 class="title">My Pokédex</h2>
 
   <div class="filters">
     <input
       class="filter-control"
       type="text"
       [(ngModel)]="searchTerm"
-      placeholder="Pokémon suchen..."
+      placeholder="Search Pokémon..."
     />
 
     <select class="filter-control" [(ngModel)]="selectedType">
-      <option value="">Alle Typen</option>
+      <option value="">All Types</option>
       <option *ngFor="let type of getAllTypes()" [value]="type">
         {{ type | titlecase }}
       </option>
@@ -40,7 +40,7 @@
 </div>
 
 <div class="pokemon-detail-overlay" *ngIf="selectedPokemon" (click)="closeDetails()">
-  <div class="detail-card slide-in" (click)="$event.stopPropagation()">
+  <div class="detail-card slide-in" [ngStyle]="getCardBackground(selectedPokemon.types)" (click)="$event.stopPropagation()">
 
     <button class="nav-arrow nav-left" (click)="prevPokemon($event)" aria-label="Vorheriges Pokémon">
       &#10094;

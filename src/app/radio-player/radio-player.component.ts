@@ -32,6 +32,9 @@ export class RadioPlayerComponent implements AfterViewInit {
   volume = 0.1;
   hasUserInteracted = false;
 
+  showDriftveilGif = false;
+  private driftveilTimeout?: any;
+
   ngAfterViewInit() {
     if (this.player?.nativeElement) {
       this.player.nativeElement.volume = this.volume;
@@ -81,9 +84,28 @@ export class RadioPlayerComponent implements AfterViewInit {
     if (el) el.volume = v;
   }
 
-  onPlay()     { this.hasUserInteracted = true; this.isPlaying = true; }
-  onPlaying()  { this.isPlaying = true; }
-  onPause()    { this.isPlaying = false; }
+  onPlay() {
+    this.hasUserInteracted = true;
+    this.isPlaying = true;
+
+    const currentTrackName = this.tracks[this.currentTrackIndex].name;
+
+    if (currentTrackName === 'Driftveil City') {
+      this.showDriftveilGif = true;
+      clearTimeout(this.driftveilTimeout);
+      this.driftveilTimeout = setTimeout(() => {
+        this.showDriftveilGif = false;
+      }, 10000); 
+    }
+  }
+
+  onPlaying() {
+    this.isPlaying = true;
+  }
+
+  onPause() {
+    this.isPlaying = false;
+  }
 
   private playCurrent() {
     const el = this.player?.nativeElement;
