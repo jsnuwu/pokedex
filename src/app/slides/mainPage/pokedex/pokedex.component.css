@@ -38,6 +38,7 @@
   padding: 5rem;
   text-align: center;
   transition: transform 0.2s ease;
+  cursor: pointer;
 }
 
 .pokemon-card:hover {
