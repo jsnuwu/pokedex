@@ -96,7 +96,8 @@
   margin-bottom: 1rem;
 }
 
-.pokeball-button::before {
+.pokeball-button::before,
+.api-button::before {
   position: absolute;
   top: 0;
   left: 0;
@@ -114,16 +115,19 @@
   z-index: -1;
 }
 
-.pokeball-button:hover {
+.pokeball-button:hover,
+ .api-button:hover {
   color: #fff;
   border: 1px solid rgb(255,0,0);
 }
 
-.pokeball-button:hover::before {
+.pokeball-button:hover::before,
+.api-button:hover::before {
   box-shadow: inset 0 0 0 10em rgb(255, 0, 0);
 }
 
-.pokeball-button:hover {
+.pokeball-button:hover,
+.api-button:hover {
   transform: scale(1);
 }
 
