@@ -13,7 +13,10 @@
   text-shadow: rgba(0, 0, 0, 0.9) 5px 5px 5px;
   font-family: "Pokemon Solid", sans-serif;
   letter-spacing: 8px;
-  margin-top: -5rem;
+  margin: -5rem auto 5rem auto;
+  font-weight: bold;
+  text-decoration: none;
+  display: block;
 }
 
 .pokemon-grid {
