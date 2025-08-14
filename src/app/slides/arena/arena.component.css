@@ -61,11 +61,31 @@
 }
 
 .log {
-  height: 100px;
+  height: 120px;
   overflow-y: auto;
   border-top: 2px solid #000;
   margin-top: 1rem;
   padding-top: 0.5rem;
   font-size: 0.9rem;
   text-align: left;
+}
+
+.hp-fill {
+  height: 100%;
+  background: linear-gradient(to right, #4caf50, #ffeb3b, #f44336);
+  transition: width 0.3s ease;
+}
+
+.hidden {
+  display: none;
+}
+
+.game-over-screen {
+  display: none;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.game-over-screen.visible {
+  display: block;
 }
