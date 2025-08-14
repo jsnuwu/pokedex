@@ -17,6 +17,8 @@
   font-weight: bold;
   text-decoration: none;
   display: block;
+  height: auto;
+  width: 40%;
 }
 
 .pokemon-grid {
