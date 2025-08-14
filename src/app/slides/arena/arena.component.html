@@ -1,0 +1,35 @@
+<div class="arena">
+  <h1>Pokémon Kampf Arena</h1>
+  <div class="battlefield">
+    <div class="pokemon">
+      <div class="name">{{ player.name }}</div>
+      <img [src]="player.img" alt="{{ player.name }}">
+      <div class="hp-bar">
+        <div class="hp-fill" [style.width.%]="(player.hp / player.maxHp) * 100"></div>
+      </div>
+      <div>{{ player.hp }} / {{ player.maxHp }} HP</div>
+    </div>
+
+    <div class="pokemon">
+      <div class="name">{{ enemy.name }}</div>
+      <img [src]="enemy.img" alt="{{ enemy.name }}">
+      <div class="hp-bar">
+        <div class="hp-fill" [style.width.%]="(enemy.hp / enemy.maxHp) * 100"></div>
+      </div>
+      <div>{{ enemy.hp }} / {{ enemy.maxHp }} HP</div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button (click)="attack(player, enemy)">Angriff</button>
+    <button (click)="attack(enemy, player)">Gegner greift an</button>
+    <button (click)="reset()">Reset</button>
+  </div>
+
+  <div class="log">
+    <div *ngFor="let entry of log">{{ entry }}</div>
+  </div>
+</div>
+<div class="back-button">
+  <app-back-button></app-back-button>
+</div>
