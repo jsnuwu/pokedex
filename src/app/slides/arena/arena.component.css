@@ -89,3 +89,36 @@
 .game-over-screen.visible {
   display: block;
 }
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-3px); }
+  40% { transform: translateX(3px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.3s;
+}
+
+.retry-btn{
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+.retry-btn:hover {
+  background-color: #ffffff;
+  box-shadow: 0 0 20px #6fc5ff50;
+  transform: scale(1.08);
+}
+
+.retry-btn:active {
+  transition: all 0.25s;
+  -webkit-transition: all 0.25s;
+  box-shadow: none;
+  transform: scale(0.98);
+}

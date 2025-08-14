@@ -282,10 +282,6 @@ select.filter-control {
   transform: scale(0.98);
 }
 
-.nickname-btn.primary {
-  border-color: #4a99e2;
-  color: #1f6fcf;
-}
 .nickname-btn.danger {
   border-color: #e85b5b;
   color: #c63c3c;

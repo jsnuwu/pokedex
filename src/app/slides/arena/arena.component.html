@@ -1,20 +1,27 @@
 <div class="arena">
   <h1>Pokémon Battle Arena</h1>
+
   <div class="battlefield" [class.hidden]="gameOver">
-    <div class="pokemon">
+    <div class="pokemon" [class.shake]="playerShaking">
       <div class="name">{{ player.name }}</div>
-      <img [src]="player.img" alt="{{ player.name }}">
+      <img [src]="player.img" alt="{{ player.name }}" />
       <div class="hp-bar">
-        <div class="hp-fill" [style.width.%]="(player.hp / player.maxHp) * 100"></div>
+        <div
+          class="hp-fill"
+          [style.width.%]="(player.hp / player.maxHp) * 100"
+        ></div>
       </div>
       <div>{{ player.hp }} / {{ player.maxHp }} HP</div>
     </div>
 
-    <div class="pokemon">
+    <div class="pokemon" [class.shake]="enemyShaking">
       <div class="name">{{ enemy.name }}</div>
-      <img [src]="enemy.img" alt="{{ enemy.name }}">
+      <img [src]="enemy.img" alt="{{ enemy.name }}" />
       <div class="hp-bar">
-        <div class="hp-fill" [style.width.%]="(enemy.hp / enemy.maxHp) * 100"></div>
+        <div
+          class="hp-fill"
+          [style.width.%]="(enemy.hp / enemy.maxHp) * 100"
+        ></div>
       </div>
       <div>{{ enemy.hp }} / {{ enemy.maxHp }} HP</div>
     </div>
@@ -30,8 +37,8 @@
   </div>
 
   <div class="game-over-screen" [class.visible]="gameOver">
-    <h1>{{ playerWon ? ' You Win!' : ' You Lose' }}</h1>
-    <button (click)="reset()">Play Again</button>
+    <h1>{{ playerWon ? "🎉 You Win!" : "😢 You Lose" }}</h1>
+    <button class="retry-btn" (click)="reset()">Play Again</button>
   </div>
 
   <div class="back-button">
