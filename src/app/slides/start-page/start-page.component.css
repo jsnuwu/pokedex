@@ -130,3 +130,26 @@
 .api-button:hover {
   transform: scale(1);
 }
+
+@media (max-width: 1536px) {
+  
+.card{
+  height: 500px;
+  margin-top: -10rem;
+}
+
+.title {
+  font-size: 1.6rem;
+}
+
+.subtitle{
+  font-size: 0.8rem;
+}
+
+.pokeball-button,
+.api-button {
+  padding: 5px 15px;
+    font-size: 25px;
+}
+
+}
