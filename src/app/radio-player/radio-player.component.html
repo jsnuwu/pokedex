@@ -28,5 +28,11 @@
 </div>
 
 <div *ngIf="showDriftveilGif" class="driftveil-overlay">
-  <img src="assets/images/driftveil.gif" alt="Driftveil Animation" />
+  <img #driftveilImg src="assets/images/driftveil.gif" alt="Driftveil Animation" />
 </div>
+
+<div class="baldMan-overlay" [class.fade]="showBaldMan">
+  <img src="assets/images/baldMan.jpg" alt="Bald Man" />
+</div>
+
+

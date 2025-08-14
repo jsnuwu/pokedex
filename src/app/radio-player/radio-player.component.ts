@@ -13,6 +13,7 @@ type Track = { name: string; url: string };
 })
 export class RadioPlayerComponent implements AfterViewInit {
   @ViewChild('player') player!: ElementRef<HTMLAudioElement>;
+  @ViewChild('driftveilImg') driftveilImg?: ElementRef<HTMLImageElement>;
 
   tracks: Track[] = [
     { name: 'Opening Theme', url: 'assets/audio/OpeningTheme.mp3' },
@@ -27,12 +28,17 @@ export class RadioPlayerComponent implements AfterViewInit {
 
   selectedTrack = this.tracks[0].url;
   currentTrackIndex = 0;
-
   isPlaying = false;
   volume = 0.1;
   hasUserInteracted = false;
-
   showDriftveilGif = false;
+  showBaldMan = false;
+
+  private x = 100;
+  private y = 100;
+  private dx = 2;
+  private dy = 2;
+  private dvdAnimationId?: number;
 
   ngAfterViewInit() {
     if (this.player?.nativeElement) {
@@ -51,6 +57,7 @@ export class RadioPlayerComponent implements AfterViewInit {
     } else {
       el.pause();
       this.isPlaying = false;
+      this.stopDvdAnimation();
       this.showDriftveilGif = false;
     }
   }
@@ -59,6 +66,8 @@ export class RadioPlayerComponent implements AfterViewInit {
     this.currentTrackIndex = (this.currentTrackIndex + 1) % this.tracks.length;
     this.selectedTrack = this.tracks[this.currentTrackIndex].url;
     this.updateGifVisibility();
+    this.updateBaldManVisibility();  this.updateBaldManVisibility();
+
     if (this.hasUserInteracted) this.playCurrent();
   }
 
@@ -67,6 +76,7 @@ export class RadioPlayerComponent implements AfterViewInit {
       (this.currentTrackIndex - 1 + this.tracks.length) % this.tracks.length;
     this.selectedTrack = this.tracks[this.currentTrackIndex].url;
     this.updateGifVisibility();
+    this.updateBaldManVisibility();
     if (this.hasUserInteracted) this.playCurrent();
   }
 
@@ -81,6 +91,8 @@ export class RadioPlayerComponent implements AfterViewInit {
     this.hasUserInteracted = true;
     this.isPlaying = true;
     this.updateGifVisibility();
+    this.updateBaldManVisibility();
+
   }
 
   onPlaying() {
@@ -90,11 +102,16 @@ export class RadioPlayerComponent implements AfterViewInit {
 
   onPause() {
     this.isPlaying = false;
+    this.stopDvdAnimation();
     this.showDriftveilGif = false;
+    this.showBaldMan = false;
+
   }
 
   onEnded() {
+    this.stopDvdAnimation();
     this.showDriftveilGif = false;
+    this.showBaldMan = false;
     this.next();
   }
 
@@ -123,6 +140,51 @@ export class RadioPlayerComponent implements AfterViewInit {
   }
 
   private updateGifVisibility() {
-    this.showDriftveilGif = this.tracks[this.currentTrackIndex].name === 'Driftveil City' && this.isPlaying;
+    this.showDriftveilGif =
+      this.tracks[this.currentTrackIndex].name === 'Driftveil City' && this.isPlaying;
+
+    if (this.showDriftveilGif) {
+      this.startDvdAnimation();
+    } else {
+      this.stopDvdAnimation();
+    }
+  }
+
+private updateBaldManVisibility() {
+  this.showBaldMan =
+    this.tracks[this.currentTrackIndex].name === 'Lavender Town' && this.isPlaying;
+}
+
+
+  private startDvdAnimation() {
+    if (!this.driftveilImg?.nativeElement) return;
+    cancelAnimationFrame(this.dvdAnimationId!);
+    const img = this.driftveilImg.nativeElement;
+
+    const animate = () => {
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+
+      this.x += this.dx;
+      this.y += this.dy;
+
+      if (this.x <= 0 || this.x + img.clientWidth >= screenWidth) {
+        this.dx = -this.dx;
+      }
+      if (this.y <= 0 || this.y + img.clientHeight >= screenHeight) {
+        this.dy = -this.dy;
+      }
+
+      img.style.left = this.x + 'px';
+      img.style.top = this.y + 'px';
+
+      this.dvdAnimationId = requestAnimationFrame(animate);
+    };
+
+    animate();
+  }
+
+  private stopDvdAnimation() {
+    cancelAnimationFrame(this.dvdAnimationId!);
   }
 }
