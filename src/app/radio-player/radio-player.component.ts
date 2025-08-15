@@ -179,7 +179,7 @@ private pokerFaces: {
   private updatePokerFaceVisibility() {
     this.showPokerFace = this.tracks[this.currentTrackIndex].name === 'Poker Face' && this.isPlaying;
     if (this.showPokerFace) {
-      setTimeout(() => this.startPokerAnimation(), 0);
+      setTimeout(() => this.startPokerAnimation(), 50);
     } else {
       this.stopPokerAnimation();
     }
@@ -215,7 +215,7 @@ private startPokerAnimation() {
 
   this.pokerFaces = this.pokerImageRefs.toArray().map(el => {
     const nativeEl = el.nativeElement;
-    nativeEl.classList.add('show'); // Fade-In starten
+    nativeEl.classList.add('show'); 
     return {
       el,
       x: Math.random() * (window.innerWidth - nativeEl.clientWidth),
