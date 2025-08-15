@@ -136,9 +136,8 @@ export class ArenaComponent {
       attacks: starter.attacks.map((a) => ({ ...a, currentCooldown: 0 })),
     };
     this.playerSelected = true;
-    this.log.push(`${starter.name} wurde ausgewählt!`);
+    this.log.push(`${starter.name} got choosed!`);
 
-    // Zufälliger Gegner
     this.enemy = {
       name: 'Random Enemy',
       hp: 100,
@@ -198,7 +197,6 @@ export class ArenaComponent {
       );
     }
 
-    // Shake Animation
     if (atk.type === 'damage') {
       if (defender === this.player) {
         this.playerShaking = true;
