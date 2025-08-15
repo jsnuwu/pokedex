@@ -7,6 +7,7 @@ interface Pokemon {
   hp: number;
   maxHp: number;
   img: string;
+  attacks: Attack[];
 }
 
 interface Attack {
@@ -25,26 +26,103 @@ interface Attack {
   imports: [CommonModule, BackButtonComponent],
 })
 export class ArenaComponent {
-  player: Pokemon = {
-    name: 'Pikachu',
-    hp: 100,
-    maxHp: 100,
-    img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
-  };
+  playerSelected = false;
 
-  enemy: Pokemon = {
-    name: 'Charmander',
-    hp: 100,
-    maxHp: 100,
-    img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png',
-  };
+  starters: Pokemon[] = [
+    {
+      name: 'Bulbasaur',
+      hp: 100,
+      maxHp: 100,
+      img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
 
-  attacks: Attack[] = [
-    { name: 'Tackle', damageMin: 5, damageMax: 12, type: 'damage', cooldown: 0 },
-    { name: 'Thunderbolt', damageMin: 10, damageMax: 25, type: 'damage', cooldown: 2 },
-    { name: 'Quick Attack', damageMin: 3, damageMax: 8, type: 'damage', cooldown: 0 },
-    { name: 'Heal', damageMin: -15, damageMax: -8, type: 'heal', cooldown: 3 }
+      attacks: [
+        {
+          name: 'Vine Whip',
+          damageMin: 5,
+          damageMax: 12,
+          type: 'damage',
+          cooldown: 0,
+        },
+        {
+          name: 'Razor Leaf',
+          damageMin: 8,
+          damageMax: 15,
+          type: 'damage',
+          cooldown: 2,
+        },
+        {
+          name: 'Heal',
+          damageMin: -12,
+          damageMax: -8,
+          type: 'heal',
+          cooldown: 3,
+        },
+      ],
+    },
+    {
+      name: 'Charmander',
+      hp: 100,
+      maxHp: 100,
+      img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png',
+
+      attacks: [
+        {
+          name: 'Ember',
+          damageMin: 6,
+          damageMax: 14,
+          type: 'damage',
+          cooldown: 0,
+        },
+        {
+          name: 'Flamethrower',
+          damageMin: 10,
+          damageMax: 20,
+          type: 'damage',
+          cooldown: 3,
+        },
+        {
+          name: 'Scratch',
+          damageMin: 3,
+          damageMax: 8,
+          type: 'damage',
+          cooldown: 0,
+        },
+      ],
+    },
+    {
+      name: 'Squirtle',
+      hp: 100,
+      maxHp: 100,
+      img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png',
+
+      attacks: [
+        {
+          name: 'Water Gun',
+          damageMin: 5,
+          damageMax: 12,
+          type: 'damage',
+          cooldown: 0,
+        },
+        {
+          name: 'Bubble',
+          damageMin: 4,
+          damageMax: 10,
+          type: 'damage',
+          cooldown: 1,
+        },
+        {
+          name: 'Heal',
+          damageMin: -10,
+          damageMax: -6,
+          type: 'heal',
+          cooldown: 3,
+        },
+      ],
+    },
   ];
+
+  player!: Pokemon;
+  enemy!: Pokemon;
 
   log: string[] = [];
   gameOver = false;
@@ -52,10 +130,56 @@ export class ArenaComponent {
   playerShaking = false;
   enemyShaking = false;
 
-  attack(attacker: Pokemon, defender: Pokemon, atk: Attack, isPlayer = true) {
-    if (this.gameOver || (atk.currentCooldown && atk.currentCooldown > 0)) return;
+  chooseStarter(starter: Pokemon) {
+    this.player = {
+      ...starter,
+      attacks: starter.attacks.map((a) => ({ ...a, currentCooldown: 0 })),
+    };
+    this.playerSelected = true;
+    this.log.push(`${starter.name} wurde ausgewählt!`);
 
-    let damage = Math.floor(Math.random() * (atk.damageMax - atk.damageMin + 1)) + atk.damageMin;
+    // Zufälliger Gegner
+    this.enemy = {
+      name: 'Random Enemy',
+      hp: 100,
+      maxHp: 100,
+      img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
+      attacks: [
+        {
+          name: 'Quick Attack',
+          damageMin: 4,
+          damageMax: 10,
+          type: 'damage',
+          cooldown: 0,
+          currentCooldown: 0,
+        },
+        {
+          name: 'Thunder Shock',
+          damageMin: 6,
+          damageMax: 15,
+          type: 'damage',
+          cooldown: 2,
+          currentCooldown: 0,
+        },
+        {
+          name: 'Heal',
+          damageMin: -8,
+          damageMax: -5,
+          type: 'heal',
+          cooldown: 3,
+          currentCooldown: 0,
+        },
+      ],
+    };
+  }
+
+  attack(attacker: Pokemon, defender: Pokemon, atk: Attack, isPlayer = true) {
+    if (this.gameOver || (atk.currentCooldown && atk.currentCooldown > 0))
+      return;
+
+    let damage =
+      Math.floor(Math.random() * (atk.damageMax - atk.damageMin + 1)) +
+      atk.damageMin;
 
     if (atk.type === 'damage' && Math.random() < 0.15) {
       damage *= 2;
@@ -69,9 +193,12 @@ export class ArenaComponent {
     } else {
       defender.hp -= damage;
       if (defender.hp < 0) defender.hp = 0;
-      this.log.push(`${attacker.name} uses ${atk.name} and deals ${damage} damage!`);
+      this.log.push(
+        `${attacker.name} uses ${atk.name} and deals ${damage} damage!`
+      );
     }
 
+    // Shake Animation
     if (atk.type === 'damage') {
       if (defender === this.player) {
         this.playerShaking = true;
@@ -88,16 +215,25 @@ export class ArenaComponent {
 
     if (isPlayer && !this.gameOver && defender.hp > 0) {
       setTimeout(() => {
-        const enemyAtk = { ...this.attacks[Math.floor(Math.random() * this.attacks.length)] };
+        const availableAttacks = this.enemy.attacks.filter(
+          (a) => !a.currentCooldown || a.currentCooldown <= 0
+        );
+        const enemyAtk = {
+          ...availableAttacks[
+            Math.floor(Math.random() * availableAttacks.length)
+          ],
+        };
         this.attack(defender, attacker, enemyAtk, false);
+        this.reduceCooldowns(false);
       }, 700);
     }
 
-    if (isPlayer) this.reduceCooldowns();
+    if (isPlayer) this.reduceCooldowns(true);
   }
 
-  reduceCooldowns() {
-    this.attacks.forEach(a => {
+  reduceCooldowns(forPlayer: boolean) {
+    const array = forPlayer ? this.player.attacks : this.enemy.attacks;
+    array.forEach((a) => {
       if (a.currentCooldown && a.currentCooldown > 0) {
         a.currentCooldown--;
       }
@@ -112,11 +248,15 @@ export class ArenaComponent {
   }
 
   reset() {
-    this.player.hp = this.player.maxHp;
-    this.enemy.hp = this.enemy.maxHp;
+    if (this.player) this.player.hp = this.player.maxHp;
+    if (this.enemy) this.enemy.hp = this.enemy.maxHp;
+
     this.log = [];
     this.gameOver = false;
     this.playerWon = false;
-    this.attacks.forEach(a => a.currentCooldown = 0);
+    this.playerSelected = false;
+
+    this.player.attacks.forEach((a) => (a.currentCooldown = 0));
+    this.enemy.attacks.forEach((a) => (a.currentCooldown = 0));
   }
 }

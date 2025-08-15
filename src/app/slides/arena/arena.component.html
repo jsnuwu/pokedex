@@ -1,7 +1,17 @@
 <div class="arena">
   <h1>Pokémon Battle Arena</h1>
 
-  <div class="battlefield" [class.hidden]="gameOver">
+  <div class="starter-selection" *ngIf="!playerSelected">
+    <h2>Choose your Pokemon!</h2>
+    <div class="starters">
+      <div class="starter" *ngFor="let starter of starters" (click)="chooseStarter(starter)">
+        <div class="name">{{ starter.name }}</div>
+        <img [src]="starter.img" alt="{{ starter.name }}">
+      </div>
+    </div>
+  </div>
+
+<div class="battlefield" *ngIf="playerSelected && !gameOver">
 
     <div class="pokemon" [class.shake]="playerShaking">
       <div class="name">{{ player.name }}</div>
@@ -23,15 +33,16 @@
   </div>
 
   <div class="actions" [class.hidden]="gameOver">
-    <button 
-      *ngFor="let atk of attacks" 
-      (click)="attack(player, enemy, atk)" 
-      [disabled]="atk.currentCooldown && atk.currentCooldown > 0">
-      {{ atk.name }} 
-      <span *ngIf="atk.currentCooldown && atk.currentCooldown > 0">
-        ({{ atk.currentCooldown }})
-      </span>
-    </button>
+<button 
+  *ngFor="let atk of player?.attacks" 
+  (click)="attack(player, enemy, atk)" 
+  [disabled]="atk.currentCooldown && atk.currentCooldown > 0">
+  {{ atk.name }} 
+  <span *ngIf="atk.currentCooldown && atk.currentCooldown > 0">
+    ({{ atk.currentCooldown }} )
+  </span>
+</button>
+
 <button class="reset-btn" (click)="reset()">Reset</button>
   </div>
 
