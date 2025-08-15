@@ -20,7 +20,9 @@ pokerImages = [
   'assets/images/private/pic1.png',
   'assets/images/private/pic2.png',
   'assets/images/private/pic3.jpg',
-  'assets/images/private/pic4.jpg'
+  'assets/images/private/pic4.jpg',
+  'assets/images/private/pic5.jpg'
+
 
 ];
 
