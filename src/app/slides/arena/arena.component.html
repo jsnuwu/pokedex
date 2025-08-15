@@ -1,46 +1,55 @@
 <div class="arena">
   <h1>Pokémon Battle Arena</h1>
 
+  <!-- Kampfbereich -->
   <div class="battlefield" [class.hidden]="gameOver">
+    <!-- Spieler -->
     <div class="pokemon" [class.shake]="playerShaking">
       <div class="name">{{ player.name }}</div>
       <img [src]="player.img" alt="{{ player.name }}" />
       <div class="hp-bar">
-        <div
-          class="hp-fill"
-          [style.width.%]="(player.hp / player.maxHp) * 100"
-        ></div>
+        <div class="hp-fill" [style.width.%]="(player.hp / player.maxHp) * 100"></div>
       </div>
       <div>{{ player.hp }} / {{ player.maxHp }} HP</div>
     </div>
 
+    <!-- Gegner -->
     <div class="pokemon" [class.shake]="enemyShaking">
       <div class="name">{{ enemy.name }}</div>
       <img [src]="enemy.img" alt="{{ enemy.name }}" />
       <div class="hp-bar">
-        <div
-          class="hp-fill"
-          [style.width.%]="(enemy.hp / enemy.maxHp) * 100"
-        ></div>
+        <div class="hp-fill" [style.width.%]="(enemy.hp / enemy.maxHp) * 100"></div>
       </div>
       <div>{{ enemy.hp }} / {{ enemy.maxHp }} HP</div>
     </div>
   </div>
 
+  <!-- Aktionen -->
   <div class="actions" [class.hidden]="gameOver">
-    <button (click)="attack(player, enemy)">Attack</button>
+    <button 
+      *ngFor="let atk of attacks" 
+      (click)="attack(player, enemy, atk)" 
+      [disabled]="atk.currentCooldown && atk.currentCooldown > 0">
+      {{ atk.name }} 
+      <span *ngIf="atk.currentCooldown && atk.currentCooldown > 0">
+        ({{ atk.currentCooldown }})
+      </span>
+    </button>
     <button (click)="reset()">Reset</button>
   </div>
 
+  <!-- Kampf-Log -->
   <div class="log">
     <div *ngFor="let entry of log">{{ entry }}</div>
   </div>
 
+  <!-- Game Over Screen -->
   <div class="game-over-screen" [class.visible]="gameOver">
     <h1>{{ playerWon ? "🎉 You Win!" : "😢 You Lose" }}</h1>
     <button class="retry-btn" (click)="reset()">Play Again</button>
   </div>
 
+  <!-- Zurück Button -->
   <div class="back-button">
     <app-back-button></app-back-button>
   </div>
