@@ -46,7 +46,7 @@ export class ArenaComponent {
         {
           name: 'Razor Leaf',
           damageMin: 8,
-          damageMax: 15,
+          damageMax: 20,
           type: 'damage',
           cooldown: 2,
         },
@@ -69,21 +69,21 @@ export class ArenaComponent {
         {
           name: 'Ember',
           damageMin: 6,
-          damageMax: 14,
+          damageMax: 12,
           type: 'damage',
           cooldown: 0,
         },
         {
           name: 'Flamethrower',
           damageMin: 10,
-          damageMax: 20,
+          damageMax: 25,
           type: 'damage',
           cooldown: 3,
         },
         {
           name: 'Scratch',
           damageMin: 3,
-          damageMax: 8,
+          damageMax: 9,
           type: 'damage',
           cooldown: 0,
         },
@@ -106,7 +106,7 @@ export class ArenaComponent {
         {
           name: 'Bubble',
           damageMin: 4,
-          damageMax: 10,
+          damageMax: 14,
           type: 'damage',
           cooldown: 1,
         },

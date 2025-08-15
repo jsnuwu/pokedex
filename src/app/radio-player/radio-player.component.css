@@ -10,8 +10,8 @@
   overflow: hidden;
   display: flex;
   align-items: center;
-  transition: width .25s ease, box-shadow .25s ease, border-radius .25s ease;
-  box-shadow: 0 6px 18px rgba(0,0,0,.12);
+  transition: width 0.25s ease, box-shadow 0.25s ease, border-radius 0.25s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
   z-index: 9999;
 }
 
@@ -22,8 +22,11 @@
 
 .radio-icon {
   font-size: 22px;
-  width: 60px; height: 60px;
-  display: flex; align-items: center; justify-content: center;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .player-controls {
@@ -47,10 +50,14 @@
   padding: 6px 10px;
   cursor: pointer;
   line-height: 1;
-  transition: background .15s ease, transform .05s ease;
+  transition: background 0.15s ease, transform 0.05s ease;
 }
-.btn:hover { background: #f3f4f6; }
-.btn:active { transform: translateY(1px); }
+.btn:hover {
+  background: #f3f4f6;
+}
+.btn:active {
+  transform: translateY(1px);
+}
 
 .track-select {
   flex: 1;
@@ -66,12 +73,14 @@
   width: 100px;
 }
 
-audio { display: none; }
+audio {
+  display: none;
+}
 
 .driftveil-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0);
+  background: rgba(0, 0, 0, 0);
   z-index: 10000;
   pointer-events: none;
   opacity: 0.2;
@@ -104,6 +113,22 @@ audio { display: none; }
 }
 
 .baldMan-overlay img {
-  width: 1200px; 
+  width: 1200px;
   height: auto;
 }
+
+.poker-face {
+  position: fixed;
+  z-index: 9999;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;   top: 0;
+  left: 0;
+  width: 40%;
+  height: 20%;
+  pointer-events: none;
+}
+
+.poker-face.show {
+  opacity: 0.5; 
+}
+
