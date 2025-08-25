@@ -1,0 +1,30 @@
+.map {
+  width: 2100px;
+  height: 1060px;
+  background: url('/assets/ow/map/map1.png') no-repeat center center;
+  background-size: cover;
+  position: relative;
+  border: 2px solid #333;
+}
+
+.player {
+  width: 62px;
+  height: 62px;
+  position: absolute;
+  transition: top 0.1s, left 0.1s;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.player.up {
+  background-image: url('/assets/ow/player/playerUp.png');
+}
+.player.down {
+  background-image: url('/assets/ow/player/playerDown.png');
+}
+.player.left {
+  background-image: url('/assets/ow/player/playerLeft.png');
+}
+.player.right {
+  background-image: url('/assets/ow/player/playerRight.png');
+}
