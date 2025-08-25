@@ -42,8 +42,8 @@ import { RouterModule, Router } from '@angular/router';
 })
 export class OpenWorldComponent {
   playerX = 1090;
-  playerY = 0;
-  step = 10;
+  playerY = 10;
+  step = 15;
   direction: 'up' | 'down' | 'left' | 'right' = 'down';
 
   showWindow = false;
@@ -57,7 +57,7 @@ export class OpenWorldComponent {
       buttonLabel: 'Yes', 
       targetRoute: '/pokedex' 
     },
-    { x: 1060, y: -40, width: 100, height: 50, triggered: false, 
+    { x: 1060, y: -40, width: 100, height: 45, triggered: false, 
       windowText: 'Do you want to go back to menu?', 
       buttonLabel: 'Yes', 
       targetRoute: '/' 
