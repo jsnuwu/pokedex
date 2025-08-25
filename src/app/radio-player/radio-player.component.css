@@ -121,7 +121,8 @@ audio {
   position: fixed;
   z-index: 9999;
   transition: opacity 3s ease-in-out;
-  opacity: 0;   top: 0;
+  opacity: 0;
+  top: 0;
   left: 0;
   width: 40%;
   height: 20%;
@@ -129,6 +130,5 @@ audio {
 }
 
 .poker-face.show {
-  opacity: 0.5; 
+  opacity: 0.5;
 }
-

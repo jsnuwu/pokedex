@@ -136,7 +136,9 @@ export class ArenaComponent {
       attacks: starter.attacks.map((a) => ({ ...a, currentCooldown: 0 })),
     };
     this.playerSelected = true;
-    this.log.push(`${starter.name} IS THE CHOSEN ONE! Enemy: It was said that you would *destroy* the Sith, not join them! Bring balance to the Force, not leave it in darkness! ${starter.name}: I HATE YOU!`);
+    this.log.push(
+      `${starter.name} IS THE CHOSEN ONE! Enemy: It was said that you would *destroy* the Sith, not join them! Bring balance to the Force, not leave it in darkness! ${starter.name}: I HATE YOU!`
+    );
 
     this.enemy = {
       name: 'Random Enemy',

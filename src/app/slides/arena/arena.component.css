@@ -14,7 +14,8 @@
   display: flex;
   justify-content: space-around;
   margin-bottom: 2rem;
-  background: url('../../../assets/images/arena/fight.png') no-repeat center center;
+  background: url("../../../assets/images/arena/fight.png") no-repeat center
+    center;
   width: auto;
   height: 450px;
   margin-bottom: 5rem;
@@ -33,11 +34,11 @@
 }
 
 .pokemon.player {
-  transform: translateY(250px); 
+  transform: translateY(250px);
 }
 
 .pokemon.enemy {
-  transform: translateY(150px); 
+  transform: translateY(150px);
 }
 
 .name {
@@ -80,7 +81,7 @@
   text-shadow: 1px 1px 2px #000;
   box-shadow: 0 5px #b26900;
   transition: all 0.2s ease-in-out;
-     position: relative;
+  position: relative;
   z-index: 1000;
 }
 
@@ -108,7 +109,7 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 5px #208225, 0 10px 10px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
-   position: relative;
+  position: relative;
   z-index: 1000;
 }
 
@@ -161,27 +162,49 @@
 .pokemon.enemy.shake {
   animation: shake-enemy 0.3s;
   pointer-events: none;
-
 }
 
 @keyframes shake-player {
-  0% { transform: translateY(250px) translateX(0); }
-  20% { transform: translateY(250px) translateX(-3px); }
-  40% { transform: translateY(250px) translateX(3px); }
-  60% { transform: translateY(250px) translateX(-3px); }
-  80% { transform: translateY(250px) translateX(3px); }
-  100% { transform: translateY(250px) translateX(0); }
+  0% {
+    transform: translateY(250px) translateX(0);
+  }
+  20% {
+    transform: translateY(250px) translateX(-3px);
+  }
+  40% {
+    transform: translateY(250px) translateX(3px);
+  }
+  60% {
+    transform: translateY(250px) translateX(-3px);
+  }
+  80% {
+    transform: translateY(250px) translateX(3px);
+  }
+  100% {
+    transform: translateY(250px) translateX(0);
+  }
 }
 
 @keyframes shake-enemy {
-  0% { transform: translateY(150px) translateX(0); }
-  20% { transform: translateY(150px) translateX(-3px); }
-  40% { transform: translateY(150px) translateX(3px); }
-  60% { transform: translateY(150px) translateX(-3px); }
-  80% { transform: translateY(150px) translateX(3px); }
-  100% { transform: translateY(150px) translateX(0); }
+  0% {
+    transform: translateY(150px) translateX(0);
+  }
+  20% {
+    transform: translateY(150px) translateX(-3px);
+  }
+  40% {
+    transform: translateY(150px) translateX(3px);
+  }
+  60% {
+    transform: translateY(150px) translateX(-3px);
+  }
+  80% {
+    transform: translateY(150px) translateX(3px);
+  }
+  100% {
+    transform: translateY(150px) translateX(0);
+  }
 }
-
 
 .retry-btn {
   padding: 6px 10px;
@@ -206,16 +229,16 @@
 }
 
 .starters {
-  display: flex;          
-  justify-content: center; 
-  gap: 2rem;              
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
 }
 
 .starter {
-  cursor: pointer;       
+  cursor: pointer;
   transition: transform 0.2s;
 }
 
 .starter:hover {
-  transform: scale(1.1);   
+  transform: scale(1.1);
 }
