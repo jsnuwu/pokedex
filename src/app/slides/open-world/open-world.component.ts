@@ -186,7 +186,7 @@ export class OpenWorldComponent {
       width: 50,
       height: 50,
       triggered: false,
-      windowText: 'Hello child, here are 10 coins for you 💰',
+      windowText: 'Hello child, here are 10 coins for you, buy a fishing pole and get me some fishes🐟',
       buttonLabel: 'Thanks',
       giveCoins: 10,
     },
@@ -273,13 +273,17 @@ handleYes() {
   if (this.currentZone?.isShop) {
     this.showShop = true;
   } else if (this.currentZone?.isFishingZone) {
-    if (this.inventory['Fishing Pole'] > 0) {
-    this.inventory['Fish'] = (this.inventory['Fish'] || 0) + 1;
+  if (this.inventory['Fishing Pole'] > 0) {
+    if (Math.random() < 0.4) {
+      this.inventory['Fish'] = (this.inventory['Fish'] || 0) + 1;
       alert('You caught a fish! 🐟');
     } else {
-      alert('You need a Fishing Pole to fish here!');
+      alert('Unfortunately, you didn\'t catch a fish. Try again!');
     }
-  } else if (this.currentZone?.targetRoute) {
+  } else {
+    alert('You need a Fishing Pole to fish here!');
+  }
+} else if (this.currentZone?.targetRoute) {
     this.showPopup = true;
     switch (this.currentZone.targetRoute) {
       case '/pokedex':
