@@ -120,6 +120,42 @@ export class ArenaComponent {
       ],
     },
   ];
+  
+  enemies: Pokemon[] = [
+    {
+      name: 'Pikachu',
+      hp: 100,
+      maxHp: 100,
+      img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
+      attacks: [
+        { name: 'Quick Attack', damageMin: 4, damageMax: 10, type: 'damage', cooldown: 0, currentCooldown: 0 },
+        { name: 'Thunder Shock', damageMin: 6, damageMax: 15, type: 'damage', cooldown: 2, currentCooldown: 0 },
+        { name: 'Heal', damageMin: -8, damageMax: -5, type: 'heal', cooldown: 3, currentCooldown: 0 },
+      ],
+    },
+    {
+      name: 'Eevee',
+      hp: 100,
+      maxHp: 100,
+      img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png',
+      attacks: [
+        { name: 'Tackle', damageMin: 5, damageMax: 12, type: 'damage', cooldown: 0, currentCooldown: 0 },
+        { name: 'Quick Attack', damageMin: 6, damageMax: 14, type: 'damage', cooldown: 1, currentCooldown: 0 },
+        { name: 'Growl (heal)', damageMin: -6, damageMax: -4, type: 'heal', cooldown: 3, currentCooldown: 0 },
+      ],
+    },
+    {
+      name: 'Meowth',
+      hp: 100,
+      maxHp: 100,
+      img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png',
+      attacks: [
+        { name: 'Scratch', damageMin: 4, damageMax: 9, type: 'damage', cooldown: 0, currentCooldown: 0 },
+        { name: 'Bite', damageMin: 7, damageMax: 16, type: 'damage', cooldown: 2, currentCooldown: 0 },
+        { name: 'Rest', damageMin: -10, damageMax: -7, type: 'heal', cooldown: 3, currentCooldown: 0 },
+      ],
+    },
+  ];
 
   player!: Pokemon;
   enemy!: Pokemon;
@@ -136,41 +172,13 @@ export class ArenaComponent {
       attacks: starter.attacks.map((a) => ({ ...a, currentCooldown: 0 })),
     };
     this.playerSelected = true;
-    this.log.push(
-      `${starter.name} IS THE CHOSEN ONE! Enemy: It was said that you would *destroy* the Sith, not join them! Bring balance to the Force, not leave it in darkness! ${starter.name}: I HATE YOU!`
-    );
+    this.log.push(`${starter.name} IS THE CHOSEN ONE!`);
+
+    const randomEnemy = this.enemies[Math.floor(Math.random() * this.enemies.length)];
 
     this.enemy = {
-      name: 'Random Enemy',
-      hp: 100,
-      maxHp: 100,
-      img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
-      attacks: [
-        {
-          name: 'Quick Attack',
-          damageMin: 4,
-          damageMax: 10,
-          type: 'damage',
-          cooldown: 0,
-          currentCooldown: 0,
-        },
-        {
-          name: 'Thunder Shock',
-          damageMin: 6,
-          damageMax: 15,
-          type: 'damage',
-          cooldown: 2,
-          currentCooldown: 0,
-        },
-        {
-          name: 'Heal',
-          damageMin: -8,
-          damageMax: -5,
-          type: 'heal',
-          cooldown: 3,
-          currentCooldown: 0,
-        },
-      ],
+      ...randomEnemy,
+      attacks: randomEnemy.attacks.map((a) => ({ ...a, currentCooldown: 0 })),
     };
   }
 
