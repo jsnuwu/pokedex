@@ -1,44 +1,88 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackButtonComponent } from '../mainPage/back-button/back-button.component';
-import { RouterModule, Router } from '@angular/router'; 
+import { RouterModule } from '@angular/router';
+import { PokedexComponent } from '../mainPage/pokedex/pokedex.component';
+import { ArenaComponent } from '../arena/arena.component';
 
 @Component({
   selector: 'app-open-world',
   standalone: true,
   imports: [CommonModule, BackButtonComponent, RouterModule],
   template: `
-  <div class="map">
-    <app-back-button></app-back-button>
+    <div class="map">
+      <app-back-button></app-back-button>
 
-    <div class="player"
-         [ngClass]="direction"
-         [style.top.px]="playerY"
-         [style.left.px]="playerX">
-    </div>
+      <div class="coin-display">💰 {{ coins }} Coins</div>
 
-    <div *ngFor="let zone of triggerZones"
-         class="trigger-zone"
-         [style.top.px]="zone.y"
-         [style.left.px]="zone.x"
-         [style.width.px]="zone.width"
-         [style.height.px]="zone.height">
-    </div>
+      <div
+        class="player"
+        [ngClass]="direction"
+        [style.top.px]="playerY"
+        [style.left.px]="playerX"
+      ></div>
 
-    <div class="center-window" *ngIf="showWindow">
-      <div class="window-content">
-        <p>{{ windowText }}</p>
-        <button>
-          <a (click)="goToRoute(windowRoute)">{{ buttonLabel }}</a>
-        </button>
-        <button>
-          <a (click)="closeWindow()">No</a>
-        </button>
+      <img
+        src="../../../assets/ow/map/grandma.png"
+        class="npc"
+        [style.top.px]="290"
+        [style.left.px]="1195"
+      />
+
+      <div
+        *ngFor="let zone of triggerZones"
+        class="trigger-zone"
+        [style.top.px]="zone.y"
+        [style.left.px]="zone.x"
+        [style.width.px]="zone.width"
+        [style.height.px]="zone.height"
+      ></div>
+
+      <div class="center-window" *ngIf="showWindow && !showPopup && !showShop">
+        <div class="window-content">
+          <p>{{ windowText }}</p>
+          <button *ngIf="buttonLabel" (click)="handleYes()">
+            {{ buttonLabel }}
+          </button>
+          <button (click)="closeWindow()">No</button>
+        </div>
+      </div>
+
+      <div class="center-window" *ngIf="showPopup">
+        <div class="popup-content">
+          <button class="close-btn" (click)="closePopup()">❌</button>
+          <ng-container
+            *ngComponentOutlet="currentPopupComponent"
+          ></ng-container>
+        </div>
+      </div>
+
+      <div class="inventory-display">
+        <h3>Inventar</h3>
+        <div *ngIf="inventoryKeys().length === 0">Leer</div>
+        <div *ngFor="let key of inventoryKeys()" class="inventory-item">
+          {{ key }}: {{ inventory[key] }}
+        </div>
+      </div>
+
+      <div class="center-window" *ngIf="showShop">
+        <div class="popup-content">
+          <h2>Shop</h2>
+          <div class="shop-items">
+            <div *ngFor="let item of shopItems" class="shop-item">
+              <p class="item-name">{{ item.name }}</p>
+              <img [src]="item.img" alt="{{ item.name }}" class="item-img" />
+              <p class="item-price">{{ item.price }} Coins</p>
+              <button (click)="buyItem(item)">Kaufen</button>
+            </div>
+          </div>
+
+          <button class="back-btn" (click)="closeShop()">⬅️ Zurück</button>
+        </div>
       </div>
     </div>
-  </div>
   `,
-  styleUrls: ['./open-world.component.css']
+  styleUrls: ['./open-world.component.css'],
 })
 export class OpenWorldComponent {
   playerX = 1090;
@@ -46,40 +90,103 @@ export class OpenWorldComponent {
   step = 15;
   direction: 'up' | 'down' | 'left' | 'right' = 'down';
 
-  showWindow = false;
-  windowText = '';
-  windowRoute = '';
-  buttonLabel = '';
-
-  triggerZones = [
-    { x: 400, y: 240, width: 250, height: 130, triggered: false, 
-      windowText: 'Do you want to open the Pokédex?', 
-      buttonLabel: 'Yes', 
-      targetRoute: '/pokedex' 
+  coins = 0;
+  inventory: { [item: string]: number } = {};
+  shopItems = [
+    {
+      name: 'Pokéball',
+      price: 5,
+      img: '../../../assets/ow/items/pokeball.png',
     },
-    { x: 1060, y: -40, width: 100, height: 45, triggered: false, 
-      windowText: 'Do you want to go back to menu?', 
-      buttonLabel: 'Yes', 
-      targetRoute: '/' 
+    { name: 'Potion', price: 10, img: '../../../assets/ow/items/potion.png' },
+    {
+      name: 'Super Potion',
+      price: 20,
+      img: '../../../assets/ow/items/superpotion.png',
     },
-    { x: 800, y: 10, width: 100, height: 100, triggered: false, 
-      windowText: 'Do you want to fight?', 
-      buttonLabel: 'Yes', 
-      targetRoute: '/arena' 
-    },
-    { x: 1755, y: 0, width: 290, height: 290, triggered: false, 
-      windowText: 'Do you want to fight?', 
-      buttonLabel: 'Yes', 
-      targetRoute: '/arena' 
-    },
-    { x: 0, y: 957, width: 2040, height: 100, triggered: false, 
-      windowText: 'Do you want to fight?', 
-      buttonLabel: 'Yes', 
-      targetRoute: '/arena' 
-    }
   ];
 
-  constructor(private router: Router) {}
+  showShop = false;
+  showWindow = false;
+  showPopup = false;
+  windowText = '';
+  buttonLabel = '';
+  currentZone: any = null;
+  currentPopupComponent: any = null;
+
+  triggerZones = [
+    {
+      x: 400,
+      y: 240,
+      width: 250,
+      height: 130,
+      triggered: false,
+      windowText: 'Do you want to open the Pokédex?',
+      buttonLabel: 'Yes',
+      targetRoute: '/pokedex',
+    },
+    {
+      x: 1060,
+      y: -40,
+      width: 100,
+      height: 45,
+      triggered: false,
+      windowText: 'Do you want to go back to menu?',
+      buttonLabel: 'Yes',
+      targetRoute: '/',
+    },
+    {
+      x: 800,
+      y: 10,
+      width: 100,
+      height: 100,
+      triggered: false,
+      windowText: 'Do you want to fight?',
+      buttonLabel: 'Yes',
+      targetRoute: '/arena',
+    },
+    {
+      x: 1755,
+      y: 0,
+      width: 290,
+      height: 290,
+      triggered: false,
+      windowText: 'Do you want to fight?',
+      buttonLabel: 'Yes',
+      targetRoute: '/arena',
+    },
+    {
+      x: 0,
+      y: 957,
+      width: 2040,
+      height: 100,
+      triggered: false,
+      windowText: 'Do you want to fight?',
+      buttonLabel: 'Yes',
+      targetRoute: '/arena',
+    },
+
+    {
+      x: 1193,
+      y: 300,
+      width: 50,
+      height: 50,
+      triggered: false,
+      windowText: 'Hello child, here are 10 coins for you 💰',
+      buttonLabel: 'Thanks',
+      giveCoins: 10,
+    },
+    {
+      x: 1000,
+      y: 200,
+      width: 100,
+      height: 100,
+      triggered: false,
+      windowText: 'Willst du den Shop betreten?',
+      buttonLabel: 'Ja',
+      isShop: true,
+    },
+  ];
 
   @HostListener('window:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent) {
@@ -101,7 +208,6 @@ export class OpenWorldComponent {
         this.direction = 'right';
         break;
     }
-
     this.checkTrigger();
   }
 
@@ -126,15 +232,59 @@ export class OpenWorldComponent {
     this.showWindow = true;
     this.windowText = zone.windowText;
     this.buttonLabel = zone.buttonLabel;
-    this.windowRoute = zone.targetRoute;
+    this.currentZone = zone;
   }
 
   closeWindow() {
     this.showWindow = false;
+    this.currentZone = null;
   }
 
-  goToRoute(route: string) {
-    this.router.navigate([route]);
+  handleYes() {
+    if (this.currentZone?.giveCoins) {
+      this.coins += this.currentZone.giveCoins;
+      this.currentZone.giveCoins = 0;
+      this.currentZone.windowText = 'You already got your Coins';
+      this.currentZone.buttonLabel = '';
+    }
+
+    if (this.currentZone?.isShop) {
+      this.showShop = true;
+    } else if (this.currentZone?.targetRoute) {
+      this.showPopup = true;
+      switch (this.currentZone.targetRoute) {
+        case '/pokedex':
+          this.currentPopupComponent = PokedexComponent;
+          break;
+        case '/arena':
+          this.currentPopupComponent = ArenaComponent;
+          break;
+        default:
+          this.currentPopupComponent = null;
+      }
+    }
+
     this.closeWindow();
+  }
+
+  closePopup() {
+    this.showPopup = false;
+    this.currentPopupComponent = null;
+  }
+  closeShop() {
+    this.showShop = false;
+  }
+
+  buyItem(item: any) {
+    if (this.coins >= item.price) {
+      this.coins -= item.price;
+      this.inventory[item.name] = (this.inventory[item.name] || 0) + 1;
+    } else {
+      alert('Nicht genug Coins!');
+    }
+  }
+
+  inventoryKeys() {
+    return Object.keys(this.inventory);
   }
 }
