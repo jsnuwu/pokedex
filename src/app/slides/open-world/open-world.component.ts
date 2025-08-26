@@ -29,19 +29,19 @@ import { ArenaComponent } from '../arena/arena.component';
         [style.left.px]="1195"
       />
       <img
-        src="../../../assets/ow/map/angler.png" 
+        src="../../../assets/ow/map/angler.png"
         class="anglerNpc"
         [style.top.px]="810"
         [style.left.px]="1480"
       />
       <img
-        src="../../../assets/ow/map/womenNpc.gif" 
+        src="../../../assets/ow/map/womenNpc.gif"
         class="womenNpc"
         [style.top.px]="620"
         [style.left.px]="280"
       />
       <img
-        src="../../../assets/ow/map/oldmanNpc.gif" 
+        src="../../../assets/ow/map/oldmanNpc.gif"
         class="oldmanNpc"
         [style.top.px]="280"
         [style.left.px]="1620"
@@ -67,7 +67,7 @@ import { ArenaComponent } from '../arena/arena.component';
       <img src="../../../assets/ow/map/shopThisWay.png" class="thisway-sign" />
 
       <div class="inventory-display">
-        <h3>Inventar</h3>
+        <h3>Inventory</h3>
         <div *ngFor="let key of inventoryKeys()" class="inventory-item">
           <p>{{ key }}: {{ inventory[key] }}</p>
         </div>
@@ -123,18 +123,17 @@ export class OpenWorldComponent {
       price: 5,
       img: '../../../assets/ow/items/pokeball.png',
     },
-      {
-    name: 'Fishing Pole',
-    price: 10,
-    img: '../../../assets/ow/items/fishingrod.png', 
-  },
+    {
+      name: 'Fishing Pole',
+      price: 10,
+      img: '../../../assets/ow/items/fishingrod.png',
+    },
     { name: 'Potion', price: 10, img: '../../../assets/ow/items/potion.png' },
     {
       name: 'Super Potion',
       price: 20,
       img: '../../../assets/ow/items/superpotion.png',
     },
-
   ];
 
   showShop = false;
@@ -203,7 +202,8 @@ export class OpenWorldComponent {
       width: 50,
       height: 50,
       triggered: false,
-      windowText: 'Hello child, here are 10 coins for you, buy a fishing pole and get me some fishes🐟',
+      windowText:
+        'Hello child, here are 10 coins for you, buy a fishing pole and get me some fishes🐟',
       buttonLabel: 'Thanks',
       giveCoins: 10,
     },
@@ -217,7 +217,8 @@ export class OpenWorldComponent {
       windowText: 'Do you want to enter the shop?',
       buttonLabel: 'Yes',
       isShop: true,
-    },{
+    },
+    {
       x: 1480,
       y: 435,
       width: 320,
@@ -251,8 +252,8 @@ export class OpenWorldComponent {
       width: 50,
       height: 60,
       triggered: false,
-      windowText: 'Ich weiß nicht was ich später können soll',
-    }
+      windowText: 'Idk yet',
+    },
   ];
 
   @HostListener('window:keydown', ['$event'])
@@ -307,59 +308,56 @@ export class OpenWorldComponent {
     this.currentZone = null;
   }
 
-handleYes() {
-  if (this.currentZone?.giveCoins) {
-    this.coins += this.currentZone.giveCoins;
-    this.currentZone.giveCoins = 0;
-    this.currentZone.windowText = 'You already got your Coins';
-    this.currentZone.buttonLabel = '';
-  }
+  handleYes() {
+    if (this.currentZone?.giveCoins) {
+      this.coins += this.currentZone.giveCoins;
+      this.currentZone.giveCoins = 0;
+      this.currentZone.windowText = 'You already got your Coins';
+      this.currentZone.buttonLabel = '';
+    }
 
-  if (this.currentZone?.isShop) {
-    this.showShop = true;
-  } else if (this.currentZone?.isFishingZone) {
-    if (this.inventory['Fishing Pole'] > 0) {
-      if (Math.random() < 0.4) {
-        this.inventory['Fish'] = (this.inventory['Fish'] || 0) + 1;
-        alert('You caught a fish! 🐟');
+    if (this.currentZone?.isShop) {
+      this.showShop = true;
+    } else if (this.currentZone?.isFishingZone) {
+      if (this.inventory['Fishing Pole'] > 0) {
+        if (Math.random() < 0.4) {
+          this.inventory['Fish'] = (this.inventory['Fish'] || 0) + 1;
+          alert('You caught a fish! 🐟');
+        } else {
+          alert("Unfortunately, you didn't catch a fish. Try again!");
+        }
       } else {
-        alert('Unfortunately, you didn\'t catch a fish. Try again!');
+        alert('You need a Fishing Pole to fish here!');
       }
-    } else {
-      alert('You need a Fishing Pole to fish here!');
+    } else if (this.currentZone?.isAnglerZone) {
+      const fishCount = this.inventory['Fish'] || 0;
+      if (fishCount > 0) {
+        const earnedCoins = fishCount * 5;
+        this.coins += earnedCoins;
+        this.inventory['Fish'] = 0;
+        alert(`You sold ${fishCount} fish for ${earnedCoins} Coins!`);
+      } else {
+        alert('You have no fish to sell!');
+      }
+    } else if (this.currentZone?.targetRoute) {
+      this.showPopup = true;
+      switch (this.currentZone.targetRoute) {
+        case '/pokedex':
+          this.currentPopupComponent = PokedexComponent;
+          break;
+        case '/arena':
+          this.currentPopupComponent = ArenaComponent;
+          break;
+        case '/backbutton':
+          this.currentPopupComponent = BackButtonComponent;
+          break;
+        default:
+          this.currentPopupComponent = null;
+      }
     }
-  } else if (this.currentZone?.isAnglerZone) {
-    const fishCount = this.inventory['Fish'] || 0;
-    if (fishCount > 0) {
-      const earnedCoins = fishCount * 5;
-      this.coins += earnedCoins;
-      this.inventory['Fish'] = 0;
-      alert(`You sold ${fishCount} fish for ${earnedCoins} Coins!`);
-    } else {
-      alert('You have no fish to sell!');
-    }
-  } else if (this.currentZone?.targetRoute) {
-    this.showPopup = true;
-    switch (this.currentZone.targetRoute) {
-      case '/pokedex':
-        this.currentPopupComponent = PokedexComponent;
-        break;
-      case '/arena':
-        this.currentPopupComponent = ArenaComponent;
-        break;
-      case '/backbutton':
-        this.currentPopupComponent = BackButtonComponent;
-        break;
-      default:
-        this.currentPopupComponent = null;
-    }
+
+    this.closeWindow();
   }
-
-  this.closeWindow();
-}
-
-
-
 
   closePopup() {
     this.showPopup = false;
@@ -374,14 +372,7 @@ handleYes() {
       this.coins -= item.price;
       this.inventory[item.name] = (this.inventory[item.name] || 0) + 1;
     } else {
-      alert('Nicht genug Coins!');
-    }
-  }
-
-  useItem(itemName: string) {
-    if (this.inventory[itemName] > 0) {
-      this.inventory[itemName]--;
-      alert(`Du hast ${itemName} benutzt!`);
+      alert('Not enough coins!');
     }
   }
 
