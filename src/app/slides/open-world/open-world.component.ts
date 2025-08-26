@@ -47,12 +47,12 @@ import { ArenaComponent } from '../arena/arena.component';
           <button (click)="closeWindow()">No</button>
         </div>
       </div>
-<div class ="inventory-display">
-          <h3>Inventar</h3>
-          <div *ngFor="let key of inventoryKeys()" class="inventory-item">
-            <p>{{ key }}: {{ inventory[key] }}</p>
-          </div>
-</div>
+      <div class="inventory-display">
+        <h3>Inventar</h3>
+        <div *ngFor="let key of inventoryKeys()" class="inventory-item">
+          <p>{{ key }}: {{ inventory[key] }}</p>
+        </div>
+      </div>
       <div class="center-window" *ngIf="showPopup">
         <div class="popup-content">
           <button class="close-btn" (click)="closePopup()">❌</button>
@@ -72,8 +72,6 @@ import { ArenaComponent } from '../arena/arena.component';
               <button (click)="buyItem(item)">Buy</button>
             </div>
           </div>
-
-
 
           <button class="back-btn" (click)="closeShop()">⬅️ Zurück</button>
         </div>
@@ -180,8 +178,8 @@ export class OpenWorldComponent {
       width: 100,
       height: 100,
       triggered: false,
-      windowText: 'Willst du den Shop betreten?',
-      buttonLabel: 'Ja',
+      windowText: 'Do you want to enter the shop?',
+      buttonLabel: 'Yes',
       isShop: true,
     },
   ];
@@ -217,12 +215,12 @@ export class OpenWorldComponent {
         this.playerY + 62 > zone.y &&
         this.playerY < zone.y + zone.height;
 
-    if (inZone && !zone.triggered) {
-      zone.triggered = true;
-      this.openWindow(zone);
-    } else if (!inZone && zone.triggered) {
-      zone.triggered = false;
-    }
+      if (inZone && !zone.triggered) {
+        zone.triggered = true;
+        this.openWindow(zone);
+      } else if (!inZone && zone.triggered) {
+        zone.triggered = false;
+      }
     }
   }
 
@@ -246,9 +244,9 @@ export class OpenWorldComponent {
       this.currentZone.buttonLabel = '';
     }
 
- if (this.currentZone?.isShop) {
-    this.showShop = true; 
-  } else if (this.currentZone?.targetRoute) {
+    if (this.currentZone?.isShop) {
+      this.showShop = true;
+    } else if (this.currentZone?.targetRoute) {
       this.showPopup = true;
       switch (this.currentZone.targetRoute) {
         case '/pokedex':
