@@ -29,6 +29,23 @@
   background-image: url('/assets/ow/player/playerRight.png');
 }
 
+.popup-pokedex-img {
+  position: absolute;
+  top: 20px;
+  left: 100px;
+  width: 200px; 
+  height: auto;
+  z-index: 50;
+  rotate: -10deg;
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-10px) rotate(-10deg); }
+  100% { transform: translateY(0) rotate(-5deg); }
+}
+
 .center-window {
   position: fixed;
   top: 0;

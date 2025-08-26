@@ -53,14 +53,19 @@ import { ArenaComponent } from '../arena/arena.component';
           <p>{{ key }}: {{ inventory[key] }}</p>
         </div>
       </div>
-      <div class="center-window" *ngIf="showPopup">
-        <div class="popup-content">
-          <button class="close-btn" (click)="closePopup()">❌</button>
-          <ng-container
-            *ngComponentOutlet="currentPopupComponent"
-          ></ng-container>
-        </div>
-      </div>
+<div class="center-window" *ngIf="showPopup">
+      <ng-container *ngIf="currentPopupComponent === PokedexComponent">
+      <img src="../../../assets/ow/map/pokedex.png" class="popup-pokedex-img" />
+    </ng-container>
+  <div class="popup-content">
+    <button class="close-btn" (click)="closePopup()">❌</button>
+
+
+
+    <ng-container *ngComponentOutlet="currentPopupComponent"></ng-container>
+  </div>
+</div>
+
 
       <div class="center-window" *ngIf="showShop">
         <div class="popup-content shop">
@@ -81,6 +86,8 @@ import { ArenaComponent } from '../arena/arena.component';
   styleUrls: ['./open-world.component.css'],
 })
 export class OpenWorldComponent {
+    PokedexComponent = PokedexComponent;
+  ArenaComponent = ArenaComponent;
   playerX = 1090;
   playerY = 10;
   step = 15;
