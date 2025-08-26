@@ -22,7 +22,6 @@ import { ArenaComponent } from '../arena/arena.component';
         [style.left.px]="playerX"
       ></div>
 
-        /* src="../../../assets/ow/map/betterAngler.png" */ 
       <img
         src="../../../assets/ow/map/grandma.png"
         class="gradnmaNpc"
@@ -34,6 +33,18 @@ import { ArenaComponent } from '../arena/arena.component';
         class="anglerNpc"
         [style.top.px]="810"
         [style.left.px]="1480"
+      />
+      <img
+        src="../../../assets/ow/map/womenNpc.gif" 
+        class="womenNpc"
+        [style.top.px]="620"
+        [style.left.px]="280"
+      />
+      <img
+        src="../../../assets/ow/map/oldmanNpc.gif" 
+        class="oldmanNpc"
+        [style.top.px]="280"
+        [style.left.px]="1620"
       />
       <div
         *ngFor="let zone of triggerZones"
@@ -50,7 +61,7 @@ import { ArenaComponent } from '../arena/arena.component';
           <button *ngIf="buttonLabel" (click)="handleYes()">
             {{ buttonLabel }}
           </button>
-          <button (click)="closeWindow()">No</button>
+          <button (click)="closeWindow()">Back</button>
         </div>
       </div>
       <img src="../../../assets/ow/map/shopThisWay.png" class="thisway-sign" />
@@ -225,6 +236,22 @@ export class OpenWorldComponent {
       windowText: 'Do you sell me some fishes?',
       buttonLabel: 'Yes',
       isAnglerZone: true,
+    },
+    {
+      x: 1655,
+      y: 320,
+      width: 50,
+      height: 60,
+      triggered: false,
+      windowText: 'Fabi',
+    },
+    {
+      x: 300,
+      y: 650,
+      width: 50,
+      height: 60,
+      triggered: false,
+      windowText: 'Ich weiß nicht was ich später können soll',
     }
   ];
 
