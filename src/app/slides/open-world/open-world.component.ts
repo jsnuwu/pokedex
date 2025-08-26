@@ -163,8 +163,8 @@ export class OpenWorldComponent {
       height: 45,
       triggered: false,
       windowText: 'Do you want to go back to menu?',
-      buttonLabel: 'Yes',
-      targetRoute: '/',
+      buttonLabel: 'yes',
+      targetRoute: '/backbutton',
     },
     {
       x: 800,
@@ -346,6 +346,9 @@ handleYes() {
         break;
       case '/arena':
         this.currentPopupComponent = ArenaComponent;
+        break;
+      case '/backbutton':
+        this.currentPopupComponent = BackButtonComponent;
         break;
       default:
         this.currentPopupComponent = null;
