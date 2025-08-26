@@ -223,6 +223,7 @@ export class OpenWorldComponent {
       triggered: false,
       windowText: 'Do you sell me some fishes?',
       buttonLabel: 'Yes',
+      isAnglerZone: true,
     }
   ];
 
@@ -289,17 +290,27 @@ handleYes() {
   if (this.currentZone?.isShop) {
     this.showShop = true;
   } else if (this.currentZone?.isFishingZone) {
-  if (this.inventory['Fishing Pole'] > 0) {
-    if (Math.random() < 0.4) {
-      this.inventory['Fish'] = (this.inventory['Fish'] || 0) + 1;
-      alert('You caught a fish! 🐟');
+    if (this.inventory['Fishing Pole'] > 0) {
+      if (Math.random() < 0.4) {
+        this.inventory['Fish'] = (this.inventory['Fish'] || 0) + 1;
+        alert('You caught a fish! 🐟');
+      } else {
+        alert('Unfortunately, you didn\'t catch a fish. Try again!');
+      }
     } else {
-      alert('Unfortunately, you didn\'t catch a fish. Try again!');
+      alert('You need a Fishing Pole to fish here!');
     }
-  } else {
-    alert('You need a Fishing Pole to fish here!');
-  }
-} else if (this.currentZone?.targetRoute) {
+  } else if (this.currentZone?.isAnglerZone) {
+    const fishCount = this.inventory['Fish'] || 0;
+    if (fishCount > 0) {
+      const earnedCoins = fishCount * 5;
+      this.coins += earnedCoins;
+      this.inventory['Fish'] = 0;
+      alert(`You sold ${fishCount} fish for ${earnedCoins} Coins!`);
+    } else {
+      alert('You have no fish to sell!');
+    }
+  } else if (this.currentZone?.targetRoute) {
     this.showPopup = true;
     switch (this.currentZone.targetRoute) {
       case '/pokedex':
@@ -315,6 +326,7 @@ handleYes() {
 
   this.closeWindow();
 }
+
 
 
 
