@@ -1,7 +1,7 @@
 .map {
   width: 2100px;
   height: 1060px;
-  background: url("/assets/ow/map/map1.png") no-repeat center center;
+  background: url('/assets/ow/map/map1.png') no-repeat center center;
   background-size: cover;
   position: relative;
   border: 2px solid #333;
@@ -17,16 +17,16 @@
 }
 
 .player.up {
-  background-image: url("/assets/ow/player/playerUp.png");
+  background-image: url('/assets/ow/player/playerUp.png');
 }
 .player.down {
-  background-image: url("/assets/ow/player/playerDown.png");
+  background-image: url('/assets/ow/player/playerDown.png');
 }
 .player.left {
-  background-image: url("/assets/ow/player/playerLeft.png");
+  background-image: url('/assets/ow/player/playerLeft.png');
 }
 .player.right {
-  background-image: url("/assets/ow/player/playerRight.png");
+  background-image: url('/assets/ow/player/playerRight.png');
 }
 
 .center-window {
@@ -35,7 +35,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0,0,0,0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,13 +53,13 @@
 
 .trigger-zone {
   position: absolute;
-  border: 2px dashed rgb(255, 0, 0);
-  z-index: 500;
+  border: 2px dashed rgb(255, 0, 0);  
+  z-index: 500; 
 }
 
 .npc {
   position: absolute;
-  width: 50px;
+  width: 50px;    
   height: auto;
   z-index: 1;
 }
@@ -78,30 +78,30 @@
 .popup-content {
   background: white;
   padding: 20px;
-  border-radius: 10px;
-  max-width: 400px;
-  text-align: center;
-}
-.shop-btn {
-  position: fixed;
-  top: 10px;
-  right: 400px;
-  z-index: 2000;
-  padding: 10px 20px;
-  font-size: 18px;
+  border-radius: 12px;
+  width: 80%;
+  height: 80%;
+  overflow: auto;
+  position: relative;
 }
 
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+.popup-content.shop {
+  position: relative;
+  background: white;
+  padding: 5px 10px;
+  width: 500px;
+  height: 350px;
+  border-radius: 12px;
+  overflow-y: auto;
+  text-align: center;
 }
 
 .shop-items {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
   justify-content: center;
+  gap: 15px;
+  margin-bottom: 15px;
 }
 
 .shop-item {
@@ -129,33 +129,60 @@
 }
 
 .shop-item .item-price {
-  margin-bottom: 5px;
   font-size: 0.9em;
   color: #333;
   text-align: center;
+  margin-bottom: 5px;
+}
+
+.back-btn {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+  background-color: #e74c3c;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  background-color: #c0392b;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+}
+
+.shop-btn {
+  position: fixed;
+  top: 10px;
+  right: 400px;
+  z-index: 2000;
+  padding: 10px 20px;
+  font-size: 18px;
 }
 
 .inventory-display {
   position: fixed;
-  top: 70px;
-  right: 20px;
+  top: 50px;
+  right: 10px;
   width: 150px;
+  max-height: 80vh;
+  overflow-y: auto;
   background: rgba(255, 255, 255, 0.9);
   padding: 10px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  z-index: 2000;
+  text-align: left;
   font-size: 14px;
-}
-
-.inventory-display h3 {
-  margin-top: 0;
-  text-align: center;
+  z-index: 2000;
 }
 
 .inventory-item {
   margin-bottom: 5px;
 }
-
-
 

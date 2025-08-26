@@ -47,7 +47,12 @@ import { ArenaComponent } from '../arena/arena.component';
           <button (click)="closeWindow()">No</button>
         </div>
       </div>
-
+<div class ="inventory-display">
+          <h3>Inventar</h3>
+          <div *ngFor="let key of inventoryKeys()" class="inventory-item">
+            <p>{{ key }}: {{ inventory[key] }}</p>
+          </div>
+</div>
       <div class="center-window" *ngIf="showPopup">
         <div class="popup-content">
           <button class="close-btn" (click)="closePopup()">❌</button>
@@ -57,25 +62,18 @@ import { ArenaComponent } from '../arena/arena.component';
         </div>
       </div>
 
-      <div class="inventory-display">
-        <h3>Inventar</h3>
-        <div *ngIf="inventoryKeys().length === 0">Leer</div>
-        <div *ngFor="let key of inventoryKeys()" class="inventory-item">
-          {{ key }}: {{ inventory[key] }}
-        </div>
-      </div>
-
       <div class="center-window" *ngIf="showShop">
-        <div class="popup-content">
+        <div class="popup-content shop">
           <h2>Shop</h2>
           <div class="shop-items">
             <div *ngFor="let item of shopItems" class="shop-item">
-              <p class="item-name">{{ item.name }}</p>
               <img [src]="item.img" alt="{{ item.name }}" class="item-img" />
-              <p class="item-price">{{ item.price }} Coins</p>
-              <button (click)="buyItem(item)">Kaufen</button>
+              <p>{{ item.name }} - {{ item.price }} Coins</p>
+              <button (click)="buyItem(item)">Buy</button>
             </div>
           </div>
+
+
 
           <button class="back-btn" (click)="closeShop()">⬅️ Zurück</button>
         </div>
@@ -219,12 +217,12 @@ export class OpenWorldComponent {
         this.playerY + 62 > zone.y &&
         this.playerY < zone.y + zone.height;
 
-      if (inZone && !zone.triggered) {
-        zone.triggered = true;
-        this.openWindow(zone);
-      } else if (!inZone && zone.triggered) {
-        zone.triggered = false;
-      }
+    if (inZone && !zone.triggered) {
+      zone.triggered = true;
+      this.openWindow(zone);
+    } else if (!inZone && zone.triggered) {
+      zone.triggered = false;
+    }
     }
   }
 
@@ -248,9 +246,9 @@ export class OpenWorldComponent {
       this.currentZone.buttonLabel = '';
     }
 
-    if (this.currentZone?.isShop) {
-      this.showShop = true;
-    } else if (this.currentZone?.targetRoute) {
+ if (this.currentZone?.isShop) {
+    this.showShop = true; 
+  } else if (this.currentZone?.targetRoute) {
       this.showPopup = true;
       switch (this.currentZone.targetRoute) {
         case '/pokedex':
@@ -281,6 +279,13 @@ export class OpenWorldComponent {
       this.inventory[item.name] = (this.inventory[item.name] || 0) + 1;
     } else {
       alert('Nicht genug Coins!');
+    }
+  }
+
+  useItem(itemName: string) {
+    if (this.inventory[itemName] > 0) {
+      this.inventory[itemName]--;
+      alert(`Du hast ${itemName} benutzt!`);
     }
   }
 
