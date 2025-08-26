@@ -22,6 +22,7 @@ import { ArenaComponent } from '../arena/arena.component';
         [style.left.px]="playerX"
       ></div>
 
+        /* src="../../../assets/ow/map/betterAngler.png" */ 
       <img
         src="../../../assets/ow/map/grandma.png"
         class="gradnmaNpc"
@@ -29,7 +30,7 @@ import { ArenaComponent } from '../arena/arena.component';
         [style.left.px]="1195"
       />
       <img
-        src="../../../assets/ow/map/angler.png"
+        src="../../../assets/ow/map/angler.png" 
         class="anglerNpc"
         [style.top.px]="810"
         [style.left.px]="1480"
