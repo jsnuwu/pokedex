@@ -47,25 +47,29 @@ import { ArenaComponent } from '../arena/arena.component';
           <button (click)="closeWindow()">No</button>
         </div>
       </div>
+      <img src="../../../assets/ow/map/shopThisWay.png" class="thisway-sign" />
+
       <div class="inventory-display">
         <h3>Inventar</h3>
         <div *ngFor="let key of inventoryKeys()" class="inventory-item">
           <p>{{ key }}: {{ inventory[key] }}</p>
         </div>
       </div>
-<div class="center-window" *ngIf="showPopup">
-      <ng-container *ngIf="currentPopupComponent === PokedexComponent">
-      <img src="../../../assets/ow/map/pokedex.png" class="popup-pokedex-img" />
-    </ng-container>
-  <div class="popup-content">
-    <button class="close-btn" (click)="closePopup()">❌</button>
+      <div class="center-window" *ngIf="showPopup">
+        <ng-container *ngIf="currentPopupComponent === PokedexComponent">
+          <img
+            src="../../../assets/ow/map/pokedex.png"
+            class="popup-pokedex-img"
+          />
+        </ng-container>
+        <div class="popup-content">
+          <button class="close-btn" (click)="closePopup()">❌</button>
 
-
-
-    <ng-container *ngComponentOutlet="currentPopupComponent"></ng-container>
-  </div>
-</div>
-
+          <ng-container
+            *ngComponentOutlet="currentPopupComponent"
+          ></ng-container>
+        </div>
+      </div>
 
       <div class="center-window" *ngIf="showShop">
         <div class="popup-content shop">
@@ -86,7 +90,7 @@ import { ArenaComponent } from '../arena/arena.component';
   styleUrls: ['./open-world.component.css'],
 })
 export class OpenWorldComponent {
-    PokedexComponent = PokedexComponent;
+  PokedexComponent = PokedexComponent;
   ArenaComponent = ArenaComponent;
   playerX = 1090;
   playerY = 10;
@@ -94,6 +98,7 @@ export class OpenWorldComponent {
   direction: 'up' | 'down' | 'left' | 'right' = 'down';
 
   coins = 0;
+  fish = 0;
   inventory: { [item: string]: number } = {};
   shopItems = [
     {
@@ -101,12 +106,18 @@ export class OpenWorldComponent {
       price: 5,
       img: '../../../assets/ow/items/pokeball.png',
     },
+      {
+    name: 'Fishing Pole',
+    price: 10,
+    img: '../../../assets/ow/items/fishingrod.png', 
+  },
     { name: 'Potion', price: 10, img: '../../../assets/ow/items/potion.png' },
     {
       name: 'Super Potion',
       price: 20,
       img: '../../../assets/ow/items/superpotion.png',
     },
+
   ];
 
   showShop = false;
@@ -180,15 +191,23 @@ export class OpenWorldComponent {
       giveCoins: 10,
     },
     {
-      x: 1000,
-      y: 200,
+      x: 880,
+      y: 370,
       width: 100,
       height: 100,
       triggered: false,
       windowText: 'Do you want to enter the shop?',
       buttonLabel: 'Yes',
       isShop: true,
-    },
+    },{
+      x: 1480,
+      y: 435,
+      width: 320,
+      height: 300,
+      triggered: false,
+      windowText: 'fish?',
+      buttonLabel: 'Yes',
+      isFishingZone: true,}
   ];
 
   @HostListener('window:keydown', ['$event'])
@@ -243,32 +262,41 @@ export class OpenWorldComponent {
     this.currentZone = null;
   }
 
-  handleYes() {
-    if (this.currentZone?.giveCoins) {
-      this.coins += this.currentZone.giveCoins;
-      this.currentZone.giveCoins = 0;
-      this.currentZone.windowText = 'You already got your Coins';
-      this.currentZone.buttonLabel = '';
-    }
-
-    if (this.currentZone?.isShop) {
-      this.showShop = true;
-    } else if (this.currentZone?.targetRoute) {
-      this.showPopup = true;
-      switch (this.currentZone.targetRoute) {
-        case '/pokedex':
-          this.currentPopupComponent = PokedexComponent;
-          break;
-        case '/arena':
-          this.currentPopupComponent = ArenaComponent;
-          break;
-        default:
-          this.currentPopupComponent = null;
-      }
-    }
-
-    this.closeWindow();
+handleYes() {
+  if (this.currentZone?.giveCoins) {
+    this.coins += this.currentZone.giveCoins;
+    this.currentZone.giveCoins = 0;
+    this.currentZone.windowText = 'You already got your Coins';
+    this.currentZone.buttonLabel = '';
   }
+
+  if (this.currentZone?.isShop) {
+    this.showShop = true;
+  } else if (this.currentZone?.isFishingZone) {
+    if (this.inventory['Fishing Pole'] > 0) {
+    this.inventory['Fish'] = (this.inventory['Fish'] || 0) + 1;
+      alert('You caught a fish! 🐟');
+    } else {
+      alert('You need a Fishing Pole to fish here!');
+    }
+  } else if (this.currentZone?.targetRoute) {
+    this.showPopup = true;
+    switch (this.currentZone.targetRoute) {
+      case '/pokedex':
+        this.currentPopupComponent = PokedexComponent;
+        break;
+      case '/arena':
+        this.currentPopupComponent = ArenaComponent;
+        break;
+      default:
+        this.currentPopupComponent = null;
+    }
+  }
+
+  this.closeWindow();
+}
+
+
 
   closePopup() {
     this.showPopup = false;
