@@ -24,11 +24,16 @@ import { ArenaComponent } from '../arena/arena.component';
 
       <img
         src="../../../assets/ow/map/grandma.png"
-        class="npc"
+        class="gradnmaNpc"
         [style.top.px]="290"
         [style.left.px]="1195"
       />
-
+      <img
+        src="../../../assets/ow/map/angler.png"
+        class="anglerNpc"
+        [style.top.px]="810"
+        [style.left.px]="1480"
+      />
       <div
         *ngFor="let zone of triggerZones"
         class="trigger-zone"
@@ -190,6 +195,7 @@ export class OpenWorldComponent {
       buttonLabel: 'Thanks',
       giveCoins: 10,
     },
+
     {
       x: 880,
       y: 370,
@@ -207,7 +213,17 @@ export class OpenWorldComponent {
       triggered: false,
       windowText: 'fish?',
       buttonLabel: 'Yes',
-      isFishingZone: true,}
+      isFishingZone: true,
+    },
+    {
+      x: 1473,
+      y: 820,
+      width: 50,
+      height: 60,
+      triggered: false,
+      windowText: 'Do you sell me some fishes?',
+      buttonLabel: 'Yes',
+    }
   ];
 
   @HostListener('window:keydown', ['$event'])

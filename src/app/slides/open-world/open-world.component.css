@@ -80,9 +80,16 @@
   z-index: 500;
 }
 
-.npc {
+.gradnmaNpc {
   position: absolute;
   width: 50px;
+  height: auto;
+  z-index: 1;
+}
+
+.anglerNpc {
+  position: absolute;
+  width: 40px;
   height: auto;
   z-index: 1;
 }
