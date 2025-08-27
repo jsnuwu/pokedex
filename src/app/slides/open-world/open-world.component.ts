@@ -88,6 +88,19 @@ import { ArenaComponent } from '../arena/arena.component';
         </div>
       </div>
 
+      <div class="center-window" *ngIf="showRPSGame">
+        <div class="window-content">
+          <h3>Rock Paper Scissors</h3>
+          <p>Choose your move:</p>
+          <div class="rps-buttons">
+            <button *ngFor="let option of rpsOptions" (click)="playRPS(option)">
+              {{ option }}
+            </button>
+          </div>
+          <button (click)="closeRPS()">Back</button>
+        </div>
+      </div>
+
       <div class="center-window" *ngIf="showShop">
         <div class="popup-content shop">
           <h2>Shop</h2>
@@ -143,6 +156,8 @@ export class OpenWorldComponent {
   buttonLabel = '';
   currentZone: any = null;
   currentPopupComponent: any = null;
+  rpsOptions = ['Rock', 'Paper', 'Scissors'];
+  showRPSGame = false;
 
   triggerZones = [
     {
@@ -244,7 +259,7 @@ export class OpenWorldComponent {
       width: 50,
       height: 60,
       triggered: false,
-      windowText: 'Fabi',
+      windowText: 'idk yet',
     },
     {
       x: 300,
@@ -252,7 +267,9 @@ export class OpenWorldComponent {
       width: 50,
       height: 60,
       triggered: false,
-      windowText: 'Idk yet',
+      windowText: 'Wanna play Rock-Paper-Scissors for 10 Coins?',
+      buttonLabel: 'Play',
+      isRPSGame: true,
     },
   ];
 
@@ -309,16 +326,18 @@ export class OpenWorldComponent {
   }
 
   handleYes() {
-    if (this.currentZone?.giveCoins) {
+    if (!this.currentZone) return;
+
+    if (this.currentZone.giveCoins) {
       this.coins += this.currentZone.giveCoins;
       this.currentZone.giveCoins = 0;
       this.currentZone.windowText = 'You already got your Coins';
       this.currentZone.buttonLabel = '';
     }
 
-    if (this.currentZone?.isShop) {
+    if (this.currentZone.isShop) {
       this.showShop = true;
-    } else if (this.currentZone?.isFishingZone) {
+    } else if (this.currentZone.isFishingZone) {
       if (this.inventory['Fishing Pole'] > 0) {
         if (Math.random() < 0.4) {
           this.inventory['Fish'] = (this.inventory['Fish'] || 0) + 1;
@@ -329,7 +348,7 @@ export class OpenWorldComponent {
       } else {
         alert('You need a Fishing Pole to fish here!');
       }
-    } else if (this.currentZone?.isAnglerZone) {
+    } else if (this.currentZone.isAnglerZone) {
       const fishCount = this.inventory['Fish'] || 0;
       if (fishCount > 0) {
         const earnedCoins = fishCount * 5;
@@ -339,7 +358,9 @@ export class OpenWorldComponent {
       } else {
         alert('You have no fish to sell!');
       }
-    } else if (this.currentZone?.targetRoute) {
+    } else if (this.currentZone.isRPSGame) {
+      this.showRPSGame = true;
+    } else if (this.currentZone.targetRoute) {
       this.showPopup = true;
       switch (this.currentZone.targetRoute) {
         case '/pokedex':
@@ -374,6 +395,32 @@ export class OpenWorldComponent {
     } else {
       alert('Not enough coins!');
     }
+  }
+
+  playRPS(playerChoice: string) {
+    const npcChoice = this.rpsOptions[Math.floor(Math.random() * 3)];
+    let resultText = `You chose ${playerChoice}, NPC chose ${npcChoice}. `;
+
+    if (playerChoice === npcChoice) {
+      resultText += "It's a draw! No coins gained or lost.";
+    } else if (
+      (playerChoice === 'Rock' && npcChoice === 'Scissors') ||
+      (playerChoice === 'Paper' && npcChoice === 'Rock') ||
+      (playerChoice === 'Scissors' && npcChoice === 'Paper')
+    ) {
+      resultText += 'You win! +10 Coins';
+      this.coins += 10;
+    } else {
+      resultText += 'You lose! -10 Coins';
+      this.coins = Math.max(0, this.coins - 10);
+    }
+
+    alert(resultText);
+    this.showRPSGame = false;
+  }
+
+  closeRPS() {
+    this.showRPSGame = false;
   }
 
   inventoryKeys() {
