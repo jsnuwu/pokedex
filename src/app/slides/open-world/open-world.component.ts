@@ -156,7 +156,7 @@ export class OpenWorldComponent {
   buttonLabel = '';
   currentZone: any = null;
   currentPopupComponent: any = null;
-  rpsOptions = ['Rock', 'Paper', 'Scissors'];
+  rpsOptions = ['🪨', '📃', '✂️'];
   showRPSGame = false;
 
   triggerZones = [
@@ -397,27 +397,36 @@ export class OpenWorldComponent {
     }
   }
 
-  playRPS(playerChoice: string) {
-    const npcChoice = this.rpsOptions[Math.floor(Math.random() * 3)];
-    let resultText = `You chose ${playerChoice}, NPC chose ${npcChoice}. `;
-
-    if (playerChoice === npcChoice) {
-      resultText += "It's a draw! No coins gained or lost.";
-    } else if (
-      (playerChoice === 'Rock' && npcChoice === 'Scissors') ||
-      (playerChoice === 'Paper' && npcChoice === 'Rock') ||
-      (playerChoice === 'Scissors' && npcChoice === 'Paper')
-    ) {
-      resultText += 'You win! +10 Coins';
-      this.coins += 10;
-    } else {
-      resultText += 'You lose! -10 Coins';
-      this.coins = Math.max(0, this.coins - 10);
-    }
-
-    alert(resultText);
-    this.showRPSGame = false;
+playRPS(playerChoice: string) {
+  if (this.coins < 10) {
+    alert("You need at least 10 Coins to play!");
+    return;
   }
+  this.coins -= 10;
+
+  const npcChoice = this.rpsOptions[Math.floor(Math.random() * 3)];
+  let resultText = `You chose ${playerChoice}, NPC chose ${npcChoice}. `;
+
+  const winsAgainst: { [key: string]: string } = {
+    '🪨': '✂️',
+    '📃': '🪨', 
+    '✂️': '📃', 
+  };
+
+  if (playerChoice === npcChoice) {
+    resultText += "It's a draw! You get your 10 Coins back.";
+    this.coins += 10; 
+  } else if (winsAgainst[playerChoice] === npcChoice) {
+    resultText += "You win! +10 Coins";
+    this.coins += 20; 
+  } else {
+    resultText += "You lose! -10 Coins";
+  }
+
+  alert(resultText);
+  this.showRPSGame = false;
+}
+
 
   closeRPS() {
     this.showRPSGame = false;
