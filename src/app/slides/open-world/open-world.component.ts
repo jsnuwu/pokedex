@@ -53,7 +53,7 @@ import { InfosComponent } from './infos/infos.component';
         [style.top.px]="50"
         [style.left.px]="1150"
       />
-      
+
       <div
         *ngFor="let zone of triggerZones"
         class="trigger-zone"
@@ -160,6 +160,7 @@ export class OpenWorldComponent {
   showShop = false;
   showWindow = false;
   showPopup = false;
+  findTheRollator = false;
   windowText = '';
   buttonLabel = '';
   currentZone: any = null;
@@ -267,7 +268,10 @@ export class OpenWorldComponent {
       width: 50,
       height: 60,
       triggered: false,
-      windowText: 'Fabi',
+      windowText:
+        'Fabi: H-h-hey li- little ki- kiddo... c-c-could you help me find my rollator?',
+      buttonLabel: 'Sure',
+      findTheRollator: true,
     },
     {
       x: 300,
@@ -287,7 +291,7 @@ export class OpenWorldComponent {
       triggered: false,
       windowText: '👇Infos here',
       buttonLabel: 'Show me',
-      targetRoute: '/infoPage'
+      targetRoute: '/infoPage',
     },
   ];
 
