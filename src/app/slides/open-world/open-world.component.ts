@@ -259,7 +259,7 @@ export class OpenWorldComponent {
       width: 50,
       height: 60,
       triggered: false,
-      windowText: 'idk yet',
+      windowText: 'Fabi',
     },
     {
       x: 300,
