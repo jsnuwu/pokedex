@@ -46,6 +46,13 @@ import { ArenaComponent } from '../arena/arena.component';
         [style.top.px]="280"
         [style.left.px]="1620"
       />
+      <img
+        src="../../../assets/ow/map/infoSign.png"
+        class="infoSign"
+        [style.top.px]="50"
+        [style.left.px]="1150"
+      />
+      
       <div
         *ngFor="let zone of triggerZones"
         class="trigger-zone"
@@ -271,6 +278,15 @@ export class OpenWorldComponent {
       buttonLabel: 'Play',
       isRPSGame: true,
     },
+    {
+      x: 1170,
+      y: 70,
+      width: 60,
+      height: 60,
+      triggered: false,
+      windowText: 'INFOS: <br> -> if ur monitor ir smaller then my one, just STRG - for perfect design <br> ->  ',
+      buttonLabel: 'Ok',
+    },
   ];
 
   @HostListener('window:keydown', ['$event'])
@@ -397,36 +413,35 @@ export class OpenWorldComponent {
     }
   }
 
-playRPS(playerChoice: string) {
-  if (this.coins < 10) {
-    alert("You need at least 10 Coins to play!");
-    return;
+  playRPS(playerChoice: string) {
+    if (this.coins < 10) {
+      alert('You need at least 10 Coins to play!');
+      return;
+    }
+    this.coins -= 10;
+
+    const npcChoice = this.rpsOptions[Math.floor(Math.random() * 3)];
+    let resultText = `You chose ${playerChoice}, NPC chose ${npcChoice}. `;
+
+    const winsAgainst: { [key: string]: string } = {
+      '🪨': '✂️',
+      '📃': '🪨',
+      '✂️': '📃',
+    };
+
+    if (playerChoice === npcChoice) {
+      resultText += "It's a draw! You get your 10 Coins back.";
+      this.coins += 10;
+    } else if (winsAgainst[playerChoice] === npcChoice) {
+      resultText += 'You win! +10 Coins';
+      this.coins += 20;
+    } else {
+      resultText += 'You lose! -10 Coins';
+    }
+
+    alert(resultText);
+    this.showRPSGame = false;
   }
-  this.coins -= 10;
-
-  const npcChoice = this.rpsOptions[Math.floor(Math.random() * 3)];
-  let resultText = `You chose ${playerChoice}, NPC chose ${npcChoice}. `;
-
-  const winsAgainst: { [key: string]: string } = {
-    '🪨': '✂️',
-    '📃': '🪨', 
-    '✂️': '📃', 
-  };
-
-  if (playerChoice === npcChoice) {
-    resultText += "It's a draw! You get your 10 Coins back.";
-    this.coins += 10; 
-  } else if (winsAgainst[playerChoice] === npcChoice) {
-    resultText += "You win! +10 Coins";
-    this.coins += 20; 
-  } else {
-    resultText += "You lose! -10 Coins";
-  }
-
-  alert(resultText);
-  this.showRPSGame = false;
-}
-
 
   closeRPS() {
     this.showRPSGame = false;

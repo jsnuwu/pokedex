@@ -1,72 +1,72 @@
-<div class ="background">
-<div class="arena">
-  <h1>Pokémon Battle Arena</h1>
+<div class="background">
+  <div class="arena">
+    <h1>Pokémon Battle Arena</h1>
 
-  <div class="starter-selection" *ngIf="!playerSelected">
-    <h2>Choose your Pokemon!</h2>
-    <div class="starters">
-      <div
-        class="starter"
-        *ngFor="let starter of starters"
-        (click)="chooseStarter(starter)"
+    <div class="starter-selection" *ngIf="!playerSelected">
+      <h2>Choose your Pokemon!</h2>
+      <div class="starters">
+        <div
+          class="starter"
+          *ngFor="let starter of starters"
+          (click)="chooseStarter(starter)"
+        >
+          <div class="name">{{ starter.name }}</div>
+          <img [src]="starter.img" alt="{{ starter.name }}" />
+        </div>
+      </div>
+    </div>
+
+    <div class="battlefield" *ngIf="playerSelected && !gameOver">
+      <div class="pokemon player" [class.shake]="playerShaking">
+        <div class="name">{{ player.name }}</div>
+        <img [src]="player.img" alt="{{ player.name }}" />
+        <div class="hp-bar">
+          <div
+            class="hp-fill"
+            [style.width.%]="(player.hp / player.maxHp) * 100"
+          ></div>
+        </div>
+        <div>{{ player.hp }} / {{ player.maxHp }} HP</div>
+      </div>
+
+      <div class="pokemon enemy" [class.shake]="enemyShaking">
+        <div class="name">{{ enemy.name }}</div>
+        <img [src]="enemy.img" alt="{{ enemy.name }}" />
+        <div class="hp-bar enemy">
+          <div
+            class="hp-fill"
+            [style.width.%]="(enemy.hp / enemy.maxHp) * 100"
+          ></div>
+        </div>
+        <div>{{ enemy.hp }} / {{ enemy.maxHp }} HP</div>
+      </div>
+    </div>
+
+    <div class="actions" [class.hidden]="gameOver">
+      <button
+        *ngFor="let atk of player?.attacks"
+        (click)="attack(player, enemy, atk)"
+        [disabled]="atk.currentCooldown && atk.currentCooldown > 0"
       >
-        <div class="name">{{ starter.name }}</div>
-        <img [src]="starter.img" alt="{{ starter.name }}" />
-      </div>
-    </div>
-  </div>
-
-  <div class="battlefield" *ngIf="playerSelected && !gameOver">
-    <div class="pokemon player" [class.shake]="playerShaking">
-      <div class="name">{{ player.name }}</div>
-      <img [src]="player.img" alt="{{ player.name }}" />
-      <div class="hp-bar">
-        <div
-          class="hp-fill"
-          [style.width.%]="(player.hp / player.maxHp) * 100"
-        ></div>
-      </div>
-      <div>{{ player.hp }} / {{ player.maxHp }} HP</div>
+        {{ atk.name }}
+        <span *ngIf="atk.currentCooldown && atk.currentCooldown > 0">
+          ({{ atk.currentCooldown }} )
+        </span>
+      </button>
+      <button class="reset-btn" (click)="reset()">Reset</button>
     </div>
 
-    <div class="pokemon enemy" [class.shake]="enemyShaking">
-      <div class="name">{{ enemy.name }}</div>
-      <img [src]="enemy.img" alt="{{ enemy.name }}" />
-      <div class="hp-bar enemy">
-        <div
-          class="hp-fill"
-          [style.width.%]="(enemy.hp / enemy.maxHp) * 100"
-        ></div>
-      </div>
-      <div>{{ enemy.hp }} / {{ enemy.maxHp }} HP</div>
+    <div class="log">
+      <div *ngFor="let entry of log">{{ entry }}</div>
+    </div>
+
+    <div class="game-over-screen" [class.visible]="gameOver">
+      <h1>{{ playerWon ? "🎉 You Win!" : "😢 You Lose" }}</h1>
+      <button class="retry-btn" (click)="reset()">Play Again</button>
+    </div>
+
+    <div class="back-button">
+      <app-back-button></app-back-button>
     </div>
   </div>
-
-  <div class="actions" [class.hidden]="gameOver">
-    <button
-      *ngFor="let atk of player?.attacks"
-      (click)="attack(player, enemy, atk)"
-      [disabled]="atk.currentCooldown && atk.currentCooldown > 0"
-    >
-      {{ atk.name }}
-      <span *ngIf="atk.currentCooldown && atk.currentCooldown > 0">
-        ({{ atk.currentCooldown }} )
-      </span>
-    </button>
-    <button class="reset-btn" (click)="reset()">Reset</button>
-  </div>
-
-  <div class="log">
-    <div *ngFor="let entry of log">{{ entry }}</div>
-  </div>
-
-  <div class="game-over-screen" [class.visible]="gameOver">
-    <h1>{{ playerWon ? "🎉 You Win!" : "😢 You Lose" }}</h1>
-    <button class="retry-btn" (click)="reset()">Play Again</button>
-  </div>
-
-  <div class="back-button">
-    <app-back-button></app-back-button>
-  </div>
-</div>
 </div>

@@ -282,7 +282,6 @@
   }
 }
 
-
 .rps-buttons {
   display: flex;
   justify-content: center;
@@ -312,4 +311,11 @@
   margin-bottom: 15px;
   font-size: 1rem;
   font-weight: bold;
+}
+
+.infoSign {
+  position: absolute;
+  width: 100px;
+  height: auto;
+  z-index: 1;
 }

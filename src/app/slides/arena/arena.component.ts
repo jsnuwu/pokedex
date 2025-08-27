@@ -120,7 +120,7 @@ export class ArenaComponent {
       ],
     },
   ];
-  
+
   enemies: Pokemon[] = [
     {
       name: 'Pikachu',
@@ -128,9 +128,30 @@ export class ArenaComponent {
       maxHp: 100,
       img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
       attacks: [
-        { name: 'Quick Attack', damageMin: 4, damageMax: 10, type: 'damage', cooldown: 0, currentCooldown: 0 },
-        { name: 'Thunder Shock', damageMin: 6, damageMax: 15, type: 'damage', cooldown: 2, currentCooldown: 0 },
-        { name: 'Heal', damageMin: -8, damageMax: -5, type: 'heal', cooldown: 3, currentCooldown: 0 },
+        {
+          name: 'Quick Attack',
+          damageMin: 4,
+          damageMax: 10,
+          type: 'damage',
+          cooldown: 0,
+          currentCooldown: 0,
+        },
+        {
+          name: 'Thunder Shock',
+          damageMin: 6,
+          damageMax: 15,
+          type: 'damage',
+          cooldown: 2,
+          currentCooldown: 0,
+        },
+        {
+          name: 'Heal',
+          damageMin: -8,
+          damageMax: -5,
+          type: 'heal',
+          cooldown: 3,
+          currentCooldown: 0,
+        },
       ],
     },
     {
@@ -139,9 +160,30 @@ export class ArenaComponent {
       maxHp: 100,
       img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png',
       attacks: [
-        { name: 'Tackle', damageMin: 5, damageMax: 12, type: 'damage', cooldown: 0, currentCooldown: 0 },
-        { name: 'Quick Attack', damageMin: 6, damageMax: 14, type: 'damage', cooldown: 1, currentCooldown: 0 },
-        { name: 'Growl (heal)', damageMin: -6, damageMax: -4, type: 'heal', cooldown: 3, currentCooldown: 0 },
+        {
+          name: 'Tackle',
+          damageMin: 5,
+          damageMax: 12,
+          type: 'damage',
+          cooldown: 0,
+          currentCooldown: 0,
+        },
+        {
+          name: 'Quick Attack',
+          damageMin: 6,
+          damageMax: 14,
+          type: 'damage',
+          cooldown: 1,
+          currentCooldown: 0,
+        },
+        {
+          name: 'Growl (heal)',
+          damageMin: -6,
+          damageMax: -4,
+          type: 'heal',
+          cooldown: 3,
+          currentCooldown: 0,
+        },
       ],
     },
     {
@@ -150,9 +192,30 @@ export class ArenaComponent {
       maxHp: 100,
       img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png',
       attacks: [
-        { name: 'Scratch', damageMin: 4, damageMax: 9, type: 'damage', cooldown: 0, currentCooldown: 0 },
-        { name: 'Bite', damageMin: 7, damageMax: 16, type: 'damage', cooldown: 2, currentCooldown: 0 },
-        { name: 'Rest', damageMin: -10, damageMax: -7, type: 'heal', cooldown: 3, currentCooldown: 0 },
+        {
+          name: 'Scratch',
+          damageMin: 4,
+          damageMax: 9,
+          type: 'damage',
+          cooldown: 0,
+          currentCooldown: 0,
+        },
+        {
+          name: 'Bite',
+          damageMin: 7,
+          damageMax: 16,
+          type: 'damage',
+          cooldown: 2,
+          currentCooldown: 0,
+        },
+        {
+          name: 'Rest',
+          damageMin: -10,
+          damageMax: -7,
+          type: 'heal',
+          cooldown: 3,
+          currentCooldown: 0,
+        },
       ],
     },
   ];
@@ -174,7 +237,8 @@ export class ArenaComponent {
     this.playerSelected = true;
     this.log.push(`${starter.name} IS THE CHOSEN ONE!`);
 
-    const randomEnemy = this.enemies[Math.floor(Math.random() * this.enemies.length)];
+    const randomEnemy =
+      this.enemies[Math.floor(Math.random() * this.enemies.length)];
 
     this.enemy = {
       ...randomEnemy,
