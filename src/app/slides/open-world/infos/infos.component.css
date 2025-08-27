@@ -1,0 +1,46 @@
+.wooden-sign {
+  background: #deb887;
+  border: 6px solid #8b5a2b;
+  border-radius: 12px;
+  padding: 180px;
+  max-width: 1000px;
+  margin: 40px auto;
+  box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.4);
+  font-family: "Press Start 2P", cursive, sans-serif;
+  color: #3b2f2f;
+  position: relative;
+}
+
+.wooden-sign::after {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 220px;
+  background: #8b5a2b;
+  bottom: -220px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+
+.wooden-sign::before {
+  left: 50px;
+}
+
+.wooden-sign::after {
+  right: 50px;
+}
+
+.sign-header {
+  text-align: center;
+  font-size: 44px;
+  margin-bottom: 100px;
+  text-shadow: 1px 1px 0 #fff;
+  margin-top: -150px;
+}
+
+.sign-body p {
+  margin: 8px 0;
+  font-size: 24px;
+  line-height: 1.4em;
+}

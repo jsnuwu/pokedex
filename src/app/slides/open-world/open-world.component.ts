@@ -4,6 +4,7 @@ import { BackButtonComponent } from '../mainPage/back-button/back-button.compone
 import { RouterModule } from '@angular/router';
 import { PokedexComponent } from '../mainPage/pokedex/pokedex.component';
 import { ArenaComponent } from '../arena/arena.component';
+import { InfosComponent } from './infos/infos.component';
 
 @Component({
   selector: 'app-open-world',
@@ -284,8 +285,9 @@ export class OpenWorldComponent {
       width: 60,
       height: 60,
       triggered: false,
-      windowText: 'INFOS: <br> -> if ur monitor ir smaller then my one, just STRG - for perfect design <br> ->  ',
-      buttonLabel: 'Ok',
+      windowText: '👇Infos here',
+      buttonLabel: 'Show me',
+      targetRoute: '/infoPage'
     },
   ];
 
@@ -387,6 +389,9 @@ export class OpenWorldComponent {
           break;
         case '/backbutton':
           this.currentPopupComponent = BackButtonComponent;
+          break;
+        case '/infoPage':
+          this.currentPopupComponent = InfosComponent;
           break;
         default:
           this.currentPopupComponent = null;
