@@ -1,7 +1,6 @@
 .map {
   width: 2100px;
   height: 1060px;
-  background: url("/assets/ow/map/map1.png") no-repeat center center;
   background-size: cover;
   position: relative;
   border: 2px solid #333;
@@ -15,19 +14,6 @@
   background-size: contain;
   background-repeat: no-repeat;
   z-index: 10;
-}
-
-.player.up {
-  background-image: url("/assets/ow/player/playerUp.png");
-}
-.player.down {
-  background-image: url("/assets/ow/player/playerDown.png");
-}
-.player.left {
-  background-image: url("/assets/ow/player/playerLeft.png");
-}
-.player.right {
-  background-image: url("/assets/ow/player/playerRight.png");
 }
 
 .popup-pokedex-img {
@@ -160,7 +146,6 @@
   border-radius: 12px;
   overflow-y: auto;
   text-align: center;
-  background: url("/assets/ow/map/shop.jpg") no-repeat center center;
   background-size: cover;
 }
 

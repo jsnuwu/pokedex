@@ -11,62 +11,70 @@ import { InfosComponent } from './infos/infos.component';
   standalone: true,
   imports: [CommonModule, BackButtonComponent, RouterModule],
   template: `
-    <div class="map">
+    <div
+      class="map"
+      [ngStyle]="{
+        'background-image': 'url(assets/ow/map/map1.png)',
+        'background-repeat': 'no-repeat',
+        'background-position': 'center center',
+        'background-size': 'cover'
+      }"
+    >
       <app-back-button></app-back-button>
 
       <div class="coin-display">💰 {{ coins }} Coins</div>
 
-      <div
+      <img
         class="player"
-        [ngClass]="direction"
+        [src]="playerImages[direction]"
         [style.top.px]="playerY"
         [style.left.px]="playerX"
-      ></div>
+      />
 
       <img
-        src="../../../assets/ow/map/grandma.png"
+        src="assets/ow/map/grandma.png"
         class="gradnmaNpc"
         [style.top.px]="290"
         [style.left.px]="1195"
       />
       <img
-        src="../../../assets/ow/map/angler.png"
+        src="assets/ow/map/angler.png"
         class="anglerNpc"
         [style.top.px]="810"
         [style.left.px]="1480"
       />
       <img
-        src="../../../assets/ow/map/womenNpc.gif"
+        src="assets/ow/map/womenNpc.gif"
         class="womenNpc"
         [style.top.px]="620"
         [style.left.px]="280"
       />
       <img
-        src="../../../assets/ow/map/oldmanNpc.gif"
+        src="assets/ow/map/oldmanNpc.gif"
         class="oldmanNpc"
         [style.top.px]="280"
         [style.left.px]="1620"
       />
       <img
-        src="../../../assets/ow/map/infoSign.png"
+        src="assets/ow/map/infoSign.png"
         class="infoSign"
         [style.top.px]="50"
         [style.left.px]="1150"
       />
       <img
-        src="../../../assets/ow/map/Händler.png"
+        src="assets/ow/map/Händler.png"
         class="händlerNpc"
         [style.top.px]="455"
         [style.left.px]="845"
       />
       <img
-        src="../../../assets/ow/map/snorlax.gif"
+        src="assets/ow/map/snorlax.gif"
         class="snorlaxNpc"
         [style.top.px]="80"
         [style.left.px]="1475"
       />
-            <img
-        src="../../../assets/ow/map/slot.png"
+      <img
+        src="assets/ow/map/slot.png"
         class="slotNpc"
         [style.top.px]="810"
         [style.left.px]="595"
@@ -90,7 +98,7 @@ import { InfosComponent } from './infos/infos.component';
           <button (click)="closeWindow()">Back</button>
         </div>
       </div>
-      <img src="../../../assets/ow/map/shopThisWay.png" class="thisway-sign" />
+      <img src="assets/ow/map/shopThisWay.png" class="thisway-sign" />
 
       <div class="inventory-display">
         <h3>Inventory</h3>
@@ -100,10 +108,7 @@ import { InfosComponent } from './infos/infos.component';
       </div>
       <div class="center-window" *ngIf="showPopup">
         <ng-container *ngIf="currentPopupComponent === PokedexComponent">
-          <img
-            src="../../../assets/ow/map/pokedex.png"
-            class="popup-pokedex-img"
-          />
+          <img src="assets/ow/map/pokedex.png" class="popup-pokedex-img" />
         </ng-container>
         <div class="popup-content">
           <button class="close-btn" (click)="closePopup()">❌</button>
@@ -114,18 +119,17 @@ import { InfosComponent } from './infos/infos.component';
         </div>
       </div>
 
-<div class="center-window" *ngIf="showSlotMachine">
-  <div class="window-content">
-    <h3>🎰 Slot Machine 🎰</h3>
-    <div class="slots">
-      <span *ngFor="let reel of slotReels" class="reel">{{ reel }}</span>
-    </div>
-    <p>{{ slotResult }}</p>
-    <button (click)="playSlot()">Spin (10 Coins)</button>
-    <button (click)="showSlotMachine = false">Back</button>
-  </div>
-</div>
-
+      <div class="center-window" *ngIf="showSlotMachine">
+        <div class="window-content">
+          <h3>🎰 Slot Machine 🎰</h3>
+          <div class="slots">
+            <span *ngFor="let reel of slotReels" class="reel">{{ reel }}</span>
+          </div>
+          <p>{{ slotResult }}</p>
+          <button (click)="playSlot()">Spin (10 Coins)</button>
+          <button (click)="showSlotMachine = false">Back</button>
+        </div>
+      </div>
 
       <div class="center-window" *ngIf="showRPSGame">
         <div class="window-content">
@@ -141,7 +145,15 @@ import { InfosComponent } from './infos/infos.component';
       </div>
 
       <div class="center-window" *ngIf="showShop">
-        <div class="popup-content shop">
+        <div
+          class="popup-content shop"
+          [ngStyle]="{
+            'background-image': 'url(assets/ow/map/shop.jpg)',
+            'background-repeat': 'no-repeat',
+            'background-position': 'center center',
+            'background-size': 'cover'
+          }"
+        >
           <h2>Shop</h2>
           <div class="shop-items">
             <div *ngFor="let item of shopItems" class="shop-item">
@@ -165,6 +177,12 @@ export class OpenWorldComponent {
   playerY = 10;
   step = 15;
   direction: 'up' | 'down' | 'left' | 'right' = 'down';
+  playerImages: { [key: string]: string } = {
+    up: 'assets/ow/player/playerUp.png',
+    down: 'assets/ow/player/playerDown.png',
+    left: 'assets/ow/player/playerLeft.png',
+    right: 'assets/ow/player/playerRight.png',
+  };
 
   coins = 0;
   fish = 0;
@@ -173,18 +191,18 @@ export class OpenWorldComponent {
     {
       name: 'Pokéball',
       price: 5,
-      img: '../../../assets/ow/items/pokeball.png',
+      img: 'assets/ow/items/pokeball.png',
     },
     {
       name: 'Fishing Pole',
       price: 10,
-      img: '../../../assets/ow/items/fishingrod.png',
+      img: 'assets/ow/items/fishingrod.png',
     },
-    { name: 'Potion', price: 10, img: '../../../assets/ow/items/potion.png' },
+    { name: 'Potion', price: 10, img: 'assets/ow/items/potion.png' },
     {
       name: 'Rollator',
       price: 999,
-      img: '../../../assets/ow/items/Rollator.png',
+      img: 'assets/ow/items/Rollator.png',
     },
   ];
 
@@ -198,10 +216,10 @@ export class OpenWorldComponent {
   currentPopupComponent: any = null;
   rpsOptions = ['🪨', '📃', '✂️'];
   showRPSGame = false;
-showSlotMachine = false;
-slotReels: string[] = ["", "", ""];
-slotSymbols = ["🍒", "🍋", "🍇", "⭐", "💎"]; 
-slotResult = "";
+  showSlotMachine = false;
+  slotReels: string[] = ['', '', ''];
+  slotSymbols = ['🍒', '🍋', '🍇', '⭐', '💎'];
+  slotResult = '';
 
   triggerZones = [
     {
@@ -342,7 +360,7 @@ slotResult = "";
       triggered: false,
       windowText: ' zzzzZZZZZZzzzzzz ',
     },
-        {
+    {
       x: 624,
       y: 842,
       width: 60,
@@ -521,34 +539,34 @@ slotResult = "";
   }
 
   playSlot() {
-  if (this.coins < 10) {
-    alert("You need at least 10 Coins to play!");
-    return;
-  }
+    if (this.coins < 10) {
+      alert('You need at least 10 Coins to play!');
+      return;
+    }
 
-  this.coins -= 10;
+    this.coins -= 10;
 
-  this.slotReels = [
-    this.slotSymbols[Math.floor(Math.random() * this.slotSymbols.length)],
-    this.slotSymbols[Math.floor(Math.random() * this.slotSymbols.length)],
-    this.slotSymbols[Math.floor(Math.random() * this.slotSymbols.length)]
-  ];
+    this.slotReels = [
+      this.slotSymbols[Math.floor(Math.random() * this.slotSymbols.length)],
+      this.slotSymbols[Math.floor(Math.random() * this.slotSymbols.length)],
+      this.slotSymbols[Math.floor(Math.random() * this.slotSymbols.length)],
+    ];
 
-  if (this.slotReels[0] === this.slotReels[1] && this.slotReels[1] === this.slotReels[2]) {
-    this.coins += 100; 
-    this.slotResult = `JACKPOT! 🎉 You won 100 Coins with ${this.slotReels[0]} ${this.slotReels[1]} ${this.slotReels[2]}`;
-  } else if (
-    this.slotReels[0] === this.slotReels[1] ||
-    this.slotReels[1] === this.slotReels[2] ||
-    this.slotReels[0] === this.slotReels[2]
-  ) {
-    this.coins += 20; 
-    this.slotResult = `Nice! You got two of a kind! +20 Coins`;
-  } else {
-    this.slotResult = `No luck this time `;
+    if (
+      this.slotReels[0] === this.slotReels[1] &&
+      this.slotReels[1] === this.slotReels[2]
+    ) {
+      this.coins += 100;
+      this.slotResult = `JACKPOT! 🎉 You won 100 Coins with ${this.slotReels[0]} ${this.slotReels[1]} ${this.slotReels[2]}`;
+    } else if (
+      this.slotReels[0] === this.slotReels[1] ||
+      this.slotReels[1] === this.slotReels[2] ||
+      this.slotReels[0] === this.slotReels[2]
+    ) {
+      this.coins += 20;
+      this.slotResult = `Nice! You got two of a kind! +20 Coins`;
+    } else {
+      this.slotResult = `No luck this time `;
+    }
   }
 }
-
-
-}
-

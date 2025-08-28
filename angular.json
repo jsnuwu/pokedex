@@ -16,21 +16,26 @@
             "outputPath": "dist/pokedex",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-                "src/assets",
-                "src/favicon.ico",
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src/assets",
+                "output": "assets/"
+              },
+              {
+                "glob": "favicon.ico",
+                "input": "src/",
+                "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "public",
+                "output": "/"
               }
             ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "styles": ["src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -47,7 +52,9 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "/pokedex/",
+              "deployUrl": "/pokedex/"
             },
             "development": {
               "optimization": false,
@@ -75,10 +82,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               {
@@ -86,9 +90,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "styles": ["src/styles.css"],
             "scripts": []
           }
         }
