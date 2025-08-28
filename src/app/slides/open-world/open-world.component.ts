@@ -460,6 +460,16 @@ export class OpenWorldComponent {
       this.showRPSGame = true;
     } else if (this.currentZone.windowText === ' Slot-Machine ') {
       this.showSlotMachine = true;
+    }
+      else if (this.currentZone.findTheRollator) {
+    if (this.inventory['Rollator'] > 0) {
+      this.inventory['Rollator']--;
+      alert('You gave the Rollator to the Old Man! 🎉');
+      this.currentZone.windowText = 'Thanks! You helped me a lot!';
+      this.currentZone.buttonLabel = '';
+    } else {
+      alert('You don\'t have the Rollator yet. Keep looking!');
+    }
     } else if (this.currentZone.targetRoute) {
       this.showPopup = true;
       switch (this.currentZone.targetRoute) {
