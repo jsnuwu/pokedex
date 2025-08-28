@@ -65,6 +65,12 @@ import { InfosComponent } from './infos/infos.component';
         [style.top.px]="80"
         [style.left.px]="1475"
       />
+            <img
+        src="../../../assets/ow/map/slot.png"
+        class="slotNpc"
+        [style.top.px]="810"
+        [style.left.px]="595"
+      />
 
       <div
         *ngFor="let zone of triggerZones"
@@ -107,6 +113,19 @@ import { InfosComponent } from './infos/infos.component';
           ></ng-container>
         </div>
       </div>
+
+<div class="center-window" *ngIf="showSlotMachine">
+  <div class="window-content">
+    <h3>🎰 Slot Machine 🎰</h3>
+    <div class="slots">
+      <span *ngFor="let reel of slotReels" class="reel">{{ reel }}</span>
+    </div>
+    <p>{{ slotResult }}</p>
+    <button (click)="playSlot()">Spin (10 Coins)</button>
+    <button (click)="showSlotMachine = false">Back</button>
+  </div>
+</div>
+
 
       <div class="center-window" *ngIf="showRPSGame">
         <div class="window-content">
@@ -179,6 +198,10 @@ export class OpenWorldComponent {
   currentPopupComponent: any = null;
   rpsOptions = ['🪨', '📃', '✂️'];
   showRPSGame = false;
+showSlotMachine = false;
+slotReels: string[] = ["", "", ""];
+slotSymbols = ["🍒", "🍋", "🍇", "⭐", "💎"]; 
+slotResult = "";
 
   triggerZones = [
     {
@@ -319,6 +342,15 @@ export class OpenWorldComponent {
       triggered: false,
       windowText: ' zzzzZZZZZZzzzzzz ',
     },
+        {
+      x: 624,
+      y: 842,
+      width: 60,
+      height: 60,
+      triggered: false,
+      windowText: ' Slot-Machine ',
+      buttonLabel: 'Lessgo',
+    },
   ];
 
   @HostListener('window:keydown', ['$event'])
@@ -408,6 +440,10 @@ export class OpenWorldComponent {
       }
     } else if (this.currentZone.isRPSGame) {
       this.showRPSGame = true;
+    } else if (this.currentZone.windowText === ' Slot-Machine ') {
+      this.showSlotMachine = true;
+    
+
     } else if (this.currentZone.targetRoute) {
       this.showPopup = true;
       switch (this.currentZone.targetRoute) {
@@ -485,4 +521,36 @@ export class OpenWorldComponent {
   inventoryKeys() {
     return Object.keys(this.inventory);
   }
+
+  playSlot() {
+  if (this.coins < 10) {
+    alert("You need at least 10 Coins to play!");
+    return;
+  }
+
+  this.coins -= 10;
+
+  this.slotReels = [
+    this.slotSymbols[Math.floor(Math.random() * this.slotSymbols.length)],
+    this.slotSymbols[Math.floor(Math.random() * this.slotSymbols.length)],
+    this.slotSymbols[Math.floor(Math.random() * this.slotSymbols.length)]
+  ];
+
+  if (this.slotReels[0] === this.slotReels[1] && this.slotReels[1] === this.slotReels[2]) {
+    this.coins += 100; 
+    this.slotResult = `JACKPOT! 🎉 You won 100 Coins with ${this.slotReels[0]} ${this.slotReels[1]} ${this.slotReels[2]}`;
+  } else if (
+    this.slotReels[0] === this.slotReels[1] ||
+    this.slotReels[1] === this.slotReels[2] ||
+    this.slotReels[0] === this.slotReels[2]
+  ) {
+    this.coins += 20; 
+    this.slotResult = `Nice! You got two of a kind! +20 Coins`;
+  } else {
+    this.slotResult = `No luck this time 😢`;
+  }
 }
+
+
+}
+

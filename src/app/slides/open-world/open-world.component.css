@@ -14,6 +14,7 @@
   transition: top 0.1s, left 0.1s;
   background-size: contain;
   background-repeat: no-repeat;
+  z-index: 10;
 }
 
 .player.up {
@@ -66,7 +67,7 @@
 }
 
 .window-content {
-  background: white;
+  background: rgb(255, 255, 255);
   padding: 40px;
   border-radius: 12px;
   text-align: center;
@@ -118,6 +119,13 @@
 .snorlaxNpc {
   position: absolute;
   width: 65px;
+  height: auto;
+  z-index: 1;
+}
+
+.slotNpc{
+  position: absolute;
+  width: 120px;
   height: auto;
   z-index: 1;
 }
@@ -332,4 +340,15 @@
   width: 100px;
   height: auto;
   z-index: 1;
+}
+
+.slots {
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 10px 0;
+}
+
+.reel {
+  padding: 0 10px;
 }
