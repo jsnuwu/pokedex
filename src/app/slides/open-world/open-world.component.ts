@@ -53,6 +53,18 @@ import { InfosComponent } from './infos/infos.component';
         [style.top.px]="50"
         [style.left.px]="1150"
       />
+      <img
+        src="../../../assets/ow/map/Händler.png"
+        class="händlerNpc"
+        [style.top.px]="455"
+        [style.left.px]="845"
+      />
+      <img
+        src="../../../assets/ow/map/snorlax.gif"
+        class="snorlaxNpc"
+        [style.top.px]="80"
+        [style.left.px]="1475"
+      />
 
       <div
         *ngFor="let zone of triggerZones"
@@ -151,9 +163,9 @@ export class OpenWorldComponent {
     },
     { name: 'Potion', price: 10, img: '../../../assets/ow/items/potion.png' },
     {
-      name: 'Super Potion',
-      price: 20,
-      img: '../../../assets/ow/items/superpotion.png',
+      name: 'Rollator',
+      price: 999,
+      img: '../../../assets/ow/items/Rollator.png',
     },
   ];
 
@@ -219,7 +231,6 @@ export class OpenWorldComponent {
       buttonLabel: 'Yes',
       targetRoute: '/arena',
     },
-
     {
       x: 1193,
       y: 300,
@@ -231,7 +242,6 @@ export class OpenWorldComponent {
       buttonLabel: 'Thanks',
       giveCoins: 10,
     },
-
     {
       x: 880,
       y: 370,
@@ -292,6 +302,22 @@ export class OpenWorldComponent {
       windowText: '👇Infos here',
       buttonLabel: 'Show me',
       targetRoute: '/infoPage',
+    },
+    {
+      x: 835,
+      y: 475,
+      width: 50,
+      height: 50,
+      triggered: false,
+      windowText: ' huh ',
+    },
+    {
+      x: 1478,
+      y: 90,
+      width: 60,
+      height: 60,
+      triggered: false,
+      windowText: ' zzzzZZZZZZzzzzzz ',
     },
   ];
 
