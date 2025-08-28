@@ -442,8 +442,6 @@ slotResult = "";
       this.showRPSGame = true;
     } else if (this.currentZone.windowText === ' Slot-Machine ') {
       this.showSlotMachine = true;
-    
-
     } else if (this.currentZone.targetRoute) {
       this.showPopup = true;
       switch (this.currentZone.targetRoute) {
@@ -547,7 +545,7 @@ slotResult = "";
     this.coins += 20; 
     this.slotResult = `Nice! You got two of a kind! +20 Coins`;
   } else {
-    this.slotResult = `No luck this time 😢`;
+    this.slotResult = `No luck this time `;
   }
 }
 
