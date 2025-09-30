@@ -36,4 +36,8 @@ Das Projekt ist eine interaktive Web-Anwendung rund um Pokémon (Gen 1) mit mehr
 - Klick auf den **Pokémon-Title** → Weiterleitung zu [pokemon.com](https://www.pokemon.com/)  
 - Abspielen von Musik über den Radio Player
 - Versteckte Eastereggs des Teams
-  
+
+# Backend:
+-Das Backend des Pokédex-Projekts befindet sich in einem **separaten Repository**.
+-Es stellt die Daten für die Open API-Page bereit und verwaltet die **Pokémon-Datenbank** `(speichern, löschen, abrufen)`.
+-Für Details und Zugriff auf das **Backend-Repository** siehe: [[Link zum Backend-Repo](https://github.com/allesschoweg/pokedexBackend)]
